@@ -1,17 +1,8 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
 
-<div style="border: 2px solid powderblue; ">
-    <h1> Welcome to the homepage</h1>
-    <p>Here is where you put stuff that should be in the body of your website</p>
-
-    <!-- This is an example of a 'for loop' in django - getting variables from personal.views it is also using snippet.
-    This is useful as it look very clean when working on larger projects-->
-    {% for list_item in list_of_values %}
-        {% include 'personal/snippets/body_snippet.html' with value=list_item %}
-    {% endfor %}
-
-</div>
+<H3>Welcome to the BarcodeChecker Application</H3>
 
 {% endblock content %}

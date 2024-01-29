@@ -5,6 +5,15 @@
 
 <header>
     <title>BarcodeChecker</title>
+<!--if user is authenticated say hello, and give a Logout text that is linked to the logout url-->
+    {% if request.user.is_authenticated %}
+        <P><a href="{% url 'home' %}">Home</a> | <a href="{% url 'logout' %}">Logout</a></P>
+        <p>Hello, {{request.user.username}}</p>
+    {% else %}
+        <P><a href="{% url 'home' %}">Home</a> | <a href="{% url 'register' %}">Register</a> | <a href="{% url 'login' %}">Login</a></p>
+    {% endif %}
+    <hr>
+
     <h1>BarcodeChecker</h1>
 </header>
 
@@ -15,7 +24,8 @@
 </body>
 
 <footer>
-    <h3>This is the footer</h3>
+    <hr>
+    <p>BarcodeChecker Application | 2024</p>
 </footer>
 
 
