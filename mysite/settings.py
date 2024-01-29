@@ -34,6 +34,7 @@ INSTALLED_APPS = [
 
     # my apps
     'personal',
+    'account',
 
     # django apps
     'django.contrib.admin',
@@ -71,6 +72,9 @@ TEMPLATES = [
         },
     },
 ]
+
+# Tells django not to use the default user model and use the model we created.
+AUTH_USER_MODEL = 'account.Account'
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
