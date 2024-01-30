@@ -1,25 +1,78 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>Login</h2>
-<form method = "post">
-    {% csrf_token %}
+<style type="text/css">
+        html,
+    body {
+      height: 100%;
+    }
 
-    {% for field in login_form %}
-        <p>
-        <!-- This displays the fields in registration form on the register webpage -->
-            {{field.label_tag}}
-            {{field}}
-        </p>
-    {% endfor %}
+    .form-signin {
+      max-width: 330px;
+      padding: 1rem;
+    }
 
-    {% if login_form.non_field_errors %}
-        <div style="color:red;">
-            <p>{{login_form.non_field_errors}}</p>
-        </div>
-    {% endif %}
+    .form-signin .form-floating:focus-within {
+      z-index: 2;
+    }
 
-    <button type="submit">Log in</button>
+    .form-signin input[type="email"] {
+      margin-bottom: -1px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+</style>
+
+<form class="form-signin w-100 m-auto" method="post">{% csrf_token %}
+    <h1 class="h3 mb-3 fw-normal">Please Log in</h1>
+
+    <div class="form-floating">
+      <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+{% if login_form.non_field_errors %}
+    <div style="color:red;">
+        <p>{{login_form.non_field_errors}}</p>
+    </div>
+{% endif %}
+
+
+    <button class="btn btn-primary w-100 py-2" type="submit">Log in</button>
 </form>
+
+
+
+
+<!--<h2>Login</h2>-->
+<!--<form method = "post">-->
+<!--    {% csrf_token %}-->
+
+<!--    {% for field in login_form %}-->
+<!--        <p>-->
+<!--        &lt;!&ndash; This displays the fields in registration form on the register webpage &ndash;&gt;-->
+<!--            {{field.label_tag}}-->
+<!--            {{field}}-->
+<!--        </p>-->
+<!--    {% endfor %}-->
+
+<!--    {% if login_form.non_field_errors %}-->
+<!--        <div style="color:red;">-->
+<!--            <p>{{login_form.non_field_errors}}</p>-->
+<!--        </div>-->
+<!--    {% endif %}-->
+
+<!--    <button type="submit">Log in</button>-->
+<!--</form>-->
 
 {% endblock content %}
