@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+        html,
+    body {
+      height: 100%;
+    }
+
+    .form-signin {
+      max-width: 330px;
+      padding: 1rem;
+    }
+
+    .form-signin .form-floating:focus-within {
+      z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+      margin-bottom: -1px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+</style>
+
+<form class="form-signin w-100 m-auto" method="post">{% csrf_token %}
+    <h1 class="h3 mb-3 fw-normal">Account</h1>
+
+    <div class="form-floating">
+    <p> Email: {{account_form.initial.email}}</p>
+    <p> Username: {{account_form.initial.username}}</p>
+    <p> First Name: {{account_form.initial.first_name}}</p>
+    <p> Last name: {{account_form.initial.last_name}}</p>
+    <p> If your account details need updating, email: matthew.verney@nhs.net</p>
+
+
+<!--      <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">-->
+<!--      <label for="floatingInput">Email address</label>-->
+<!--    </div>-->
+<!--    <div class="form-floating">-->
+<!--      <input type="text" name="Username" class="form-control" id="floatingPassword" placeholder="Username">-->
+<!--      <label for="floatingPassword">Username</label>-->
+<!--    </div>-->
+
+<!--    <button class="btn btn-primary w-100 py-2" type="submit">Save Changes</button>-->
+</form>
+
+<div class="d-flex flex-column">
+<a class="m-auto" href="{% url 'password_change' %}">Change Password</a>
+</div>
+
+{% endblock content %}

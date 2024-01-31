@@ -33,6 +33,7 @@
         {% if request.user.is_authenticated %}
         <ul class="nav nav-pills">
         <li class="nav-item"><a href="{% url 'home' %}" class="nav-link active">Home</a></li>
+        <li class="nav-item"><a href="{% url 'account' %}" class="nav-link">Account</a></li>
         <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>
             <h6><p>Hello, {{request.user.first_name}} {{request.user.last_name}} ({{request.user.username}})</p></h6>
         </ul>
