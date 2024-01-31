@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # my apps
     'personal',
     'account',
+    'barcodecheck',
 
     # django apps
     'django.contrib.admin',

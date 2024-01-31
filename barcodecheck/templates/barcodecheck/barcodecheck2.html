@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+        html,
+    body {
+      height: 100%;
+    }
+
+    .form-signin {
+      max-width: 330px;
+      padding: 1rem;
+    }
+
+    .form-signin .form-floating:focus-within {
+      z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+      margin-bottom: 10px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="text"] {
+      margin-bottom: 10px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .form-signin input[type="password"] {
+      margin-bottom: 0px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+</style>
+
+<form class="form-signin w-100 m-auto" method="post">{% csrf_token %}
+    <h1 class="h3 mb-3 fw-normal">Checking 2 Barcodes</h1>
+
+    <div class="form-floating">
+      <input type="text" name="barcodecheck2_value1" class="form-control" id="floatingInput1" placeholder="First barcode">
+      <label for="floatingInput1">First barcode</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" name="barcodecheck2_value2" class="form-control" id="floatingInput2" placeholder="Second barcode">
+      <label for="floatingInput2">Second barcode</label>
+    </div>
+
+    <p>
+    {{ barcodecheck2_comparison_match }}
+    </p>
+
+    <button class="btn btn-primary w-100 py-2" type="submit">Check</button>
+</form>
+{% endblock content %}

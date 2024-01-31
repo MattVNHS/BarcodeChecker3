@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
+
 from personal.views import (
     home_screen_view,
 )
@@ -28,6 +29,10 @@ from account.views import (
     account_view,
 )
 
+from barcodecheck.views import (
+    barcodecheck2_view,
+)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -36,6 +41,7 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('login/', login_view, name='login'),
     path('account/', account_view, name='account'),
+    path('barcodecheck2/', barcodecheck2_view, name='barcodecheck2'),
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     # Custom contrib.auth - all below are required to be defined.
