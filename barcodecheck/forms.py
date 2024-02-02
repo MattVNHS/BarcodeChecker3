@@ -1,13 +1,15 @@
 from django import forms
-from account.models import BarcodeChecker
+from barcodecheck.models import BarcodeCheck
+from django.contrib.auth import authenticate
+from datetime import datetime
 
-class Barcodecheck2Form(forms.ModelForm):
-    barcodecheck2_value1 = forms.CharField(max_length=10)
-    barcodecheck2_value2 = forms.CharField(max_length=10)
+
+class BarcodeCheck2Form(forms.ModelForm):
+    worksheet = forms.CharField(required=True, help_text='Required')
+    barcode1 = forms.CharField(required=True, help_text='Required')
+    barcode2 = forms.CharField(required=True, help_text='Required')
+    barcodecheck_result = forms.CharField()
 
     class Meta:
-        model = BarcodeChecker
-        fields = (barcodecheckfunction, user, dateTime_check, worksheet, barcode1, barcode2)
-
-
-
+        model = BarcodeCheck
+        fields = ('barcodecheckid', 'worksheet', 'barcode1', 'barcode2', 'barcodecheck_result')

@@ -39,17 +39,31 @@
     <h1 class="h3 mb-3 fw-normal">Checking 2 Barcodes</h1>
 
     <div class="form-floating">
-      <input type="text" name="barcodecheck2_value1" class="form-control" id="floatingInput1" placeholder="First barcode">
+      <input type="text" name="barcode1" class="form-control" id="floatingInput1" placeholder="First barcode">
       <label for="floatingInput1">First barcode</label>
     </div>
     <div class="form-floating">
-      <input type="text" name="barcodecheck2_value2" class="form-control" id="floatingInput2" placeholder="Second barcode">
+      <input type="text" name="barcode2" class="form-control" id="floatingInput2" placeholder="Second barcode">
       <label for="floatingInput2">Second barcode</label>
     </div>
 
-    <p>
-    {{ barcodecheck2_comparison_match }}
-    </p>
+    <div>
+        <p>
+            {{ barcodecheck2_result }}
+        </p>
+    </div>
+
+{% if barcodecheck2_form.errors %}
+    <div style="color:red;">
+        <p>{{barcodecheck2_form.errors}}</p>
+    </div>
+{% endif %}
+
+{% if barcodecheck2_form.non_field_errors %}
+    <div style="color:red;">
+        <p>{{barcodecheck2_form.non_field_errors}}</p>
+    </div>
+{% endif %}
 
     <button class="btn btn-primary w-100 py-2" type="submit">Check</button>
 </form>

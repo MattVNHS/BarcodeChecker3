@@ -8,9 +8,9 @@ from django.contrib.auth import authenticate
 # UserCreationForms to base off
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(max_length=60, help_text=' Required. Add a valid email address')
-    username = forms.CharField(max_length=60, help_text='Required')
-    first_name = forms.CharField(max_length=60, help_text=' Required')
-    last_name = forms.CharField(max_length=60, help_text=' Required')
+    username = forms.CharField(max_length=10, help_text='Required')
+    first_name = forms.CharField(max_length=30, help_text=' Required')
+    last_name = forms.CharField(max_length=30, help_text=' Required')
 
     class Meta:
         model = Account
