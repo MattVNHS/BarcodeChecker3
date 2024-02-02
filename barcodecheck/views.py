@@ -1,20 +1,24 @@
 from django.shortcuts import render, redirect
 from datetime import datetime
 from .models import BarcodeCheck
+from django.http import HttpResponseRedirect
 from barcodecheck.forms import BarcodeCheck2Form
 
 
 def barcodecheck2_view(request):
     context = {}
-    if request.POST:
+    if request.method == "POST":
         form = BarcodeCheck2Form(request.POST)
         if form.is_valid():
-            barcodecheck.barcode1 = form.cleaned_data['barcode1']
-            barcodecheck.barcode1 = form.cleaned_data['barcode2']
-            barcodecheck.save()
-            # if barcodecheck2_value1 == barcodecheck2_value2
+            BarcodeCheck.barcode1 = form.cleaned_data['barcode1']
+            BarcodeCheck.barcode2 = form.cleaned_data['barcode2']
+            BarcodeCheck.save()
+            # if barcode1 == barcode2
             #     barcodecheck_result = "MATCH"
             #     return render(request, 'barcodecheck2')
+
+            # Using home to test is we get to this point... this can be updated later to redirect to new page or return
+            # same page
             return redirect('home')
         else:
             context['barcodecheck2'] = form

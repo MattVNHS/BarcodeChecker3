@@ -10,6 +10,13 @@ class BarcodeCheck2Form(forms.ModelForm):
     barcode2 = forms.CharField(required=True, help_text='Required')
     barcodecheck_result = forms.CharField()
 
+    def clean_barcode1(self):
+        data = self.cleaned_data['barcode1']
+        return data
+
+    def clean_barcode2(self):
+        data = self.cleaned_data['barcode2']
+
     class Meta:
         model = BarcodeCheck
         fields = ('barcodecheckid', 'worksheet', 'barcode1', 'barcode2', 'barcodecheck_result')
