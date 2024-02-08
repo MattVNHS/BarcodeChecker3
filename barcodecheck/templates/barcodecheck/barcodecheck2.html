@@ -37,19 +37,22 @@
 
 <form class="form-signin w-100 m-auto" method="POST">{% csrf_token %}
     <h1 class="h3 mb-3 fw-normal">Checking 2 Barcodes</h1>
-
     <div class="form-floating">
-      <input type="text" name="barcode1" class="form-control" id="floatingInput1" placeholder="First barcode">
-      <label for="floatingInput1">First barcode</label>
+      <input type="text" name="worksheet" class="form-control" id="floatingInput1" placeholder="Worksheet Number">
+      <label for="floatingInput1">Worksheet Number</label>
     </div>
     <div class="form-floating">
-      <input type="text" name="barcode2" class="form-control" id="floatingInput2" placeholder="Second barcode">
-      <label for="floatingInput2">Second barcode</label>
+      <input type="text" name="barcode1" class="form-control" id="floatingInput1" placeholder="First Barcode">
+      <label for="floatingInput1">First Barcode</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" name="barcode2" class="form-control" id="floatingInput2" placeholder="Second Barcode">
+      <label for="floatingInput2">Second Barcode</label>
     </div>
 
     <div>
         <p>
-            {{ barcodecheck2_result }}
+            {{ barcodecheck_result }}
         </p>
     </div>
 
