@@ -8,7 +8,6 @@ class BarcodeCheck2Form(forms.ModelForm):
     worksheet = forms.CharField(required=True, help_text='Required')
     barcode1 = forms.CharField(required=True, help_text='Required')
     barcode2 = forms.CharField(required=True, help_text='Required')
-    barcodecheck_result = forms.CharField()
 
     def clean_barcode1(self):
         data = self.cleaned_data['barcode1']
@@ -16,6 +15,11 @@ class BarcodeCheck2Form(forms.ModelForm):
 
     def clean_barcode2(self):
         data = self.cleaned_data['barcode2']
+        return data
+
+    def clean_worksheet(self):
+        data = self.cleaned_data['worksheet']
+        return data
 
     class Meta:
         model = BarcodeCheck
