@@ -40,27 +40,34 @@
     <div class="form-floating">
       <input type="text" name="worksheet" class="form-control" id="floatingInput1" placeholder="Worksheet Number">
       <label for="floatingInput1">Worksheet Number</label>
+        <br>
     </div>
     <div class="form-floating">
-      <input type="text" name="barcode1" class="form-control" id="floatingInput1" placeholder="First Barcode">
-      <label for="floatingInput1">First Barcode</label>
+      <input type="text" name="barcode1" class="form-control" id="floatingInput2" placeholder="First Barcode">
+      <label for="floatingInput2">First Barcode</label>
     </div>
     <div class="form-floating">
-      <input type="text" name="barcode2" class="form-control" id="floatingInput2" placeholder="Second Barcode">
-      <label for="floatingInput2">Second Barcode</label>
+      <input type="text" name="barcode2" class="form-control" id="floatingInput3" placeholder="Second Barcode">
+      <label for="floatingInput3">Second Barcode</label>
+
     </div>
 
-{% if barcodecheck2_form.errors %}
+    <!-- Hidden input fields for barcode_check_function and barcodecheck_result -->
+    <input type="hidden" name="barcode_check_function" value="2 barcode check">
+    <input type="hidden" name="barcodecheck_result" value="True">
+
+
+{% if barcodecheck2.errors %}
     <div style="color:red;">
-        <p>{{barcodecheck2_form.errors}}</p>
+        <p>{{barcodecheck2.errors}}</p>
     </div>
 {% endif %}
 
-{% if barcodecheck2_form.non_field_errors %}
-    <div style="color:red;">
-        <p>{{barcodecheck2_form.non_field_errors}}</p>
-    </div>
-{% endif %}
+<!--{% if barcodecheck2.non_field_errors %}-->
+<!--    <div style="color:red;">-->
+<!--        <p>{{barcodecheck2.non_field_errors}}</p>-->
+<!--    </div>-->
+<!--{% endif %}-->
 
     <button class="btn btn-primary w-100 py-2" type="submit">Check</button>
 </form>
