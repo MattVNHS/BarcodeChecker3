@@ -11,6 +11,7 @@ class BarcodeCheck2Form(forms.ModelForm):
     barcode_check_function = forms.CharField(required=False)
     barcodecheck_result = forms.BooleanField(required=False)
 
+
     def clean_barcode1(self):
         data = self.cleaned_data['barcode1']
         return data

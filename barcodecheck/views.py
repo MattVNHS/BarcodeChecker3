@@ -4,13 +4,21 @@ from .models import BarcodeCheck
 from django.http import HttpResponseRedirect
 from barcodecheck.forms import BarcodeCheck2Form
 from django.contrib import messages
-
+from account.models import Account
 
 def barcodecheck2_view(request):
     context = {}
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+
     if request.method == "POST":
         form = BarcodeCheck2Form(request.POST)
         if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+
             # Save the form instance to a variable
             barcode_check_instance = form.save(commit=False)
 

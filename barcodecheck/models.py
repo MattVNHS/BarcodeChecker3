@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.conf import settings
 
 
 class BarcodeCheck(models.Model):
@@ -10,10 +11,8 @@ class BarcodeCheck(models.Model):
     barcode1 = models.CharField(max_length=10)
     barcode2 = models.CharField(max_length=10)
     barcodecheck_result = models.BooleanField(default=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return (f"{self.barcodecheckid} {self.barcode_check_function} {self.dateTime_check} {self.worksheet} "
-                f"{self.barcode1} {self.barcode2}")
-
-
-
+                f"{self.barcode1} {self.barcode2} {self.user}")
