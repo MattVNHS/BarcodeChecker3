@@ -10,6 +10,12 @@ class BarcodeCheck(models.Model):
     worksheet = models.CharField(max_length=12)
     barcode1 = models.CharField(max_length=10)
     barcode2 = models.CharField(max_length=10)
+    barcode3 = models.CharField(max_length=10)
+    barcode4 = models.CharField(max_length=10)
+    barcode5 = models.CharField(max_length=10)
+    barcode6 = models.CharField(max_length=10)
+    barcode7 = models.CharField(max_length=10)
+    barcode8 = models.CharField(max_length=10)
     barcodecheck_result = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 

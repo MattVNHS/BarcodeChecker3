@@ -31,6 +31,12 @@ from account.views import (
 
 from barcodecheck.views import (
     barcodecheck2_view,
+    barcodecheck3_view,
+    barcodecheck4_view,
+    barcodecheck5_view,
+    barcodecheck6_view,
+    barcodecheck7_view,
+    barcodecheck8_view,
 )
 
 urlpatterns = [
@@ -42,6 +48,12 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('account/', account_view, name='account'),
     path('barcodecheck2/', barcodecheck2_view, name='barcodecheck2'),
+    path('barcodecheck3/', barcodecheck3_view, name='barcodecheck3'),
+    path('barcodecheck4/', barcodecheck4_view, name='barcodecheck4'),
+    path('barcodecheck5/', barcodecheck5_view, name='barcodecheck5'),
+    path('barcodecheck6/', barcodecheck6_view, name='barcodecheck6'),
+    path('barcodecheck7/', barcodecheck7_view, name='barcodecheck7'),
+    path('barcodecheck8/', barcodecheck8_view, name='barcodecheck8'),
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     # Custom contrib.auth - all below are required to be defined.

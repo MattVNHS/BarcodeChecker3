@@ -5,9 +5,11 @@ from barcodecheck.models import BarcodeCheck
 @admin.register(BarcodeCheck)
 class BarcodeCheckAdmin(admin.ModelAdmin):
     list_display = ('barcodecheckid', 'user', 'dateTime_check', 'barcodecheck_result', 'barcode_check_function',
-                    'worksheet', 'barcode1', 'barcode2')
-    search_fields = ('barcodecheckid', 'barcodecheck_result', 'barcode_check_function', 'dateTime_check', 'worksheet',
-                     'barcode1', 'barcode2')
+                    'worksheet', 'barcode1', 'barcode2', 'barcode3', 'barcode4', 'barcode5', 'barcode6', 'barcode7',
+                    'barcode8')
+    search_fields = ('barcodecheckid', 'user', 'dateTime_check', 'barcodecheck_result', 'barcode_check_function',
+                     'worksheet', 'barcode1', 'barcode2', 'barcode3', 'barcode4', 'barcode5', 'barcode6', 'barcode7',
+                     'barcode8')
     readonly_fields = ('dateTime_check',)
 
     filter_horizontal = ()

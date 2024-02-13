@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+        html,
+    body {
+      height: 100%;
+    }
+
+    .form-signin {
+      max-width: 330px;
+      padding: 1rem;
+    }
+
+    .form-signin .form-floating:focus-within {
+      z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+      margin-bottom: 10px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="text"] {
+      margin-bottom: 10px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .form-signin input[type="password"] {
+      margin-bottom: 0px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+</style>
+
+<form class="form-signin w-100 m-auto" method="POST">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 fw-normal">Checking 5 Barcodes</h1>
+
+
+    <!-- Using request.POST to get the form values - not the best way but couldn't get barcode_check_instance to work? -->
+    <div style="color:green;">
+        <h5>MATCH SUCCESS!</h5>
+        <h6>Thank you {{ request.user.username }}, The barcode check was successful, all barcodes matched :)</h6>
+    </div>
+    <div style="color:grey;">
+        <br>
+        <p><h7>Worksheet: {{ request.POST.worksheet }}</h7></p>
+        <p><h7>Barcodes: {{ request.POST.barcode1 }}, {{ request.POST.barcode2 }}, {{ request.POST.barcode3 }},
+            {{ request.POST.barcode4 }}, {{ request.POST.barcode5 }}</h7></p>
+    </div>
+
+<br>
+<a href="{% url 'barcodecheck5' %}" class="btn btn-primary">Check another 5 barcodes
+</a>
+
+</form>
+{% endblock content %}

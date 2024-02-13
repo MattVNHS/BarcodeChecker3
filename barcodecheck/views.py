@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
-from barcodecheck.forms import BarcodeCheck2Form
+from barcodecheck.forms import (BarcodeCheck2Form, BarcodeCheck3Form, BarcodeCheck4Form, BarcodeCheck5Form,
+                                BarcodeCheck6Form, BarcodeCheck7Form, BarcodeCheck8Form)
 from django.contrib import messages
 
 
@@ -9,22 +10,18 @@ def barcodecheck2_view(request):
     user = request.user
     if not user.is_authenticated:
         return redirect('login')
-
     if request.method == "POST":
         form = BarcodeCheck2Form(request.POST)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.user = request.user
             obj.save()
-
             # Save the form instance to a variable
             barcode_check_instance = form.save(commit=False)
-
             # Assign values to model instance fields
             barcode_check_instance.worksheet = form.cleaned_data['worksheet']
             barcode_check_instance.barcode1 = form.cleaned_data['barcode1']
             barcode_check_instance.barcode2 = form.cleaned_data['barcode2']
-
             # Handle matching barcodes here
             if barcode_check_instance.barcode1 == barcode_check_instance.barcode2:
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
@@ -44,24 +41,280 @@ def barcodecheck2_view(request):
     else:
         form = BarcodeCheck2Form()
         context['barcodecheck2'] = form
-
     return render(request, 'barcodecheck/barcodecheck2.html', context)
 
-# context = {}
-# if request.method == "POST":
-#     check = BarcodeCheck()
-#     check.worksheet = request.POST['worksheet']
-#     check.barcode1 = request.POST['barcode1']
-#     check.barcode2 = request.POST['barcode2']
-#     check.barcode_check_function = '2 Barcode check'
-#     if check.barcode1 == check.barcode2:
-#         check.barcodecheck_result = True
-#         check.save()
-#         return render(request, 'barcodecheck/barcodecheck2.html')
-#     else:
-#         check.save()
-#         return render(request, 'barcodecheck/barcodecheck2.html')
-# else:
-#     form = BarcodeCheck2Form()
-#     context['barcodecheck2'] = form
-#     return render(request, 'barcodecheck/barcodecheck2.html', context)
+
+def barcodecheck3_view(request):
+    context = {}
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+    if request.method == "POST":
+        form = BarcodeCheck3Form(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            # Save the form instance to a variable
+            barcode_check_instance = form.save(commit=False)
+            # Assign values to model instance fields
+            barcode_check_instance.worksheet = form.cleaned_data['worksheet']
+            barcode_check_instance.barcode1 = form.cleaned_data['barcode1']
+            barcode_check_instance.barcode2 = form.cleaned_data['barcode2']
+            barcode_check_instance.barcode3 = form.cleaned_data['barcode3']
+            # Handle matching barcodes here
+            if (barcode_check_instance.barcode1 == barcode_check_instance.barcode2 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode3):
+                barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
+                barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
+                barcode_check_instance.save()
+                return render(request, 'barcodecheck/barcodecheck3_success.html')
+            else:
+                # Handle non-matching barcodes here
+                barcode_check_instance.barcodecheck_result = False
+                barcode_check_instance.barcode_check_function = '3 barcode check'
+                barcode_check_instance.save()
+            return render(request, 'barcodecheck/barcodecheck3_fail.html')
+        else:
+            # Need to include an error message here if form is not valid
+            context['barcodecheck3'] = form
+            print(form.errors.as_data())
+    else:
+        form = BarcodeCheck3Form()
+        context['barcodecheck3'] = form
+    return render(request, 'barcodecheck/barcodecheck3.html', context)
+
+
+def barcodecheck4_view(request):
+    context = {}
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+    if request.method == "POST":
+        form = BarcodeCheck4Form(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            # Save the form instance to a variable
+            barcode_check_instance = form.save(commit=False)
+            # Assign values to model instance fields
+            barcode_check_instance.worksheet = form.cleaned_data['worksheet']
+            barcode_check_instance.barcode1 = form.cleaned_data['barcode1']
+            barcode_check_instance.barcode2 = form.cleaned_data['barcode2']
+            barcode_check_instance.barcode3 = form.cleaned_data['barcode3']
+            barcode_check_instance.barcode4 = form.cleaned_data['barcode4']
+            # Handle matching barcodes here
+            if (barcode_check_instance.barcode1 == barcode_check_instance.barcode2 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode3 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode4):
+                barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
+                barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
+                barcode_check_instance.save()
+                return render(request, 'barcodecheck/barcodecheck4_success.html')
+            else:
+                # Handle non-matching barcodes here
+                barcode_check_instance.barcodecheck_result = False
+                barcode_check_instance.barcode_check_function = '4 barcode check'
+                barcode_check_instance.save()
+            return render(request, 'barcodecheck/barcodecheck4_fail.html')
+        else:
+            # Need to include an error message here if form is not valid
+            context['barcodecheck4'] = form
+            print(form.errors.as_data())
+    else:
+        form = BarcodeCheck4Form()
+        context['barcodecheck4'] = form
+    return render(request, 'barcodecheck/barcodecheck4.html', context)
+
+
+def barcodecheck5_view(request):
+    context = {}
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+    if request.method == "POST":
+        form = BarcodeCheck5Form(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            # Save the form instance to a variable
+            barcode_check_instance = form.save(commit=False)
+            # Assign values to model instance fields
+            barcode_check_instance.worksheet = form.cleaned_data['worksheet']
+            barcode_check_instance.barcode1 = form.cleaned_data['barcode1']
+            barcode_check_instance.barcode2 = form.cleaned_data['barcode2']
+            barcode_check_instance.barcode3 = form.cleaned_data['barcode3']
+            barcode_check_instance.barcode4 = form.cleaned_data['barcode4']
+            barcode_check_instance.barcode5 = form.cleaned_data['barcode5']
+            # Handle matching barcodes here
+            if (barcode_check_instance.barcode1 == barcode_check_instance.barcode2 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode3 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode4 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode5):
+                barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
+                barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
+                barcode_check_instance.save()
+                return render(request, 'barcodecheck/barcodecheck5_success.html')
+            else:
+                # Handle non-matching barcodes here
+                barcode_check_instance.barcodecheck_result = False
+                barcode_check_instance.barcode_check_function = '5 barcode check'
+                barcode_check_instance.save()
+            return render(request, 'barcodecheck/barcodecheck5_fail.html')
+        else:
+            # Need to include an error message here if form is not valid
+            context['barcodecheck5'] = form
+            print(form.errors.as_data())
+    else:
+        form = BarcodeCheck5Form()
+        context['barcodecheck5'] = form
+    return render(request, 'barcodecheck/barcodecheck5.html', context)
+
+
+def barcodecheck6_view(request):
+    context = {}
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+    if request.method == "POST":
+        form = BarcodeCheck6Form(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            # Save the form instance to a variable
+            barcode_check_instance = form.save(commit=False)
+            # Assign values to model instance fields
+            barcode_check_instance.worksheet = form.cleaned_data['worksheet']
+            barcode_check_instance.barcode1 = form.cleaned_data['barcode1']
+            barcode_check_instance.barcode2 = form.cleaned_data['barcode2']
+            barcode_check_instance.barcode3 = form.cleaned_data['barcode3']
+            barcode_check_instance.barcode4 = form.cleaned_data['barcode4']
+            barcode_check_instance.barcode5 = form.cleaned_data['barcode5']
+            barcode_check_instance.barcode6 = form.cleaned_data['barcode6']
+            # Handle matching barcodes here
+            if (barcode_check_instance.barcode1 == barcode_check_instance.barcode2 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode3 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode4 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode5 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode6):
+                barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
+                barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
+                barcode_check_instance.save()
+                return render(request, 'barcodecheck/barcodecheck6_success.html')
+            else:
+                # Handle non-matching barcodes here
+                barcode_check_instance.barcodecheck_result = False
+                barcode_check_instance.barcode_check_function = '6 barcode check'
+                barcode_check_instance.save()
+            return render(request, 'barcodecheck/barcodecheck6_fail.html')
+        else:
+            # Need to include an error message here if form is not valid
+            context['barcodecheck6'] = form
+            print(form.errors.as_data())
+    else:
+        form = BarcodeCheck6Form()
+        context['barcodecheck6'] = form
+    return render(request, 'barcodecheck/barcodecheck6.html', context)
+
+
+def barcodecheck7_view(request):
+    context = {}
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+    if request.method == "POST":
+        form = BarcodeCheck7Form(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            # Save the form instance to a variable
+            barcode_check_instance = form.save(commit=False)
+            # Assign values to model instance fields
+            barcode_check_instance.worksheet = form.cleaned_data['worksheet']
+            barcode_check_instance.barcode1 = form.cleaned_data['barcode1']
+            barcode_check_instance.barcode2 = form.cleaned_data['barcode2']
+            barcode_check_instance.barcode3 = form.cleaned_data['barcode3']
+            barcode_check_instance.barcode4 = form.cleaned_data['barcode4']
+            barcode_check_instance.barcode5 = form.cleaned_data['barcode5']
+            barcode_check_instance.barcode6 = form.cleaned_data['barcode6']
+            barcode_check_instance.barcode7 = form.cleaned_data['barcode7']
+            # Handle matching barcodes here
+            if (barcode_check_instance.barcode1 == barcode_check_instance.barcode2 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode3 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode4 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode5 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode6 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode7):
+                barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
+                barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
+                barcode_check_instance.save()
+                return render(request, 'barcodecheck/barcodecheck7_success.html')
+            else:
+                # Handle non-matching barcodes here
+                barcode_check_instance.barcodecheck_result = False
+                barcode_check_instance.barcode_check_function = '7 barcode check'
+                barcode_check_instance.save()
+            return render(request, 'barcodecheck/barcodecheck7_fail.html')
+        else:
+            # Need to include an error message here if form is not valid
+            context['barcodecheck7'] = form
+            print(form.errors.as_data())
+    else:
+        form = BarcodeCheck7Form()
+        context['barcodecheck7'] = form
+    return render(request, 'barcodecheck/barcodecheck7.html', context)
+
+
+def barcodecheck8_view(request):
+    context = {}
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+    if request.method == "POST":
+        form = BarcodeCheck8Form(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            obj.save()
+            # Save the form instance to a variable
+            barcode_check_instance = form.save(commit=False)
+            # Assign values to model instance fields
+            barcode_check_instance.worksheet = form.cleaned_data['worksheet']
+            barcode_check_instance.barcode1 = form.cleaned_data['barcode1']
+            barcode_check_instance.barcode2 = form.cleaned_data['barcode2']
+            barcode_check_instance.barcode3 = form.cleaned_data['barcode3']
+            barcode_check_instance.barcode4 = form.cleaned_data['barcode4']
+            barcode_check_instance.barcode5 = form.cleaned_data['barcode5']
+            barcode_check_instance.barcode6 = form.cleaned_data['barcode6']
+            barcode_check_instance.barcode7 = form.cleaned_data['barcode7']
+            barcode_check_instance.barcode8 = form.cleaned_data['barcode8']
+            # Handle matching barcodes here
+            if (barcode_check_instance.barcode1 == barcode_check_instance.barcode2 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode3 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode4 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode5 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode6 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode7 and
+                    barcode_check_instance.barcode1 == barcode_check_instance.barcode8):
+                barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
+                barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
+                barcode_check_instance.save()
+                return render(request, 'barcodecheck/barcodecheck8_success.html')
+            else:
+                # Handle non-matching barcodes here
+                barcode_check_instance.barcodecheck_result = False
+                barcode_check_instance.barcode_check_function = '8 barcode check'
+                barcode_check_instance.save()
+            return render(request, 'barcodecheck/barcodecheck8_fail.html')
+        else:
+            # Need to include an error message here if form is not valid
+            context['barcodecheck8'] = form
+            print(form.errors.as_data())
+    else:
+        form = BarcodeCheck8Form()
+        context['barcodecheck8'] = form
+    return render(request, 'barcodecheck/barcodecheck8.html', context)
