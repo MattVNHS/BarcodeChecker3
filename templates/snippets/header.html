@@ -32,7 +32,6 @@
         <!--If user is authenticated(logged in) then these will be displayed-->
         {% if request.user.is_authenticated %}
         <ul class="nav nav-pills">
-        <li class="nav-item"><a href="{% url 'barcodecheck2' %}" class="nav-link">barcodecheck2</a></li>
         <li class="nav-item"><a href="{% url 'home' %}" class="nav-link active">Home</a></li>
         <li class="nav-item"><a href="{% url 'account' %}" class="nav-link">Account</a></li>
         <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link">Logout</a></li>

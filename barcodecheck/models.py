@@ -7,7 +7,7 @@ class BarcodeCheck(models.Model):
     barcodecheckid = models.AutoField(primary_key=True)
     barcode_check_function = models.CharField(max_length=30)
     dateTime_check = models.DateTimeField(verbose_name='date_and_time', auto_now_add=True)
-    worksheet = models.CharField(max_length=8)
+    worksheet = models.CharField(max_length=12)
     barcode1 = models.CharField(max_length=10)
     barcode2 = models.CharField(max_length=10)
     barcodecheck_result = models.BooleanField(default=False)

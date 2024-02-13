@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+        html,
+    body {
+      height: 100%;
+    }
+
+    .form-signin {
+      max-width: 330px;
+      padding: 1rem;
+    }
+
+    .form-signin .form-floating:focus-within {
+      z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+      margin-bottom: 10px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="text"] {
+      margin-bottom: 10px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .form-signin input[type="password"] {
+      margin-bottom: 0px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+</style>
+
+<H3>Welcome to the BarcodeChecker Application</H3>
+
+{% if request.user.is_authenticated %}
+<br>
+<h4>Generic barcode check methods</h4>
+<a href="{% url 'barcodecheck2' %}" class="btn btn-primary">Check 2 barcodes
+</a>
+{% else %}
+<br>
+<h4>Please login to access barcode check methods</h4>
+{% endif %}
+
+{% endblock content %}

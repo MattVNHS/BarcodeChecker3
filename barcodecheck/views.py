@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect
-from datetime import datetime
-from .models import BarcodeCheck
 from django.http import HttpResponseRedirect
 from barcodecheck.forms import BarcodeCheck2Form
 from django.contrib import messages
-from account.models import Account
+
 
 def barcodecheck2_view(request):
     context = {}
@@ -27,19 +25,18 @@ def barcodecheck2_view(request):
             barcode_check_instance.barcode1 = form.cleaned_data['barcode1']
             barcode_check_instance.barcode2 = form.cleaned_data['barcode2']
 
-            # Save the instance to the database
-            barcode_check_instance.save()
-
-            # Handle barcodecheck_result and barcode_check_function based on your requirements
+            # Handle matching barcodes here
             if barcode_check_instance.barcode1 == barcode_check_instance.barcode2:
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
                 barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
+                barcode_check_instance.save()
+                return render(request, 'barcodecheck/barcodecheck2_success.html')
             else:
                 # Handle non-matching barcodes here
                 barcode_check_instance.barcodecheck_result = False
                 barcode_check_instance.barcode_check_function = '2 barcode check'
                 barcode_check_instance.save()
-            return render(request, 'barcodecheck/barcodecheck2.html')
+            return render(request, 'barcodecheck/barcodecheck2_fail.html')
         else:
             # Need to include an error message here if form is not valid
             context['barcodecheck2'] = form
