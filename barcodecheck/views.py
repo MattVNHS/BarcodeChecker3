@@ -63,8 +63,8 @@ def barcodecheck3_view(request):
             barcode_check_instance.barcode2 = form.cleaned_data['barcode2']
             barcode_check_instance.barcode3 = form.cleaned_data['barcode3']
             # Handle matching barcodes here
-            if (barcode_check_instance.barcode1 == barcode_check_instance.barcode2 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode3):
+            if all(x == barcode_check_instance.barcode1 for x in [barcode_check_instance.barcode2,
+                                                                  barcode_check_instance.barcode3]):
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
                 barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
                 barcode_check_instance.save()
@@ -105,9 +105,9 @@ def barcodecheck4_view(request):
             barcode_check_instance.barcode3 = form.cleaned_data['barcode3']
             barcode_check_instance.barcode4 = form.cleaned_data['barcode4']
             # Handle matching barcodes here
-            if (barcode_check_instance.barcode1 == barcode_check_instance.barcode2 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode3 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode4):
+            if all(x == barcode_check_instance.barcode1 for x in [barcode_check_instance.barcode2,
+                                                                  barcode_check_instance.barcode3,
+                                                                  barcode_check_instance.barcode4]):
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
                 barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
                 barcode_check_instance.save()
@@ -149,10 +149,10 @@ def barcodecheck5_view(request):
             barcode_check_instance.barcode4 = form.cleaned_data['barcode4']
             barcode_check_instance.barcode5 = form.cleaned_data['barcode5']
             # Handle matching barcodes here
-            if (barcode_check_instance.barcode1 == barcode_check_instance.barcode2 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode3 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode4 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode5):
+            if all(x == barcode_check_instance.barcode1 for x in [barcode_check_instance.barcode2,
+                                                                  barcode_check_instance.barcode3,
+                                                                  barcode_check_instance.barcode4,
+                                                                  barcode_check_instance.barcode5]):
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
                 barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
                 barcode_check_instance.save()
@@ -195,11 +195,11 @@ def barcodecheck6_view(request):
             barcode_check_instance.barcode5 = form.cleaned_data['barcode5']
             barcode_check_instance.barcode6 = form.cleaned_data['barcode6']
             # Handle matching barcodes here
-            if (barcode_check_instance.barcode1 == barcode_check_instance.barcode2 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode3 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode4 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode5 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode6):
+            if all(x == barcode_check_instance.barcode1 for x in [barcode_check_instance.barcode2,
+                                                                  barcode_check_instance.barcode3,
+                                                                  barcode_check_instance.barcode4,
+                                                                  barcode_check_instance.barcode5,
+                                                                  barcode_check_instance.barcode6]):
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
                 barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
                 barcode_check_instance.save()
@@ -243,12 +243,12 @@ def barcodecheck7_view(request):
             barcode_check_instance.barcode6 = form.cleaned_data['barcode6']
             barcode_check_instance.barcode7 = form.cleaned_data['barcode7']
             # Handle matching barcodes here
-            if (barcode_check_instance.barcode1 == barcode_check_instance.barcode2 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode3 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode4 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode5 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode6 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode7):
+            if all(x == barcode_check_instance.barcode1 for x in [barcode_check_instance.barcode2,
+                                                                  barcode_check_instance.barcode3,
+                                                                  barcode_check_instance.barcode4,
+                                                                  barcode_check_instance.barcode5,
+                                                                  barcode_check_instance.barcode6,
+                                                                  barcode_check_instance.barcode7]):
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
                 barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
                 barcode_check_instance.save()
@@ -293,13 +293,13 @@ def barcodecheck8_view(request):
             barcode_check_instance.barcode7 = form.cleaned_data['barcode7']
             barcode_check_instance.barcode8 = form.cleaned_data['barcode8']
             # Handle matching barcodes here
-            if (barcode_check_instance.barcode1 == barcode_check_instance.barcode2 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode3 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode4 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode5 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode6 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode7 and
-                    barcode_check_instance.barcode1 == barcode_check_instance.barcode8):
+            if all(x == barcode_check_instance.barcode1 for x in [barcode_check_instance.barcode2,
+                                                                  barcode_check_instance.barcode3,
+                                                                  barcode_check_instance.barcode4,
+                                                                  barcode_check_instance.barcode5,
+                                                                  barcode_check_instance.barcode6,
+                                                                  barcode_check_instance.barcode7,
+                                                                  barcode_check_instance.barcode8]):
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
                 barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
                 barcode_check_instance.save()
