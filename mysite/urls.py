@@ -39,6 +39,10 @@ from barcodecheck.views import (
     barcodecheck8_view,
 )
 
+from extractionmethods.views import (
+    Qiasymphony24_view
+)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -54,6 +58,8 @@ urlpatterns = [
     path('barcodecheck6/', barcodecheck6_view, name='barcodecheck6'),
     path('barcodecheck7/', barcodecheck7_view, name='barcodecheck7'),
     path('barcodecheck8/', barcodecheck8_view, name='barcodecheck8'),
+
+    path('Qiasymphony24Check/', Qiasymphony24_view, name='Qiasymphony24'),
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     # Custom contrib.auth - all below are required to be defined.

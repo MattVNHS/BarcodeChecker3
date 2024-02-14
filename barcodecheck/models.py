@@ -21,4 +21,5 @@ class BarcodeCheck(models.Model):
 
     def __str__(self):
         return (f"{self.barcodecheckid} {self.barcode_check_function} {self.dateTime_check} {self.worksheet} "
-                f"{self.barcode1} {self.barcode2} {self.user}")
+                f"{self.barcode1} {self.barcode2} {self.barcode3} {self.barcode4} {self.barcode5} {self.barcode6}"
+                f" {self.barcode7} {self.barcode8} {self.user}")

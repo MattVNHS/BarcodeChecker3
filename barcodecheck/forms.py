@@ -280,3 +280,4 @@ class BarcodeCheck8Form(forms.ModelForm):
         model = BarcodeCheck
         fields = ('barcodecheckid', 'worksheet', 'barcode1', 'barcode2', 'barcode3', 'barcode4', 'barcode5', 'barcode6',
                   'barcode7', 'barcode8', 'barcode_check_function', 'barcodecheck_result')
+

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+        html,
+    body {
+      height: 100%;
+    }
+
+    .form-signin {
+      max-width: 330px;
+      padding: 1rem;
+    }
+
+    .form-signin .form-floating:focus-within {
+      z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+      margin-bottom: 10px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="text"] {
+      margin-bottom: 10px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+    .form-signin input[type="password"] {
+      margin-bottom: 0px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+</style>
+
+<form class="form-signin w-100 m-auto" method="POST">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 fw-normal">Checking 2 Lab Numbers</h1>
+
+
+    <!-- Using request.POST to get the form values - not the best way but couldn't get barcode_check_instance to work? -->
+    <div style="color:green;">
+        <h5>MATCH SUCCESS!</h5>
+        <h6>Thank you {{ request.user.username }}, The barcode check was successful, all barcodes matched :)</h6>
+    </div>
+    <div style="color:grey;">
+        <br>
+        <p><h7>Sample Tubes: {{ request.POST.sampletube1 }}, {{ request.POST.sampletube2 }},
+            {{ request.POST.sampletube3 }}, {{ request.POST.sampletube4 }}, {{ request.POST.sampletube5 }},
+            {{ request.POST.sampletube6 }}, {{ request.POST.sampletube7 }}, {{ request.POST.sampletube8 }},
+            {{ request.POST.sampletube9 }}, {{ request.POST.sampletube10 }}, {{ request.POST.sampletube11 }},
+            {{ request.POST.sampletube12 }}, {{ request.POST.sampletube13 }}, {{ request.POST.sampletube14 }},
+            {{ request.POST.sampletube15 }}, {{ request.POST.sampletube16 }}, {{ request.POST.sampletube17 }},
+            {{ request.POST.sampletube18 }}, {{ request.POST.sampletube19 }}, {{ request.POST.sampletube20 }},
+            {{ request.POST.sampletube21 }}, {{ request.POST.sampletube22 }}, {{ request.POST.sampletube23 }},
+            {{ request.POST.sampletube24 }}</h7></p>
+        <p><h7>Elution Tubes: {{ request.POST.elutiontube1 }}, {{ request.POST.elutiontube2 }},
+            {{ request.POST.elutiontube3 }}, {{ request.POST.elutiontube4 }}, {{ request.POST.elutiontube5 }},
+            {{ request.POST.elutiontube6 }}, {{ request.POST.elutiontube7 }}, {{ request.POST.elutiontube8 }},
+            {{ request.POST.elutiontube9 }}, {{ request.POST.elutiontube10 }}, {{ request.POST.elutiontube11 }},
+            {{ request.POST.elutiontube12 }}, {{ request.POST.elutiontube13 }}, {{ request.POST.elutiontube14 }},
+            {{ request.POST.elutiontube15 }}, {{ request.POST.elutiontube16 }}, {{ request.POST.elutiontube17 }},
+            {{ request.POST.elutiontube18 }}, {{ request.POST.elutiontube19 }}, {{ request.POST.elutiontube20 }},
+            {{ request.POST.elutiontube21 }}, {{ request.POST.elutiontube22 }}, {{ request.POST.elutiontube23 }},
+            {{ request.POST.elutiontube24 }}</h7></p>
+
+<br>
+<a href="{% url 'Qiasymphony24' %}" class="btn btn-primary">Check another QiaSymphony load
+</a>
+
+</form>
+{% endblock content %}
