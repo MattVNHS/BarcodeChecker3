@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'account',
     'barcodecheck',
     'extractionmethods',
+    'culturemethods',
 
     # django apps
     'django.contrib.admin',
