@@ -6,31 +6,37 @@ def culturecheck3_view(request):
     user = request.user
     if not user.is_authenticated:
         return redirect('login')
+
     if request.method == "POST":
         form = CultureCheck3Form(request.POST)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.user = request.user
-            obj.save()
-            # Save the form instance to a variable
-            culture_check_instance = form.save(commit=False)
-            # Assign values to model instance fields
-            culture_check_instance.culturecheckbarcode1_input = form.cleaned_data['culturecheckbarcode1'[0:10]]
-            culture_check_instance.culturecheckbarcode2_input = form.cleaned_data['culturecheckbarcode2'[0:10]]
-            culture_check_instance.culturecheckbarcode3_input = form.cleaned_data['culturecheckbarcode3'[0:10]]
 
-            # Handle matching barcodes here
-            if (culture_check_instance.culturecheckbarcode1 == culture_check_instance.culturecheckbarcode2 and
-                    culture_check_instance.culturecheckbarcode1 == culture_check_instance.culturecheckbarcode3):
-                culture_check_instance.culturecheck_result = form.cleaned_data['culturecheck_result']
-                culture_check_instance.culturecheck_method = form.cleaned_data['culturecheck_method']
-                culture_check_instance.save()
+            # getting the first 10 characters from inputted values
+            obj.culturecheckbarcode1 = form.cleaned_data['culturecheckbarcode1'][0:10]
+            obj.culturecheckbarcode2 = form.cleaned_data['culturecheckbarcode2'][0:10]
+            obj.culturecheckbarcode3 = form.cleaned_data['culturecheckbarcode3'][0:10]
+
+            # checking if the first 10 characters match
+            if (obj.culturecheckbarcode1 == obj.culturecheckbarcode2 and
+                    obj.culturecheckbarcode1 == obj.culturecheckbarcode3):
+
+            # If match then saving original inputted values from user as want to save these to database
+                obj.culturecheckbarcode1 = form.cleaned_data['culturecheckbarcode1']
+                obj.culturecheckbarcode2 = form.cleaned_data['culturecheckbarcode2']
+                obj.culturecheckbarcode3 = form.cleaned_data['culturecheckbarcode3']
+                obj.culturecheck_result = form.cleaned_data['culturecheck_result']
+                obj.culturecheck_method = form.cleaned_data['culturecheck_method']
+                obj.save()
                 return render(request, 'culturemethods/culturecheck3_success.html')
             else:
-                # Handle non-matching barcodes here
-                culture_check_instance.culturecheck_result = False
-                culture_check_instance.culturecheck_method = '3barcodecheck_culture'
-                culture_check_instance.save()
+                obj.culturecheckbarcode1 = form.cleaned_data['culturecheckbarcode1']
+                obj.culturecheckbarcode2 = form.cleaned_data['culturecheckbarcode2']
+                obj.culturecheckbarcode3 = form.cleaned_data['culturecheckbarcode3']
+                obj.culturecheck_result = False
+                obj.culturecheck_method = '3barcodecheck_culture'
+                obj.save()
             return render(request, 'culturemethods/culturecheck3_fail.html')
         else:
             # Need to include an error message here if form is not valid
