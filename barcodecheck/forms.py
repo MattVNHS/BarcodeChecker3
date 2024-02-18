@@ -8,7 +8,7 @@ class BarcodeCheck2Form(forms.ModelForm):
     worksheet = forms.CharField(required=True, help_text='Required')
     barcode1 = forms.CharField(required=True, help_text='Required')
     barcode2 = forms.CharField(required=True, help_text='Required')
-    barcode_check_function = forms.CharField(required=False)
+    barcode_check_method = forms.CharField(required=False)
     barcodecheck_result = forms.BooleanField(required=False)
 
     def clean_barcode1(self):
@@ -25,7 +25,7 @@ class BarcodeCheck2Form(forms.ModelForm):
 
     class Meta:
         model = BarcodeCheck
-        fields = ('barcodecheckid', 'worksheet', 'barcode1', 'barcode2', 'barcode_check_function', 'barcodecheck_result')
+        fields = ('barcodecheckid', 'worksheet', 'barcode1', 'barcode2', 'barcode_check_method', 'barcodecheck_result')
 
 
 class BarcodeCheck3Form(forms.ModelForm):
@@ -33,7 +33,7 @@ class BarcodeCheck3Form(forms.ModelForm):
     barcode1 = forms.CharField(required=True, help_text='Required')
     barcode2 = forms.CharField(required=True, help_text='Required')
     barcode3 = forms.CharField(required=True, help_text='Required')
-    barcode_check_function = forms.CharField(required=False)
+    barcode_check_method = forms.CharField(required=False)
     barcodecheck_result = forms.BooleanField(required=False)
 
     def clean_barcode1(self):
@@ -54,7 +54,7 @@ class BarcodeCheck3Form(forms.ModelForm):
 
     class Meta:
         model = BarcodeCheck
-        fields = ('barcodecheckid', 'worksheet', 'barcode1', 'barcode2', 'barcode3', 'barcode_check_function',
+        fields = ('barcodecheckid', 'worksheet', 'barcode1', 'barcode2', 'barcode3', 'barcode_check_method',
                   'barcodecheck_result')
 
 
@@ -64,7 +64,7 @@ class BarcodeCheck4Form(forms.ModelForm):
     barcode2 = forms.CharField(required=True, help_text='Required')
     barcode3 = forms.CharField(required=True, help_text='Required')
     barcode4 = forms.CharField(required=True, help_text='Required')
-    barcode_check_function = forms.CharField(required=False)
+    barcode_check_method = forms.CharField(required=False)
     barcodecheck_result = forms.BooleanField(required=False)
 
     def clean_barcode1(self):
@@ -90,7 +90,7 @@ class BarcodeCheck4Form(forms.ModelForm):
     class Meta:
         model = BarcodeCheck
         fields = ('barcodecheckid', 'worksheet', 'barcode1', 'barcode2', 'barcode3', 'barcode4',
-                  'barcode_check_function', 'barcodecheck_result')
+                  'barcode_check_method', 'barcodecheck_result')
 
 class BarcodeCheck5Form(forms.ModelForm):
     worksheet = forms.CharField(required=True, help_text='Required')
@@ -99,7 +99,7 @@ class BarcodeCheck5Form(forms.ModelForm):
     barcode3 = forms.CharField(required=True, help_text='Required')
     barcode4 = forms.CharField(required=True, help_text='Required')
     barcode5 = forms.CharField(required=True, help_text='Required')
-    barcode_check_function = forms.CharField(required=False)
+    barcode_check_method = forms.CharField(required=False)
     barcodecheck_result = forms.BooleanField(required=False)
 
     def clean_barcode1(self):
@@ -129,7 +129,7 @@ class BarcodeCheck5Form(forms.ModelForm):
     class Meta:
         model = BarcodeCheck
         fields = ('barcodecheckid', 'worksheet', 'barcode1', 'barcode2', 'barcode3', 'barcode4', 'barcode5',
-                  'barcode_check_function', 'barcodecheck_result')
+                  'barcode_check_method', 'barcodecheck_result')
 
 
 class BarcodeCheck6Form(forms.ModelForm):
@@ -140,7 +140,7 @@ class BarcodeCheck6Form(forms.ModelForm):
     barcode4 = forms.CharField(required=True, help_text='Required')
     barcode5 = forms.CharField(required=True, help_text='Required')
     barcode6 = forms.CharField(required=True, help_text='Required')
-    barcode_check_function = forms.CharField(required=False)
+    barcode_check_method = forms.CharField(required=False)
     barcodecheck_result = forms.BooleanField(required=False)
 
     def clean_barcode1(self):
@@ -174,7 +174,7 @@ class BarcodeCheck6Form(forms.ModelForm):
     class Meta:
         model = BarcodeCheck
         fields = ('barcodecheckid', 'worksheet', 'barcode1', 'barcode2', 'barcode3', 'barcode4', 'barcode5', 'barcode6',
-                  'barcode_check_function', 'barcodecheck_result')
+                  'barcode_check_method', 'barcodecheck_result')
 
 
 class BarcodeCheck7Form(forms.ModelForm):
@@ -186,7 +186,7 @@ class BarcodeCheck7Form(forms.ModelForm):
     barcode5 = forms.CharField(required=True, help_text='Required')
     barcode6 = forms.CharField(required=True, help_text='Required')
     barcode7 = forms.CharField(required=True, help_text='Required')
-    barcode_check_function = forms.CharField(required=False)
+    barcode_check_method = forms.CharField(required=False)
     barcodecheck_result = forms.BooleanField(required=False)
 
     def clean_barcode1(self):
@@ -224,7 +224,7 @@ class BarcodeCheck7Form(forms.ModelForm):
     class Meta:
         model = BarcodeCheck
         fields = ('barcodecheckid', 'worksheet', 'barcode1', 'barcode2', 'barcode3', 'barcode4', 'barcode5', 'barcode6',
-                  'barcode7', 'barcode_check_function', 'barcodecheck_result')
+                  'barcode7', 'barcode_check_method', 'barcodecheck_result')
 
 
 class BarcodeCheck8Form(forms.ModelForm):
@@ -237,7 +237,7 @@ class BarcodeCheck8Form(forms.ModelForm):
     barcode6 = forms.CharField(required=True, help_text='Required')
     barcode7 = forms.CharField(required=True, help_text='Required')
     barcode8 = forms.CharField(required=True, help_text='Required')
-    barcode_check_function = forms.CharField(required=False)
+    barcode_check_method = forms.CharField(required=False)
     barcodecheck_result = forms.BooleanField(required=False)
 
     def clean_barcode1(self):
@@ -279,5 +279,5 @@ class BarcodeCheck8Form(forms.ModelForm):
     class Meta:
         model = BarcodeCheck
         fields = ('barcodecheckid', 'worksheet', 'barcode1', 'barcode2', 'barcode3', 'barcode4', 'barcode5', 'barcode6',
-                  'barcode7', 'barcode8', 'barcode_check_function', 'barcodecheck_result')
+                  'barcode7', 'barcode8', 'barcode_check_method', 'barcodecheck_result')
 

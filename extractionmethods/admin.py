@@ -4,7 +4,7 @@ from extractionmethods.models import Qiasymphony24Load
 
 @admin.register(Qiasymphony24Load)
 class BarcodeCheckAdmin(admin.ModelAdmin):
-    list_display = ('Qiasymphony24Load_id', 'Qiasymphony24Load_worksheet', 'Qiasymphony24Load_method',
+    list_display = ('Qiasymphony24Load_id', 'user', 'dateTime_check', 'Qiasymphony24Load_worksheet', 'Qiasymphony24Load_method',
                   'Qiasymphony24Check_result', 'sampletube1', 'sampletube2', 'sampletube3', 'sampletube4',
                   'sampletube5', 'sampletube6', 'sampletube7', 'sampletube8', 'sampletube9', 'sampletube10',
                   'sampletube11', 'sampletube12', 'sampletube13', 'sampletube14', 'sampletube15', 'sampletube16',

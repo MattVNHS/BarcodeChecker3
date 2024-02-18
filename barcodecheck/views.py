@@ -25,13 +25,13 @@ def barcodecheck2_view(request):
             # Handle matching barcodes here
             if barcode_check_instance.barcode1 == barcode_check_instance.barcode2:
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
-                barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
+                barcode_check_instance.barcode_check_method = form.cleaned_data['barcode_check_method']
                 barcode_check_instance.save()
                 return render(request, 'barcodecheck/barcodecheck2_success.html')
             else:
                 # Handle non-matching barcodes here
                 barcode_check_instance.barcodecheck_result = False
-                barcode_check_instance.barcode_check_function = '2 barcode check'
+                barcode_check_instance.barcode_check_method = '2 barcode check'
                 barcode_check_instance.save()
             return render(request, 'barcodecheck/barcodecheck2_fail.html')
         else:
@@ -66,13 +66,13 @@ def barcodecheck3_view(request):
             if all(x == barcode_check_instance.barcode1 for x in [barcode_check_instance.barcode2,
                                                                   barcode_check_instance.barcode3]):
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
-                barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
+                barcode_check_instance.barcode_check_method = form.cleaned_data['barcode_check_method']
                 barcode_check_instance.save()
                 return render(request, 'barcodecheck/barcodecheck3_success.html')
             else:
                 # Handle non-matching barcodes here
                 barcode_check_instance.barcodecheck_result = False
-                barcode_check_instance.barcode_check_function = '3 barcode check'
+                barcode_check_instance.barcode_check_method = '3 barcode check'
                 barcode_check_instance.save()
             return render(request, 'barcodecheck/barcodecheck3_fail.html')
         else:
@@ -109,13 +109,13 @@ def barcodecheck4_view(request):
                                                                   barcode_check_instance.barcode3,
                                                                   barcode_check_instance.barcode4]):
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
-                barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
+                barcode_check_instance.barcode_check_method = form.cleaned_data['barcode_check_method']
                 barcode_check_instance.save()
                 return render(request, 'barcodecheck/barcodecheck4_success.html')
             else:
                 # Handle non-matching barcodes here
                 barcode_check_instance.barcodecheck_result = False
-                barcode_check_instance.barcode_check_function = '4 barcode check'
+                barcode_check_instance.barcode_check_method = '4 barcode check'
                 barcode_check_instance.save()
             return render(request, 'barcodecheck/barcodecheck4_fail.html')
         else:
@@ -154,13 +154,13 @@ def barcodecheck5_view(request):
                                                                   barcode_check_instance.barcode4,
                                                                   barcode_check_instance.barcode5]):
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
-                barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
+                barcode_check_instance.barcode_check_method = form.cleaned_data['barcode_check_method']
                 barcode_check_instance.save()
                 return render(request, 'barcodecheck/barcodecheck5_success.html')
             else:
                 # Handle non-matching barcodes here
                 barcode_check_instance.barcodecheck_result = False
-                barcode_check_instance.barcode_check_function = '5 barcode check'
+                barcode_check_instance.barcode_check_method = '5 barcode check'
                 barcode_check_instance.save()
             return render(request, 'barcodecheck/barcodecheck5_fail.html')
         else:
@@ -201,13 +201,13 @@ def barcodecheck6_view(request):
                                                                   barcode_check_instance.barcode5,
                                                                   barcode_check_instance.barcode6]):
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
-                barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
+                barcode_check_instance.barcode_check_method = form.cleaned_data['barcode_check_method']
                 barcode_check_instance.save()
                 return render(request, 'barcodecheck/barcodecheck6_success.html')
             else:
                 # Handle non-matching barcodes here
                 barcode_check_instance.barcodecheck_result = False
-                barcode_check_instance.barcode_check_function = '6 barcode check'
+                barcode_check_instance.barcode_check_method = '6 barcode check'
                 barcode_check_instance.save()
             return render(request, 'barcodecheck/barcodecheck6_fail.html')
         else:
@@ -250,13 +250,13 @@ def barcodecheck7_view(request):
                                                                   barcode_check_instance.barcode6,
                                                                   barcode_check_instance.barcode7]):
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
-                barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
+                barcode_check_instance.barcode_check_method = form.cleaned_data['barcode_check_method']
                 barcode_check_instance.save()
                 return render(request, 'barcodecheck/barcodecheck7_success.html')
             else:
                 # Handle non-matching barcodes here
                 barcode_check_instance.barcodecheck_result = False
-                barcode_check_instance.barcode_check_function = '7 barcode check'
+                barcode_check_instance.barcode_check_method = '7 barcode check'
                 barcode_check_instance.save()
             return render(request, 'barcodecheck/barcodecheck7_fail.html')
         else:
@@ -301,13 +301,13 @@ def barcodecheck8_view(request):
                                                                   barcode_check_instance.barcode7,
                                                                   barcode_check_instance.barcode8]):
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
-                barcode_check_instance.barcode_check_function = form.cleaned_data['barcode_check_function']
+                barcode_check_instance.barcode_check_method = form.cleaned_data['barcode_check_method']
                 barcode_check_instance.save()
                 return render(request, 'barcodecheck/barcodecheck8_success.html')
             else:
                 # Handle non-matching barcodes here
                 barcode_check_instance.barcodecheck_result = False
-                barcode_check_instance.barcode_check_function = '8 barcode check'
+                barcode_check_instance.barcode_check_method = '8 barcode check'
                 barcode_check_instance.save()
             return render(request, 'barcodecheck/barcodecheck8_fail.html')
         else:
