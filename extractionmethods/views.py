@@ -100,7 +100,7 @@ def Qiasymphony24_view(request):
                 qiasymphony_check_instance.save()
             return render(request, 'extractionmethods/Qiasymphony24Check_fail.html')
         else:
-            # Need to include an error message here if form is not valid
+            # if form is not valid
             context['Qiasymphony24'] = form
             print(form.errors.as_data())
     else:

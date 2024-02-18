@@ -39,7 +39,7 @@ def culturecheck3_view(request):
                 obj.save()
             return render(request, 'culturemethods/culturecheck3_fail.html')
         else:
-            # Need to include an error message here if form is not valid
+            # if form is not valid
             context['3barcodecheck_culture'] = form
             print(form.errors.as_data())
     else:

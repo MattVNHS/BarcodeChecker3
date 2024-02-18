@@ -35,7 +35,7 @@ def barcodecheck2_view(request):
                 barcode_check_instance.save()
             return render(request, 'barcodecheck/barcodecheck2_fail.html')
         else:
-            # Need to include an error message here if form is not valid
+            # if form is not valid
             context['barcodecheck2'] = form
             print(form.errors.as_data())
     else:
@@ -76,7 +76,7 @@ def barcodecheck3_view(request):
                 barcode_check_instance.save()
             return render(request, 'barcodecheck/barcodecheck3_fail.html')
         else:
-            # Need to include an error message here if form is not valid
+            # if form is not valid
             context['barcodecheck3'] = form
             print(form.errors.as_data())
     else:
@@ -119,7 +119,7 @@ def barcodecheck4_view(request):
                 barcode_check_instance.save()
             return render(request, 'barcodecheck/barcodecheck4_fail.html')
         else:
-            # Need to include an error message here if form is not valid
+            # if form is not valid
             context['barcodecheck4'] = form
             print(form.errors.as_data())
     else:
@@ -164,7 +164,7 @@ def barcodecheck5_view(request):
                 barcode_check_instance.save()
             return render(request, 'barcodecheck/barcodecheck5_fail.html')
         else:
-            # Need to include an error message here if form is not valid
+            # if form is not valid
             context['barcodecheck5'] = form
             print(form.errors.as_data())
     else:
@@ -211,7 +211,7 @@ def barcodecheck6_view(request):
                 barcode_check_instance.save()
             return render(request, 'barcodecheck/barcodecheck6_fail.html')
         else:
-            # Need to include an error message here if form is not valid
+            # if form is not valid
             context['barcodecheck6'] = form
             print(form.errors.as_data())
     else:
@@ -260,7 +260,7 @@ def barcodecheck7_view(request):
                 barcode_check_instance.save()
             return render(request, 'barcodecheck/barcodecheck7_fail.html')
         else:
-            # Need to include an error message here if form is not valid
+            # if form is not valid
             context['barcodecheck7'] = form
             print(form.errors.as_data())
     else:
@@ -311,7 +311,7 @@ def barcodecheck8_view(request):
                 barcode_check_instance.save()
             return render(request, 'barcodecheck/barcodecheck8_fail.html')
         else:
-            # Need to include an error message here if form is not valid
+            # if form is not valid
             context['barcodecheck8'] = form
             print(form.errors.as_data())
     else:

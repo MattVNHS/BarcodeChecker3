@@ -34,12 +34,13 @@
       border-top-right-radius: 0;
     }
 </style>
-
+<br>
 <H3>Welcome to the BarcodeChecker Application</H3>
 
 {% if request.user.is_authenticated %}
+
 <br>
-<h4>Generic lab number check methods</h4>
+<h4>Lab number check methods - worksheet required</h4>
 <a href="{% url 'barcodecheck2' %}" class="btn btn-primary">Check 2 lab numbers
 </a>
 <a href="{% url 'barcodecheck3' %}" class="btn btn-primary">Check 3 lab numbers
@@ -57,15 +58,17 @@
 
 <br>
 <br>
-<h4>Extraction Check Methods</h4>
-<a href="{% url 'Qiasymphony24' %}" class="btn btn-primary">QiaSymphony Load
+<h4>Lab number check methods - no worksheet required (culture checks)</h4>
+<a href="{% url '3barcodecheck_culture' %}" class="btn btn-primary">Check 3 lab numbers
 </a>
 
 <br>
 <br>
-<h4>Culture Check Methods</h4>
-<a href="{% url '3barcodecheck_culture' %}" class="btn btn-primary">Check 3 lab numbers
+<h4>Extraction Check Methods</h4>
+<a href="{% url 'Qiasymphony24' %}" class="btn btn-primary">QiaSymphony Load
 </a>
+
+
 {% else %}
 <br>
 <h4>Please login to access barcode check methods</h4>
