@@ -44,7 +44,13 @@ from extractionmethods.views import (
 )
 
 from culturemethods.views import (
-    culturecheck3_view
+    culturecheck2_view,
+    culturecheck3_view,
+    culturecheck4_view,
+    culturecheck5_view,
+    culturecheck6_view,
+    culturecheck7_view,
+    culturecheck8_view,
 )
 
 
@@ -57,6 +63,7 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('login/', login_view, name='login'),
     path('account/', account_view, name='account'),
+
     path('barcodecheck2/', barcodecheck2_view, name='barcodecheck2'),
     path('barcodecheck3/', barcodecheck3_view, name='barcodecheck3'),
     path('barcodecheck4/', barcodecheck4_view, name='barcodecheck4'),
@@ -67,7 +74,13 @@ urlpatterns = [
 
     path('Qiasymphony24Check/', Qiasymphony24_view, name='Qiasymphony24'),
 
+    path('culturecheck2/', culturecheck2_view, name='2barcodecheck_culture'),
     path('culturecheck3/', culturecheck3_view, name='3barcodecheck_culture'),
+    path('culturecheck4/', culturecheck4_view, name='4barcodecheck_culture'),
+    path('culturecheck5/', culturecheck5_view, name='5barcodecheck_culture'),
+    path('culturecheck6/', culturecheck6_view, name='6barcodecheck_culture'),
+    path('culturecheck7/', culturecheck7_view, name='7barcodecheck_culture'),
+    path('culturecheck8/', culturecheck8_view, name='8barcodecheck_culture'),
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     # Custom contrib.auth - all below are required to be defined.

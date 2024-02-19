@@ -36,7 +36,7 @@
 </style>
 
 <form class="form-signin w-100 m-auto" method="POST">{% csrf_token %}
-    <h1 class="h3 mb-3 fw-normal">Checking 3 Lab Numbers</h1>
+    <h1 class="h3 mb-3 fw-normal">Checking 3 Lab Numbers - no w/s</h1>
     <div class="form-floating">
       <input type="text" name="culturecheckbarcode1" class="form-control" id="floatingInput1" placeholder="First Barcode">
       <label for="floatingInput1">First Barcode</label>
@@ -61,9 +61,9 @@
     </div>
 {% endif %}
 
-<!--{% if barcodecheck3.non_field_errors %}-->
+<!--{% if 3barcodecheck_culture.non_field_errors %}-->
 <!--    <div style="color:red;">-->
-<!--        <p>{{CultureCheck3Form.non_field_errors}}</p>-->
+<!--        <p>{{3barcodecheck_culture.non_field_errors}}</p>-->
 <!--    </div>-->
 <!--{% endif %}-->
 

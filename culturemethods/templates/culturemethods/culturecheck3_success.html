@@ -47,12 +47,12 @@
     </div>
     <div style="color:grey;">
         <br>
-        <p><h7>Barcodes: {{ request.POST.culturecheckbarcode1 }}, {{ request.POST.culturecheckbarcode1 }},
-            {{ request.POST.culturecheckbarcode1 }}</h7></p>
+        <p><h7>Barcodes: {{ request.POST.culturecheckbarcode1 }}, {{ request.POST.culturecheckbarcode2 }},
+            {{ request.POST.culturecheckbarcode3 }}</h7></p>
     </div>
 
 <br>
-<a href="{% url '3barcodecheck_culture' %}" class="btn btn-primary">Check another 3 barcodes
+<a href="{% url '3barcodecheck_culture' %}" class="btn btn-primary">Check another 3 Lab Numbers
 </a>
 
 </form>
