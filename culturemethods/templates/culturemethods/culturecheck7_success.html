@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
 <style type="text/css">
@@ -37,7 +39,7 @@
 
 <form class="form-signin w-100 m-auto" method="POST">
     {% csrf_token %}
-    <h1 class="h3 mb-3 fw-normal">Checking 7 Lab Numbers</h1>
+    <h1 class="h3 mb-3 fw-normal">Checking 7 Lab Numbers - no w/s</h1>
 
 
     <!-- Using request.POST to get the form values - not the best way but couldn't get barcode_check_instance to work? -->
@@ -52,6 +54,11 @@
             {{ request.POST.culturecheckbarcode5 }}, {{ request.POST.culturecheckbarcode6 }},
             {{ request.POST.culturecheckbarcode7 }}</h7></p>
     </div>
+
+<audio autoplay>
+    <source src="{% static 'correct_answer.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 
 <br>
 <a href="{% url '7barcodecheck_culture' %}" class="btn btn-primary">Check another 7 Lab Numbers

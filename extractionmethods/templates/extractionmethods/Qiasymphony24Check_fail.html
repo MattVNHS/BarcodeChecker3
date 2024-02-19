@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
 <style type="text/css">
@@ -67,6 +69,11 @@
             {{ request.POST.elutiontube21 }}, {{ request.POST.elutiontube22 }}, {{ request.POST.elutiontube23 }},
             {{ request.POST.elutiontube24 }}</h7></p>
     </div>
+
+<audio autoplay>
+    <source src="{% static 'wrong_answer.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 
 <br>
 <a href="{% url 'Qiasymphony24' %}" class="btn btn-primary">Retry

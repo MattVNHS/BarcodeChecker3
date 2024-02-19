@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
 <style type="text/css">
@@ -51,6 +53,11 @@
         <p><h7>Barcodes: {{ request.POST.barcode1 }}, {{ request.POST.barcode2 }}, {{ request.POST.barcode3 }},
             {{ request.POST.barcode4 }}</h7></p>
     </div>
+
+<audio autoplay>
+    <source src="{% static 'correct_answer.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 
 <br>
 <a href="{% url 'barcodecheck4' %}" class="btn btn-primary">Check another 4 barcodes

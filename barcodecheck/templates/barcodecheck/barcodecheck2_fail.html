@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block content %}
 
 <style type="text/css">
@@ -49,6 +51,11 @@
         <p><h7>Worksheet: {{ request.POST.worksheet }}</h7></p>
         <p><h7>Barcodes: {{ request.POST.barcode1 }}, {{ request.POST.barcode2 }}</h7></p>
     </div>
+
+<audio autoplay>
+    <source src="{% static 'wrong_answer.mp3' %}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
 
 <br>
 <a href="{% url 'barcodecheck2' %}" class="btn btn-primary">Retry
