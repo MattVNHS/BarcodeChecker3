@@ -14,7 +14,10 @@ class BarcodeCheckAdmin(admin.ModelAdmin):
                   'elutiontube11', 'elutiontube12', 'elutiontube13', 'elutiontube14', 'elutiontube15', 'elutiontube16',
                   'elutiontube17', 'elutiontube18', 'elutiontube19', 'elutiontube20', 'elutiontube21', 'elutiontube22',
                   'elutiontube23', 'elutiontube24')
-    search_fields = ('Qiasymphony24Load_id', 'Qiasymphony24Load_worksheet', 'Qiasymphony24Load_method',
+
+    # need to use user__username as user is a foriegn key defined in the model and can't be used on it own.
+    # However, as user has username, first_name, last_name, and email built into we can call username from user.
+    search_fields = ('Qiasymphony24Load_id', 'user__username', 'Qiasymphony24Load_worksheet', 'Qiasymphony24Load_method',
                   'Qiasymphony24Check_result', 'sampletube1', 'sampletube2', 'sampletube3', 'sampletube4',
                   'sampletube5', 'sampletube6', 'sampletube7', 'sampletube8', 'sampletube9', 'sampletube10',
                   'sampletube11', 'sampletube12', 'sampletube13', 'sampletube14', 'sampletube15', 'sampletube16',
