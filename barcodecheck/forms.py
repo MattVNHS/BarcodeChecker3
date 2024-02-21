@@ -2,7 +2,8 @@ from django import forms
 from barcodecheck.models import BarcodeCheck
 from django.contrib.auth import authenticate
 from datetime import datetime
-
+import re
+from django.core.exceptions import ValidationError
 
 class BarcodeCheck2Form(forms.ModelForm):
     worksheet = forms.CharField(required=True, help_text='Required')
@@ -13,10 +14,14 @@ class BarcodeCheck2Form(forms.ModelForm):
 
     def clean_barcode1(self):
         data = self.cleaned_data['barcode1']
+        if not re.match(r'^[A-Z]\d{2}[.]\d{5,6}$', 'barcode1'):
+            raise ValidationError('invalid lab number entered')
         return data
 
     def clean_barcode2(self):
         data = self.cleaned_data['barcode2']
+        if not re.match(r'^[A-Z]\d{2}[.]\d{5,6}$', 'barcode2'):
+            raise ValidationError('invalid lab number entered')
         return data
 
     def clean_worksheet(self):

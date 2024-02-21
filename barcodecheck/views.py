@@ -22,6 +22,7 @@ def barcodecheck2_view(request):
             barcode_check_instance.worksheet = form.cleaned_data['worksheet']
             barcode_check_instance.barcode1 = form.cleaned_data['barcode1']
             barcode_check_instance.barcode2 = form.cleaned_data['barcode2']
+
             # Handle matching barcodes here
             if barcode_check_instance.barcode1 == barcode_check_instance.barcode2:
                 barcode_check_instance.barcodecheck_result = form.cleaned_data['barcodecheck_result']
