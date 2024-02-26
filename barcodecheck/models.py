@@ -2,7 +2,7 @@ from django.db import models
 from datetime import datetime
 from django.conf import settings
 
-
+#Test
 # class BarcodeCheck(models.Model):
 #     barcodecheckid = models.AutoField(primary_key=True)
 #     barcode_check_method = models.CharField(max_length=30)
