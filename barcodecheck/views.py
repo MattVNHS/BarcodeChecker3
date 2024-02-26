@@ -4,6 +4,21 @@ from barcodecheck.forms import (BarcodeCheck2Form, BarcodeCheck3Form, BarcodeChe
                                 BarcodeCheck6Form, BarcodeCheck7Form, BarcodeCheck8Form)
 from django.contrib import messages
 
+from django.views.generic.edit import FormView
+
+
+class BarcodecheckFormView(FormView):
+    template_name = 'barcodecheck/barcodecheck.html'
+    form_class = BarcodeCheck2Form
+    success_url = 'barcodecheck/barcodecheck2_success.html'
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        form.send_email()
+        return super().form_valid(form)
+
+
 
 def barcodecheck2_view(request):
     context = {}

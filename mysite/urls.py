@@ -30,6 +30,7 @@ from account.views import (
 )
 
 from barcodecheck.views import (
+    BarcodecheckFormView,
     barcodecheck2_view,
     barcodecheck3_view,
     barcodecheck4_view,
@@ -64,6 +65,7 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('account/', account_view, name='account'),
 
+    path('barcodecheck/', BarcodecheckFormView.as_view(), name='barcodecheck'),
     path('barcodecheck2/', barcodecheck2_view, name='barcodecheck2'),
     path('barcodecheck3/', barcodecheck3_view, name='barcodecheck3'),
     path('barcodecheck4/', barcodecheck4_view, name='barcodecheck4'),
