@@ -18,41 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 
-from homepage.views import (
-    home_screen_view,
-)
-
-from account.views import (
-    registration_view,
-    logout_view,
-    login_view,
-    account_view,
-)
-
-from barcodecheck.views import (
-    BarcodecheckFormView,
-    barcodecheck2_view,
-    barcodecheck3_view,
-    barcodecheck4_view,
-    barcodecheck5_view,
-    barcodecheck6_view,
-    barcodecheck7_view,
-    barcodecheck8_view,
-)
-
-from extractionmethods.views import (
-    Qiasymphony24_view
-)
-
-from culturemethods.views import (
-    culturecheck2_view,
-    culturecheck3_view,
-    culturecheck4_view,
-    culturecheck5_view,
-    culturecheck6_view,
-    culturecheck7_view,
-    culturecheck8_view,
-)
+from homepage.views import *
+from account.views import *
+from barcodecheck.views import *
+from extractionmethods.views import *
+from culturemethods.views import *
 
 
 
@@ -65,14 +35,15 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('account/', account_view, name='account'),
 
-    path('barcodecheck/', BarcodecheckFormView.as_view(), name='barcodecheck'),
-    path('barcodecheck2/', barcodecheck2_view, name='barcodecheck2'),
-    path('barcodecheck3/', barcodecheck3_view, name='barcodecheck3'),
-    path('barcodecheck4/', barcodecheck4_view, name='barcodecheck4'),
-    path('barcodecheck5/', barcodecheck5_view, name='barcodecheck5'),
-    path('barcodecheck6/', barcodecheck6_view, name='barcodecheck6'),
-    path('barcodecheck7/', barcodecheck7_view, name='barcodecheck7'),
-    path('barcodecheck8/', barcodecheck8_view, name='barcodecheck8'),
+
+    path('barcodecheck/<int:checks>/', BarcodecheckFormView.as_view(), name='barcodecheck'),
+ #   path('barcodecheck2/', barcodecheck2_view, name='barcodecheck2'),
+ #   path('barcodecheck3/', barcodecheck3_view, name='barcodecheck3'),
+ #    path('barcodecheck4/', barcodecheck4_view, name='barcodecheck4'),
+ #    path('barcodecheck5/', barcodecheck5_view, name='barcodecheck5'),
+ #    path('barcodecheck6/', barcodecheck6_view, name='barcodecheck6'),
+ #    path('barcodecheck7/', barcodecheck7_view, name='barcodecheck7'),
+ #    path('barcodecheck8/', barcodecheck8_view, name='barcodecheck8'),
 
     path('Qiasymphony24Check/', Qiasymphony24_view, name='Qiasymphony24'),
 
