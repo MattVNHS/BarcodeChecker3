@@ -53,6 +53,9 @@ from culturemethods.views import (
     culturecheck8_view,
 )
 
+from django.views.generic import TemplateView
+from barcodecheck.views import BarcodeCheckView
+
 
 
 urlpatterns = [
@@ -81,6 +84,9 @@ urlpatterns = [
     path('culturecheck6/', culturecheck6_view, name='6barcodecheck_culture'),
     path('culturecheck7/', culturecheck7_view, name='7barcodecheck_culture'),
     path('culturecheck8/', culturecheck8_view, name='8barcodecheck_culture'),
+
+    path('barcodecheck/', BarcodeCheckView.as_view(), name='barcodecheck'),
+
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     # Custom contrib.auth - all below are required to be defined.

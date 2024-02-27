@@ -1,8 +1,79 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from barcodecheck.forms import (BarcodeCheck2Form, BarcodeCheck3Form, BarcodeCheck4Form, BarcodeCheck5Form,
-                                BarcodeCheck6Form, BarcodeCheck7Form, BarcodeCheck8Form)
+                                BarcodeCheck6Form, BarcodeCheck7Form, BarcodeCheck8Form, BarcodeCheckForm)
 from django.contrib import messages
+from django.views import View
+from django.views.generic.base import TemplateView
+
+
+class BarcodeCheckView(View):
+    def check_authentication(self, request):
+        user = request.user
+        if not user.is_authenticated:
+            return redirect('login')
+        context = {}
+        form = BarcodeCheckForm()
+        context['barcodecheck'] = form
+        return render(request, 'barcodecheck/barcodecheck.html', context)
+
+    def post(self, request):
+        context = {}
+        form = BarcodeCheckForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+
+            # getting barcode and worksheet data from POST form
+            obj.barcode1 = form.cleaned_data['barcode1']
+            obj.barcode2 = form.cleaned_data['barcode2']
+            obj.worksheet = form.cleaned_data['worksheet']
+
+            # check if barcodes match
+            if obj.barcode1 == obj.barcode2:
+                obj.barcodecheck_result = True
+                obj.barcode_check_method = 'barcode check_dev'
+                obj.save()
+                return render(request, 'barcodecheck/barcodecheck_success.html')
+            else:
+                obj.barcodecheck_result = False
+                obj.barcode_check_method = 'barcode check_dev'
+                obj.save()
+                return render(request, 'barcodecheck/barcodecheck_fail.html')
+        else:
+            context['barcodecheck'] = form
+            return render(request, 'barcodecheck/barcodecheck.html', context)
+
+    def get(self, request):
+        context = {}
+        form = BarcodeCheckForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+
+            # getting barcode and worksheet data from POST form
+            obj.barcode1 = form.cleaned_data['barcode1']
+            obj.barcode2 = form.cleaned_data['barcode2']
+            obj.worksheet = form.cleaned_data['worksheet']
+
+            # check if barcodes match
+            if obj.barcode1 == obj.barcode2:
+                obj.barcodecheck_result = True
+                obj.barcode_check_method = 'barcode check_dev'
+                obj.save()
+                return render(request, 'barcodecheck/barcodecheck_success.html')
+            else:
+                obj.barcodecheck_result = False
+                obj.barcode_check_method = 'barcode check_dev'
+                obj.save()
+                return render(request, 'barcodecheck/barcodecheck_fail.html')
+        else:
+            context['barcodecheck'] = form
+            return render(request, 'barcodecheck/barcodecheck.html', context)
+
+
+
+
 
 
 def barcodecheck2_view(request):

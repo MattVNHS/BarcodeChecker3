@@ -5,6 +5,79 @@ from datetime import datetime
 import re
 from django.core.exceptions import ValidationError
 
+
+class BarcodeCheckForm(forms.ModelForm):
+    worksheet = forms.CharField(required=False)
+    barcode_check_method = forms.CharField(required=False)
+    barcodecheck_result = forms.BooleanField(required=False)
+    barcode1 = forms.CharField()
+    barcode2 = forms.CharField()
+    barcode3 = forms.CharField()
+    barcode4 = forms.CharField()
+    barcode5 = forms.CharField()
+    barcode6 = forms.CharField()
+    barcode7 = forms.CharField()
+    barcode8 = forms.CharField()
+    total_barcodes = forms.IntegerField()
+
+    def clean_worksheet(self):
+        data = self.cleaned_data['worksheet']
+        return data
+
+    def clean_barcode1(self):
+        data = self.cleaned_data['barcode1']
+        if not re.match(r'^[A-Z]\d{2}[.]\d{5,6}$', 'barcode1'):
+            raise ValidationError('invalid lab number entered')
+        return data
+
+    def clean_barcode2(self):
+        data = self.cleaned_data['barcode2']
+        if not re.match(r'^[A-Z]\d{2}[.]\d{5,6}$', 'barcode2'):
+            raise ValidationError('invalid lab number entered')
+        return data
+
+    def clean_barcode3(self):
+        data = self.cleaned_data['barcode3']
+        if not re.match(r'^[A-Z]\d{2}[.]\d{5,6}$', 'barcode3'):
+            raise ValidationError('invalid lab number entered')
+        return data
+
+    def clean_barcode4(self):
+        data = self.cleaned_data['barcode4']
+        if not re.match(r'^[A-Z]\d{2}[.]\d{5,6}$', 'barcode4'):
+            raise ValidationError('invalid lab number entered')
+        return data
+
+    def clean_barcode5(self):
+        data = self.cleaned_data['barcode5']
+        if not re.match(r'^[A-Z]\d{2}[.]\d{5,6}$', 'barcode5'):
+            raise ValidationError('invalid lab number entered')
+        return data
+
+    def clean_barcode6(self):
+        data = self.cleaned_data['barcode6']
+        if not re.match(r'^[A-Z]\d{2}[.]\d{5,6}$', 'barcode6'):
+            raise ValidationError('invalid lab number entered')
+        return data
+
+    def clean_barcode7(self):
+        data = self.cleaned_data['barcode7']
+        if not re.match(r'^[A-Z]\d{2}[.]\d{5,6}$', 'barcode7'):
+            raise ValidationError('invalid lab number entered')
+        return data
+
+    def clean_barcode8(self):
+        data = self.cleaned_data['barcode8']
+        if not re.match(r'^[A-Z]\d{2}[.]\d{5,6}$', 'barcode8'):
+            raise ValidationError('invalid lab number entered')
+        return data
+
+    class Meta:
+        model = BarcodeCheck
+        fields = ('worksheet', 'barcode1', 'barcode2', 'barcode3', 'barcode4', 'barcode5', 'barcode6',
+                  'barcode7', 'barcode8', 'barcode_check_method', 'barcodecheck_result')
+
+
 class BarcodeCheck2Form(forms.ModelForm):
     worksheet = forms.CharField(required=True, help_text='Required')
     barcode1 = forms.CharField(required=True, help_text='Required')
