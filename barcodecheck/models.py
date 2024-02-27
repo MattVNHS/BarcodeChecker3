@@ -27,23 +27,24 @@ from django.conf import settings
 #                 f" {self.barcode7} {self.barcode8} {self.user}")
 
 
-# class BarcodeCheck(models.Model):
-#     barcodecheckid = models.AutoField(primary_key=True)
-#     dateTime_check = models.DateTimeField(verbose_name='date_and_time', auto_now_add=True)
-#     worksheet = models.CharField(max_length=12)
-#     barcode_count = models.IntegerField()
-#     barcodecheck_result = models.BooleanField(default=False)
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-#
-#     def __str__(self):
-#         return (f"{self.barcodecheckid} {self.barcode_check_method} {self.dateTime_check} {self.worksheet} "
-#                 f"{self.user}")
+class Check(models.Model):
+    checkid = models.AutoField(primary_key=True)
+    dateTime_check = models.DateTimeField(verbose_name='date_and_time', auto_now_add=True)
+    worksheet = models.CharField(max_length=12)
+    barcode_count = models.IntegerField()
+    check_result = models.BooleanField(default=False)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return (f"{self.barcodecheckid} {self.barcode_check_method} {self.dateTime_check} {self.worksheet} "
+                f"{self.user}")
 
 
 class Barcodes(models.Model):
     barcodeId = models.AutoField(primary_key=True)
     barcode = models.CharField(max_length=10)
     comparisonId = models.IntegerField()
+    barcodecheck_result = models.BooleanField(default=False)
     #BarcodeCheck = models.ForeignKey(BarcodeCheck, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -36,7 +36,7 @@ urlpatterns = [
     path('account/', account_view, name='account'),
 
 
-    path('barcodecheck/<int:checks>/', BarcodecheckFormView.as_view(), name='barcodecheck'),
+    path('barcodecheck/<int:barcode_count>/', BarcodecheckFormView.as_view(), name='barcodecheck'),
  #   path('barcodecheck2/', barcodecheck2_view, name='barcodecheck2'),
  #   path('barcodecheck3/', barcodecheck3_view, name='barcodecheck3'),
  #    path('barcodecheck4/', barcodecheck4_view, name='barcodecheck4'),

@@ -35,34 +35,29 @@
     }
 </style>
 
-<form class="form-signin w-100 m-auto" method="POST">{% csrf_token %}
-    <h1 class="h3 mb-3 fw-normal">Checking 2 Lab Numbers</h1>
-    <div class="form-floating">
-      <input type="text" autofocus name="worksheet" class="form-control" id="floatingInput1" placeholder="Worksheet Number">
-      <label for="floatingInput1">Worksheet Number</label>
-        <br>
-    </div>
-    <div class="form-floating">
-      <input type="text" name="barcode1" class="form-control" id="floatingInput2" placeholder="First Barcode">
-      <label for="floatingInput2">First Barcode</label>
-    </div>
-    <div class="form-floating">
-      <input type="text" name="barcode2" class="form-control" id="floatingInput3" placeholder="Second Barcode">
-      <label for="floatingInput3">Second Barcode</label>
-    </div>
-
-    <!-- Hidden input fields for barcode_check_method and barcodecheck_result -->
-    <input type="hidden" name="barcode_check_method" value="2 barcode check">
-    <input type="hidden" name="barcodecheck_result" value="True">
-
-
-{% if barcodecheck2.errors %}
-    <div style="color:red;">
-        <p>{{barcodecheck2.errors}}</p>
-    </div>
-{% endif %}
-
-
-    <button class="btn btn-primary w-100 py-2" type="submit">Check</button>
+<form method="post">
+    <input type="text" name="worksheet">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit">
 </form>
+<!--
+<form id="check" class="check" method="POST">
+    {% csrf_token %}
+    {{ forms.check.as_p }}
+
+    <form id="barcodeForm" class="barcode" method="POST">
+        {% csrf_token %}
+        {{ forms.barcodeCheck.as_p }}
+    </form>
+
+    <button form="check" name='action' value='check' type="submit">Check</button>
+</form>
+
+-->
+
+
+
+
+
 {% endblock content %}
