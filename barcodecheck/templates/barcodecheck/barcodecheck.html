@@ -36,28 +36,11 @@
 </style>
 
 <form method="post">
-    <input type="text" name="worksheet">
+    <label for="worksheet">Worksheet:</label>
+    <input id="worksheet" type="text" name="worksheet">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit">
 </form>
-<!--
-<form id="check" class="check" method="POST">
-    {% csrf_token %}
-    {{ forms.check.as_p }}
-
-    <form id="barcodeForm" class="barcode" method="POST">
-        {% csrf_token %}
-        {{ forms.barcodeCheck.as_p }}
-    </form>
-
-    <button form="check" name='action' value='check' type="submit">Check</button>
-</form>
-
--->
-
-
-
-
 
 {% endblock content %}

@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from barcodecheck.forms import *
 from django.contrib import messages
+from barcodecheck.models import *
 
 from django.views.generic.edit import FormView
 
-from django.forms import formset_factory
+from django.forms import formset_factory,  modelformset_factory
 
 
 class BarcodecheckFormView(FormView):
@@ -21,16 +22,48 @@ class BarcodecheckFormView(FormView):
     Accessed kwargs following this: https://stackoverflow.com/questions/34462739/use-url-parameter-in-class-based-view-django'''
 
     def get_form_class(self, **kwargs):
-        form_class = formset_factory(BarcodeCheckForm, extra=self.kwargs['barcode_count'])
+        form_class = modelformset_factory(Barcodes, fields=['barcode'], extra=self.kwargs['barcode_count'])
         return form_class
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
-        print(self.request.POST)
-       # if all(x == barcode_check_instance.barcode1 for x in [barcode_check_instance.barcode2,
+        check_user = self.request.user
+        check_worksheet = Check.objects.create(user=check_user, worksheet=self.request.POST['worksheet'], barcode_count=self.request.POST['form-TOTAL_FORMS'])
+        print(form)
+        # for instance in instances:
+        #     instance.Check =
+        #if all(x == barcode_check_instance.barcode1 for x in [barcode_check_instance.barcode2,
         #                                                                   barcode_check_instance.barcode3]):
         return super().form_valid(form)
+
+
+# class BarcodecheckFormView(FormView):
+#     template_name = 'barcodecheck/barcodecheck.html'
+#     model = Barcodes
+#     success_url = '/'
+#
+#     ''' BarcodecheckFormView defines the FormView class, to create the appropriate number of barcode check forms I
+#     edited the get_form_class() method. I used formset_factory to create a formset from the BarcodeCheckForm and passed
+#     the extra parameter to create the required number for BarcodeCheckForm forms. self.kwargs['barcode_count'] is passed in
+#     the url. This way the required number of barcodes to be checked can be passed in the url.
+#     https://docs.djangoproject.com/en/5.0/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin.form_class
+#     Accessed kwargs following this: https://stackoverflow.com/questions/34462739/use-url-parameter-in-class-based-view-django'''
+#
+#     def get_form_class(self, **kwargs):
+#         form_class = formset_factory(BarcodeCheckForm, extra=self.kwargs['barcode_count'])
+#         return form_class
+#
+#     def form_valid(self, form):
+#         # This method is called when valid form data has been POSTed.
+#         # It should return an HttpResponse.
+#         print(self.request.POST)
+#         print(self.request.POST['form-0-barcode'])
+#         print(form)
+#         form.save()
+#         #if all(x == barcode_check_instance.barcode1 for x in [barcode_check_instance.barcode2,
+#         #                                                                   barcode_check_instance.barcode3]):
+#         return super().form_valid(form)
 
 
 
