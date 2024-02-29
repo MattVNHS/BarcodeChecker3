@@ -45,7 +45,7 @@ urlpatterns = [
  #    path('barcodecheck7/', barcodecheck7_view, name='barcodecheck7'),
  #    path('barcodecheck8/', barcodecheck8_view, name='barcodecheck8'),
 
-    path('Qiasymphony24Check/', Qiasymphony24_view, name='Qiasymphony24'),
+    path('QiasymphonyCheck/<int:barcode_count>/', QiasymphonyFormView.as_view(), name='Qiasymphony'),
 
     path('culturecheck2/', culturecheck2_view, name='2barcodecheck_culture'),
     path('culturecheck3/', culturecheck3_view, name='3barcodecheck_culture'),

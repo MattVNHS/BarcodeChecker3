@@ -15,3 +15,4 @@ class BarcodeCheckForm(forms.ModelForm):
         model = Barcodes
         fields = ('barcode',)
 
+

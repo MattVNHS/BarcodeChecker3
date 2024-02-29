@@ -1,7 +1,7 @@
 from barcodecheck.forms import *
 from barcodecheck.models import *
 from django.views.generic.edit import FormView
-from django.forms import formset_factory,  modelformset_factory
+from django.forms import formset_factory
 
 
 class BarcodecheckFormView(FormView):
@@ -27,7 +27,11 @@ class BarcodecheckFormView(FormView):
         check_instance = Check.objects.create(user=check_user,
             worksheet=self.request.POST['worksheet'],
             barcode_count=self.request.POST['form-TOTAL_FORMS'])
-
+        print(self.request.POST)
+        print(form)
+        for form_instance in form:
+            print(form_instance)
+            print(form_instance.cleaned_data['barcode'])
         ''' validate all barcodes match '''
         barcode_list = [x.cleaned_data['barcode'] for x in form]
         if all(x == barcode_list[0] for x in barcode_list):
