@@ -22,16 +22,23 @@ class BarcodecheckFormView(FormView):
     Accessed kwargs following this: https://stackoverflow.com/questions/34462739/use-url-parameter-in-class-based-view-django'''
 
     def get_form_class(self, **kwargs):
-        form_class = modelformset_factory(Barcodes, fields=['barcode'], extra=self.kwargs['barcode_count'])
+        form_class = formset_factory(BarcodeCheckForm, extra=self.kwargs['barcode_count'])
         return form_class
 
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
+        print(type(form))
         check_user = self.request.user
-        check_worksheet = Check.objects.create(user=check_user, worksheet=self.request.POST['worksheet'], barcode_count=self.request.POST['form-TOTAL_FORMS'])
-        print(form)
-        # for instance in instances:
+        check_worksheet = Check.objects.create(user=check_user,
+            worksheet=self.request.POST['worksheet'],
+            barcode_count=self.request.POST['form-TOTAL_FORMS'])
+        for form_instance in form:
+            #if form_instance.is_valid():
+            obj = form_instance.save(commit=False)
+            obj.Check = check_worksheet
+            obj.save()
+
         #     instance.Check =
         #if all(x == barcode_check_instance.barcode1 for x in [barcode_check_instance.barcode2,
         #                                                                   barcode_check_instance.barcode3]):

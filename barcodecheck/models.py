@@ -3,7 +3,6 @@ from datetime import datetime
 from django.conf import settings
 
 
-
 class Check(models.Model):
     dateTime_check = models.DateTimeField(verbose_name='date_and_time', auto_now_add=True)
     worksheet = models.CharField(max_length=12)
@@ -12,9 +11,7 @@ class Check(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 
-
 class Barcodes(models.Model):
-    barcodeId = models.AutoField(primary_key=True)
     barcode = models.CharField(max_length=10)
     comparisonId = models.IntegerField(null=True)
     Check = models.ForeignKey(Check, on_delete=models.CASCADE)
