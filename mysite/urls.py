@@ -35,15 +35,7 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('account/', account_view, name='account'),
 
-
     path('barcodecheck/<int:barcode_count>/', BarcodecheckFormView.as_view(), name='barcodecheck'),
- #   path('barcodecheck2/', barcodecheck2_view, name='barcodecheck2'),
- #   path('barcodecheck3/', barcodecheck3_view, name='barcodecheck3'),
- #    path('barcodecheck4/', barcodecheck4_view, name='barcodecheck4'),
- #    path('barcodecheck5/', barcodecheck5_view, name='barcodecheck5'),
- #    path('barcodecheck6/', barcodecheck6_view, name='barcodecheck6'),
- #    path('barcodecheck7/', barcodecheck7_view, name='barcodecheck7'),
- #    path('barcodecheck8/', barcodecheck8_view, name='barcodecheck8'),
 
     path('QiasymphonyCheck/<int:barcode_count>/', QiasymphonyFormView.as_view(), name='Qiasymphony'),
 
