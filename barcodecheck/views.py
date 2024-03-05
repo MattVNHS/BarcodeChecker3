@@ -27,12 +27,8 @@ class BarcodecheckFormView(FormView):
         check_instance = Check.objects.create(user=check_user,
             worksheet=self.request.POST['worksheet'],
             barcode_count=self.request.POST['form-TOTAL_FORMS'])
-        print(self.request.POST)
-        print(form)
-        for form_instance in form:
-            print(form_instance)
-            print(form_instance.cleaned_data['barcode'])
-        ''' validate all barcodes match '''
+
+        ''' validate all barcodes match e.g. check_pass True or False? '''
         barcode_list = [x.cleaned_data['barcode'] for x in form]
         if all(x == barcode_list[0] for x in barcode_list):
             check_instance.check_pass = True
