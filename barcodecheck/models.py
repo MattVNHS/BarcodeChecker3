@@ -10,7 +10,7 @@ class Check(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 
-class Barcodes(models.Model):
+class Barcode(models.Model):
     barcode = models.CharField(max_length=10)
     comparisonId = models.IntegerField(null=True)
     Check = models.ForeignKey(Check, on_delete=models.CASCADE)

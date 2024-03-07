@@ -7,7 +7,7 @@ from django.forms import formset_factory
 
 class QiasymphonyFormView(FormView):
     template_name = 'extractionmethods/QiasymphonyCheck.html'
-    model = Barcodes
+    model = Barcode
     success_url = '/'
 
     def get_form_class(self, **kwargs):
@@ -25,10 +25,10 @@ class QiasymphonyFormView(FormView):
           then validate check_pass '''
         barcode_check_list = []
         for form_instance in form:
-            sample = Barcodes.objects.create(
+            sample = Barcode.objects.create(
                 barcode=form_instance.cleaned_data['sample_barcode'],
                 Check=check_instance)
-            elution = Barcodes.objects.create(
+            elution = Barcode.objects.create(
                 barcode=form_instance.cleaned_data['elution_barcode'],
                 Check=check_instance, comparisonId=sample.id)
             sample.comparisonId=elution.id

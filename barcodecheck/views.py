@@ -6,7 +6,7 @@ from django.forms import formset_factory
 
 class BarcodecheckFormView(FormView):
     template_name = 'barcodecheck/barcodecheck.html'
-    model = Barcodes
+    model = Barcode
     success_url = '/'
 
     ''' BarcodecheckFormView defines the FormView class, to create the appropriate number of barcode check forms I

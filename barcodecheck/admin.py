@@ -1,7 +1,8 @@
 from django.contrib import admin
-from barcodecheck.models import Barcodes
+from barcodecheck.models import *
 
-admin.site.register(Barcodes)
+admin.site.register(Barcode)
+admin.site.register(Check)
 
 #
 # @admin.register(BarcodeCheck)

@@ -12,7 +12,7 @@ class CheckForm(forms.ModelForm):
 class BarcodeCheckForm(forms.ModelForm):
     barcode = forms.CharField(required=True, help_text='Required')
     class Meta:
-        model = Barcodes
+        model = Barcode
         fields = ('barcode',)
 
 
