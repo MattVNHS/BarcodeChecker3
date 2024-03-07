@@ -41,5 +41,6 @@ class QiasymphonyFormView(FormView):
 
         if all(barcode_check_list):
             check_instance.check_pass = True
+            check_instance.save()
 
         return super().form_valid(form)

@@ -32,6 +32,7 @@ class BarcodecheckFormView(FormView):
         barcode_list = [x.cleaned_data['barcode'] for x in form]
         if all(x == barcode_list[0] for x in barcode_list):
             check_instance.check_pass = True
+            check_instance.save()
 
         ''' assign check_instance to Barcodes  '''
         for form_instance in form:
