@@ -52,7 +52,11 @@
 <br>
 <h4>Extraction Check Methods</h4>
         <a href="/QiasymphonyCheck/4/" class="btn btn-primary">Qiasymphony Check 4 samples</a>
-
+        <form method="post">
+            {% csrf_token %}
+            {{ qiasymphony_form.as_p }}
+            <input type="submit">
+        </form>
 {% else %}
 <br>
 <h4>Please login to access barcode check methods</h4>
