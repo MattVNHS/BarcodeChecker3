@@ -25,6 +25,7 @@ class QiasymphonyFormView(FormView):
           then validate check_pass '''
         barcode_check_list = []
         for form_instance in form:
+
             sample = Barcode.objects.create(
                 barcode=form_instance.cleaned_data['sample_barcode'],
                 Check=check_instance)
