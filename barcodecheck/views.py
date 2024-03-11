@@ -28,14 +28,17 @@ class BarcodecheckFormView(FormView):
             worksheet=self.request.POST['worksheet'],
             barcode_count=self.request.POST['form-TOTAL_FORMS'])
 
-        ''' validate all barcodes match e.g. check_pass True or False? '''
-        barcode_list = [x.cleaned_data['barcode'] for x in form]
+        ''' validate all barcodes match e.g. check_pass True or False? 
+        
+        THIS IS NO GOOD ATM, Cant have random barcodes just not filled in esp if its only 2 barcodes, what is it comparing in that case?'''
+        valid_form_list = [x for x in form if len(x.cleaned_data) > 0]
+        barcode_list = [x.cleaned_data['barcode'] for x in valid_form_list]
         if all(x == barcode_list[0] for x in barcode_list):
             check_instance.check_pass = True
-            check_instance.save()
+        check_instance.save()
 
         ''' assign check_instance to Barcodes  '''
-        for form_instance in form:
+        for form_instance in valid_form_list:
             barcode_instance = form_instance.save(commit=False)
             barcode_instance.Check = check_instance
             barcode_instance.save()
