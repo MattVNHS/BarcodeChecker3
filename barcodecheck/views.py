@@ -75,5 +75,30 @@ class BarcodecheckFormView(SuccessMessageMixin, FormView):
         return super().form_valid(form)
 
 
-def check_modal(request):
-    return render(request, 'barcodecheck/checkmodal.html')
+def validation_modal(request):
+    print(request.POST)
+    total_forms = int(request.POST['form-TOTAL_FORMS'])
+    barcode_list = [request.POST[f"form-{x}-barcode"] for x in range(total_forms)]
+
+    # need to add validation for actual worksheets (can enter anything atm)
+    if request.POST['worksheet'] == '':
+        messages.warning(request, f"No worksheet")
+        #return redirect(request.META['HTTP_REFERER'])
+
+    # validate >1 barcodes added, barcodes in order without gaps and allowing empty values at the end of the list
+    for x in range(1, len(barcode_list)):
+        if barcode_list[x - 1] == '' and barcode_list[x] != '':
+            messages.warning(request, f"cannot have a gap in the barcodes entered")
+            #return redirect(request.META['HTTP_REFERER'])
+    if '' in barcode_list:
+        barcode_list = barcode_list[0:barcode_list.index('')]
+
+    if len(barcode_list) <= 1:
+        messages.warning(request, f"Must enter more than one barcode")
+        #return redirect(request.META['HTTP_REFERER'])
+
+    if len(barcode_list) != total_forms:
+        messages.warning(request, f"only {len(barcode_list)} of {total_forms} barcodes added")
+       # return redirect(request.META['HTTP_REFERER'])
+
+    return render(request, 'barcodecheck/validation_modal.html')

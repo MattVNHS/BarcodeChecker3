@@ -36,7 +36,9 @@
 </style>
 
 <form method="post"
-   >
+      hx-post="{% url 'validation_modal' %}"
+      hx-target="#validation_modal"
+      hx-trigger="submit">
     <label for="worksheet">Worksheet:</label>
     <input id="worksheet" type="text" name="worksheet">
     {% csrf_token %}
@@ -44,9 +46,6 @@
     <input type="submit">
 </form>
 
-<!--
- hx-post="{% url 'checkmodal' %}"
-    hx-target="#modals-here"
-    hx-trigger="submit"
--->
+<div id="validation_modal"></div>
+
 {% endblock content %}
