@@ -32,9 +32,14 @@ class BarcodecheckFormView(SuccessMessageMixin, FormView):
 
         # need to add validation for actual worksheets (can enter anything atm)
         # want to reload page with warning message and current input data
+        # refer to this: https://htmx.org/examples/modal-bootstrap/
+        # https://htmx.org/examples/modal-custom/
+        # https://htmx.org/examples/modal-uikit/
+        # https://www.jetbrains.com/guide/dotnet/tutorials/htmx-aspnetcore/server-powered-modals/
         if self.request.POST['worksheet'] =='':
             messages.warning(self.request, f"No worksheet")
-            return redirect(self.request.META['HTTP_REFERER'])
+            #return redirect(self.request.META['HTTP_REFERER'])
+            return redirect('barcodecheck', barcode_count=total_forms )
 
         # Create a check instance
 
@@ -66,3 +71,7 @@ class BarcodecheckFormView(SuccessMessageMixin, FormView):
             barcode_instance.save()
 
         return super().form_valid(form)
+
+
+def check_modal(request):
+    return render(request, 'barcodecheck/checkmodal.html')
