@@ -29,34 +29,36 @@ class BarcodecheckFormView(SuccessMessageMixin, FormView):
 
     def form_valid(self, form):
         total_forms = int(self.request.POST['form-TOTAL_FORMS'])
+        barcode_list = [self.request.POST[f"form-{x}-barcode"] for x in range(total_forms)]
 
         # need to add validation for actual worksheets (can enter anything atm)
-        # want to reload page with warning message and current input data
-        # refer to this: https://htmx.org/examples/modal-bootstrap/
-        # https://htmx.org/examples/modal-custom/
-        # https://htmx.org/examples/modal-uikit/
-        # https://www.jetbrains.com/guide/dotnet/tutorials/htmx-aspnetcore/server-powered-modals/
         if self.request.POST['worksheet'] =='':
             messages.warning(self.request, f"No worksheet")
-            #return redirect(self.request.META['HTTP_REFERER'])
-            return redirect('barcodecheck', barcode_count=total_forms )
+            return redirect(self.request.META['HTTP_REFERER'])
 
-        # Create a check instance
+        # validate >1 barcodes added, barcodes in order without gaps and allowing empty values at the end of the list
+        for x in range(1, len(barcode_list)):
+            if barcode_list[x-1] == '' and barcode_list[x] != '':
+                messages.warning(self.request, f"cannot have a gap in the barcodes entered")
+                return redirect(self.request.META['HTTP_REFERER'])
+        if '' in barcode_list:
+            barcode_list = barcode_list[0:barcode_list.index('')]
 
-        check_user = self.request.user
-        check_instance = Check.objects.create(user=check_user,
-                                              worksheet=self.request.POST['worksheet'],
-                                              barcode_count=total_forms)
-
-        # validate all barcodes match e.g. check_pass True or False?
-        barcode_list = [x.cleaned_data['barcode'] for x in form if 'barcode' in x.cleaned_data]
-        barcode_list = list(zip(range(total_forms), barcode_list))
+        if len(barcode_list) <= 1:
+            messages.warning(self.request, f"Must enter more than one barcode")
+            return redirect(self.request.META['HTTP_REFERER'])
 
         if len(barcode_list) != total_forms:
             messages.warning(self.request, f"only {len(barcode_list)} of {total_forms} barcodes added")
             return redirect(self.request.META['HTTP_REFERER'])
 
-        if all(y == barcode_list[0][1] for x,y in barcode_list):
+        # Create a check instance
+        check_user = self.request.user
+        check_instance = Check.objects.create(user=check_user,
+                                              worksheet=self.request.POST['worksheet'], barcode_count=total_forms)
+
+        # validate all barcodes match e.g. check_pass True or False?
+        if all(x == barcode_list[0] for x in barcode_list):
             check_instance.check_pass = True
             check_instance.save()
         else:

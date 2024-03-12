@@ -35,7 +35,8 @@
     }
 </style>
 
-<form method="post">
+<form method="post"
+   >
     <label for="worksheet">Worksheet:</label>
     <input id="worksheet" type="text" name="worksheet">
     {% csrf_token %}
@@ -43,29 +44,9 @@
     <input type="submit">
 </form>
 
-<div class="card m-5">
-    <div class="card-header bg-primary text-white">
-        <h2>Fancy Newsletter Signup</h2>
-    </div>
-    <div class="card-body">
-        <form
-            id="newsletter"
-            hx-post="{% url 'checkmodal' %}"
-            hx-target="#modals-here"
-            hx-trigger="submit">
-            {% csrf_token %}
-            <div class="form-floating mb-3">
-                <input type="email"
-                       name="email"
-                       required class="form-control" id="email" placeholder="name@example.com">
-                <label for="email">Email address</label>
-            </div>
-            <button type="submit" class="btn btn-outline-primary btn-lg float-end">
-                Subscribe
-            </button>
-        </form>
-        <div id="modals-here"></div>
-    </div>
-</div>
-
+<!--
+ hx-post="{% url 'checkmodal' %}"
+    hx-target="#modals-here"
+    hx-trigger="submit"
+-->
 {% endblock content %}
