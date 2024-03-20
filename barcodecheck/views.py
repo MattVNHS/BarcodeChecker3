@@ -27,6 +27,9 @@ class BarcodecheckFormView(SuccessMessageMixin, FormView):
         form_class = formset_factory(BarcodeCheckForm, extra=self.kwargs['barcode_count'])
         return form_class
 
+    def form_invalid(self, form):
+        return self.render_to_response(self.get_context_data(form=form, worksheet=self.request.POST['worksheet']))
+
     def form_valid(self, form):
         total_forms = int(self.request.POST['form-TOTAL_FORMS'])
         barcode_list = [self.request.POST[f"form-{x}-barcode"] for x in range(total_forms)]
