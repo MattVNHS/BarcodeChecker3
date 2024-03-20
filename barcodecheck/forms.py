@@ -10,6 +10,11 @@ class CheckForm(forms.ModelForm):
         model = Check
         fields = ('worksheet',)
 
+    def clean_worksheet(self):
+        data = self.cleaned_data['worksheet']
+        if not re.match(r'^\d{6}$', data) or re.match(r'^\d{6}.\d{6}$', data) or re.match(r'^\d{6} to \d{6}$', data):
+            raise ValidationError('invalid worksheet entered')
+        return data
 
 class BarcodeCheckForm(forms.ModelForm):
     barcode = forms.CharField(required=True, help_text='Required')

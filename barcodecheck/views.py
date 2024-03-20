@@ -33,29 +33,32 @@ class BarcodecheckFormView(SuccessMessageMixin, FormView):
     def form_valid(self, form):
         total_forms = int(self.request.POST['form-TOTAL_FORMS'])
         barcode_list = [self.request.POST[f"form-{x}-barcode"] for x in range(total_forms)]
+        worksheet = self.request.POST['worksheet']
 
         # Create a check instance
         check_user = self.request.user
         check_instance = Check.objects.create(user=check_user,
-                                              worksheet=self.request.POST['worksheet'], barcode_count=total_forms)
+                                              worksheet=worksheet, barcode_count=total_forms)
 
-        # need to add validation for actual worksheets (can enter anything atm - do this in forms.py)
-        if self.request.POST['worksheet'] == '':
+        # validation worksheets
+        if worksheet == '':
             messages.warning(self.request, f"No worksheet")
-            # return redirect(self.request.META['HTTP_REFERER'])
+        elif not re.match(r'^\d{6}$', worksheet):
+            messages.warning(self.request, f"Invalid worksheet")
+            return self.render_to_response(self.get_context_data(form=form, worksheet=worksheet))
 
         # validate barcodes in order without gaps and allowing empty values at the end of the list
         for x in range(1, len(barcode_list)):
             if barcode_list[x - 1] == '' and barcode_list[x] != '':
                 messages.warning(self.request, f"cannot have a gap in the barcodes entered")
-                return self.render_to_response(self.get_context_data(form=form, worksheet=self.request.POST['worksheet']))
+                return self.render_to_response(self.get_context_data(form=form, worksheet=worksheet))
 
         if '' in barcode_list:
             barcode_list = barcode_list[0:barcode_list.index('')]
             # validate >1 barcodes added
             if len(barcode_list) <= 1:
                 messages.warning(self.request, f"Must enter more than one barcode")
-                return self.render_to_response(self.get_context_data(form=form, worksheet=self.request.POST['worksheet']))
+                return self.render_to_response(self.get_context_data(form=form, worksheet=worksheet))
 
             if len(barcode_list) != total_forms:
                 messages.warning(self.request, f"only {len(barcode_list)} of {total_forms} barcodes added")
