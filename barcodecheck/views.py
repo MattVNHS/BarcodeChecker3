@@ -3,10 +3,8 @@ from barcodecheck.models import *
 from django.views.generic.edit import FormView
 from django.forms import formset_factory
 from django.contrib import messages
-from django.contrib.messages import get_messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.shortcuts import redirect
 
 
 class BarcodecheckFormView(SuccessMessageMixin, FormView):
@@ -35,17 +33,18 @@ class BarcodecheckFormView(SuccessMessageMixin, FormView):
         barcode_list = [self.request.POST[f"form-{x}-barcode"] for x in range(total_forms)]
         worksheet = self.request.POST['worksheet']
 
-        # Create a check instance
-        check_user = self.request.user
-        check_instance = Check.objects.create(user=check_user,
-                                              worksheet=worksheet, barcode_count=total_forms)
-
         # validation worksheets
         if worksheet == '':
             messages.warning(self.request, f"No worksheet")
         elif not re.match(r'^\d{6}$', worksheet):
             messages.warning(self.request, f"Invalid worksheet")
             return self.render_to_response(self.get_context_data(form=form, worksheet=worksheet))
+
+        # Create a check instance
+        check_user = self.request.user
+        check_instance = Check.objects.create(user=check_user,
+                                              worksheet=worksheet, barcode_count=total_forms)
+
 
         # validate barcodes in order without gaps and allowing empty values at the end of the list
         for x in range(1, len(barcode_list)):
