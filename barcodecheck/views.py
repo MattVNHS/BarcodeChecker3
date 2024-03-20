@@ -36,6 +36,27 @@ class BarcodecheckFormView(SuccessMessageMixin, FormView):
         check_instance = Check.objects.create(user=check_user,
                                               worksheet=self.request.POST['worksheet'], barcode_count=total_forms)
 
+        # need to add validation for actual worksheets (can enter anything atm - do this in forms.py)
+        if self.request.POST['worksheet'] == '':
+            messages.warning(self.request, f"No worksheet")
+            # return redirect(self.request.META['HTTP_REFERER'])
+
+        # validate barcodes in order without gaps and allowing empty values at the end of the list
+        for x in range(1, len(barcode_list)):
+            if barcode_list[x - 1] == '' and barcode_list[x] != '':
+                messages.warning(self.request, f"cannot have a gap in the barcodes entered")
+                return self.render_to_response(self.get_context_data(form=form, worksheet=self.request.POST['worksheet']))
+
+        if '' in barcode_list:
+            barcode_list = barcode_list[0:barcode_list.index('')]
+            # validate >1 barcodes added
+            if len(barcode_list) <= 1:
+                messages.warning(self.request, f"Must enter more than one barcode")
+                return self.render_to_response(self.get_context_data(form=form, worksheet=self.request.POST['worksheet']))
+
+            if len(barcode_list) != total_forms:
+                messages.warning(self.request, f"only {len(barcode_list)} of {total_forms} barcodes added")
+
         # validate all barcodes match e.g. check_pass True or False?
         if all(x == barcode_list[0] for x in barcode_list):
             check_instance.check_pass = True
@@ -54,35 +75,3 @@ class BarcodecheckFormView(SuccessMessageMixin, FormView):
         return super().form_valid(form)
 
 
-def validation_modal(request):
-    total_forms = int(request.POST['form-TOTAL_FORMS'])
-    barcode_list = [request.POST[f"form-{x}-barcode"] for x in range(total_forms)]
-
-    # need to add validation for actual worksheets (can enter anything atm)
-    if request.POST['worksheet'] == '':
-        messages.warning(request, f"No worksheet")
-        #return redirect(request.META['HTTP_REFERER'])
-
-    # validate >1 barcodes added, barcodes in order without gaps and allowing empty values at the end of the list
-
-       # return redirect(request.META['HTTP_REFERER'])
-    for x in range(1, len(barcode_list)):
-        if barcode_list[x - 1] == '' and barcode_list[x] != '':
-            messages.warning(request, f"cannot have a gap in the barcodes entered")
-            #return redirect(request.META['HTTP_REFERER'])
-    if '' in barcode_list:
-        truncated_barcode_list = barcode_list[0:barcode_list.index('')]
-
-        if len(truncated_barcode_list) <= 1:
-            messages.warning(request, f"Must enter more than one barcode")
-            #return redirect(request.META['HTTP_REFERER'])
-
-        if len(truncated_barcode_list) != total_forms:
-            total_entered = total_forms - barcode_list.count('')
-            messages.warning(request, f"only {total_entered} of {total_forms} barcodes added")
-
-    if messages.get_messages(request):
-        return render(request, 'barcodecheck/validation_modal.html',)
-
-    else:
-        return BarcodecheckFormView.as_view()(request, barcode_count=total_forms)
