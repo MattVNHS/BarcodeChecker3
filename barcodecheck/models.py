@@ -9,6 +9,9 @@ class Check(models.Model):
     check_pass = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return ( f"{self.user}: {self.worksheet}, {self.dateTime_check.strftime("%H:%M:%S %d-%m-%Y")}")
+
 
 class Barcode(models.Model):
     barcode = models.CharField(max_length=10)

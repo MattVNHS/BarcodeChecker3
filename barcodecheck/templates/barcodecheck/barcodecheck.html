@@ -40,7 +40,7 @@
     <input id="worksheet" type="text" name="worksheet" value="{{ worksheet }}">
     {% csrf_token %}
     {{ form.as_p }}
-    <input  type="submit" hx-trigger="save_button from:body">
+    <input  type="submit">
 </form>
 
 
