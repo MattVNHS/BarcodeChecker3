@@ -5,6 +5,7 @@ from django.forms import formset_factory
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
+import re
 
 
 class BarcodecheckFormView(SuccessMessageMixin, FormView):

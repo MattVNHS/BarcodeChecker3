@@ -25,7 +25,6 @@ from extractionmethods.views import *
 from culturemethods.views import *
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
 

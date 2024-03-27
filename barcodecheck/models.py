@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.validators import RegexValidator
 
 
 class Check(models.Model):
@@ -14,9 +15,10 @@ class Check(models.Model):
 
 
 class Barcode(models.Model):
-    barcode = models.CharField(max_length=10)
+    barcode = models.CharField(max_length=10, validators=[RegexValidator(regex=r'^[A-Z]\d{2}[.]\d{5,6}$',
+                                                                         message='invalid lab number entered')])
     comparisonId = models.IntegerField(null=True)
     Check = models.ForeignKey(Check, on_delete=models.CASCADE)
 
     def __str__(self):
-        return ( f"{self.barcode}")
+        return f"{self.barcode}"
