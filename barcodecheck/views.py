@@ -1,11 +1,49 @@
 from barcodecheck.forms import *
 from barcodecheck.models import *
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
+from django.views.generic.list import ListView
+from django.forms.models import inlineformset_factory
 from django.forms import formset_factory
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, reverse
 import re
+
+class BarcodecheckCreateView(CreateView):
+    model = Check
+    fields = ["worksheet",]
+    template_name = 'barcodecheck/createbarcodecheck.html'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        if self.request.POST:
+            data["barcodes"] = CheckFormset(self.request.POST)
+            data['total_forms'] = int(self.request.POST['barcode_set-TOTAL_FORMS'])
+        else:
+            data["barcodes"] = CheckFormset()
+
+        return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        barcodes = context["barcodes"]
+        check_user = self.request.user
+        check_instance = Check.objects.create(user=check_user,
+                                              worksheet=form['worksheet'], barcode_count=context['total_forms'])
+        self.object = check_instance.save()
+
+        if barcodes.is_valid():
+            barcodes.instance = self.object
+
+            barcodes.Check_id = self.object.id
+            barcodes.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("createbarcodecheck")
+
+
+
 
 
 class BarcodecheckFormView(SuccessMessageMixin, FormView):
@@ -22,6 +60,9 @@ class BarcodecheckFormView(SuccessMessageMixin, FormView):
     # https://docs.djangoproject.com/en/5.0/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin.form_class
     # Accessed kwargs following this: https://stackoverflow.com/questions/34462739/use-url-parameter-in-class-based-view-django
 
+    #def get_context_data(self, **kwargs):
+     #   pass
+
     def get_form_class(self, **kwargs):
         form_class = formset_factory(BarcodeCheckForm, extra=self.kwargs['barcode_count'])
         return form_class
@@ -35,11 +76,11 @@ class BarcodecheckFormView(SuccessMessageMixin, FormView):
         worksheet = self.request.POST['worksheet']
 
         # validation worksheets
-        if worksheet == '':
-            messages.warning(self.request, f"No worksheet")
-        elif not re.match(r'^\d{6}$', worksheet):
-            messages.warning(self.request, f"Invalid worksheet")
-            return self.render_to_response(self.get_context_data(form=form, worksheet=worksheet))
+       # if worksheet == '':
+        #    messages.warning(self.request, f"No worksheet")
+        #elif not re.match(r'^\d{6}$', worksheet):
+        #    messages.warning(self.request, f"Invalid worksheet")
+        #    return self.render_to_response(self.get_context_data(form=form, worksheet=worksheet))
 
         # Create a check instance
         check_user = self.request.user
