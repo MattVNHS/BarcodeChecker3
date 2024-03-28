@@ -35,15 +35,14 @@
     }
 </style>
 
-<form method="POST">
-    <label for="worksheet">Worksheet:</label>
-    <input id="worksheet" type="text" name="worksheet" value="{{ worksheet }}">
-    {% csrf_token %}
+
+<h2>Worksheet</h2>
+<form method="post">{% csrf_token %}
     {{ form.as_p }}
-    <input  type="submit">
+    <h3>Barcodes</h3>
+    {{ barcodes.as_p }}
+    <input type="submit" value="Save">
 </form>
-
-
 
 
 
