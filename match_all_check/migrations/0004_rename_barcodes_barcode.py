@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('barcodecheck', '0003_rename_check_result_check_check_pass'),
+        ('match_all_check', '0003_rename_check_result_check_check_pass'),
     ]
 
     operations = [

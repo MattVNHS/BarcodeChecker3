@@ -1,12 +1,12 @@
-from extractionmethods.forms import *
-from barcodecheck.models import *
+from match_pair_check.forms import *
+from match_all_check.models import *
 from django.views.generic.edit import FormView
 from django.forms import formset_factory
 
 
 
 class QiasymphonyFormView(FormView):
-    template_name = 'extractionmethods/QiasymphonyCheck.html'
+    template_name = 'match_pair_check/QiasymphonyCheck.html'
     model = Barcode
     success_url = '/'
 

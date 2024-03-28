@@ -1,5 +1,5 @@
 from django.test import TestCase
-from barcodecheck.models import *
+from match_all_check.models import *
 from account.models import Account
 import datetime as dt
 # test models here

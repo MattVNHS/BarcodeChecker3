@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('barcodeId', models.AutoField(primary_key=True, serialize=False)),
                 ('barcode', models.CharField(max_length=10)),
                 ('comparisonId', models.IntegerField(null=True)),
-                ('Check', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='barcodecheck.check')),
+                ('Check', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='match_all_check.check')),
             ],
         ),
     ]

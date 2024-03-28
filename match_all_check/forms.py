@@ -1,5 +1,5 @@
 from django import forms
-from barcodecheck.models import *
+from match_all_check.models import *
 from django.forms.models import inlineformset_factory
 from django.forms import BaseInlineFormSet
 from django.core.exceptions import ValidationError

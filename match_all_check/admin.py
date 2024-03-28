@@ -1,5 +1,5 @@
 from django.contrib import admin
-from barcodecheck.models import *
+from match_all_check.models import *
 
 admin.site.register(Barcode)
 

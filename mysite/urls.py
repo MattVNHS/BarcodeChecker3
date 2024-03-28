@@ -20,8 +20,8 @@ from django.contrib.auth import views as auth_views
 
 from homepage.views import *
 from account.views import *
-from barcodecheck.views import *
-from extractionmethods.views import *
+from match_all_check.views import *
+from match_pair_check.views import *
 from culturemethods.views import *
 
 
@@ -34,7 +34,7 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('account/', account_view, name='account'),
 
-    path('barcodecheck/<int:barcode_count>/', BarcodecheckCreateView.as_view(), name='barcodecheck'),
+    path('match_all_check/<int:barcode_count>/', BarcodecheckCreateView.as_view(), name='match_all_check'),
 
     path('QiasymphonyCheck/<int:barcode_count>/', QiasymphonyFormView.as_view(), name='Qiasymphony'),
 

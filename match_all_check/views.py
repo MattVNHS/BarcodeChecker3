@@ -1,5 +1,5 @@
-from barcodecheck.forms import *
-from barcodecheck.models import *
+from match_all_check.forms import *
+from match_all_check.models import *
 from django.views.generic.edit import CreateView
 from django.forms.models import inlineformset_factory
 from django.contrib import messages
@@ -7,7 +7,7 @@ from django.contrib import messages
 class BarcodecheckCreateView(CreateView):
     model = Check
     fields = ["worksheet",]
-    template_name = 'barcodecheck/barcodecheck.html'
+    template_name = 'match_all_check/match_all_check.html'
     success_url = '/'
 
     def get_context_data(self, **kwargs):

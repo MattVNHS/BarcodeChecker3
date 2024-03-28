@@ -47,8 +47,8 @@ INSTALLED_APPS = [
     # my apps
     'homepage',
     'account',
-    'barcodecheck',
-    'extractionmethods',
+    'match_all_check',
+    'match_pair_check',
     'culturemethods',
 
     # django apps

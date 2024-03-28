@@ -1,4 +1,4 @@
 from django.test import TestCase
-from barcodecheck.forms import *
+from match_all_check.forms import *
 # test forms here
 
