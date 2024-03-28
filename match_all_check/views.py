@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView
 from django.forms.models import inlineformset_factory
 from django.contrib import messages
 
-class BarcodecheckCreateView(CreateView):
+class Match_all_checkCreateView(CreateView):
     model = Check
     fields = ["worksheet",]
     template_name = 'match_all_check/match_all_check.html'

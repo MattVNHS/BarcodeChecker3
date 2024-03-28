@@ -43,7 +43,7 @@
 <h4>Lab number check methods - worksheet required</h4>
         <form method="post">
             {% csrf_token %}
-            {{ barcode_form.as_p }}
+            {{ match_all_form.as_p }}
             <input type="submit">
         </form>
 <br>
@@ -55,7 +55,7 @@
 <h4>Extraction Check Methods</h4>
         <form method="post">
             {% csrf_token %}
-            {{ qiasymphony_form.as_p }}
+            {{ Match_pair_form.as_p }}
             <input type="submit">
         </form>
 {% else %}
