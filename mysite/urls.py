@@ -35,7 +35,7 @@ urlpatterns = [
     path('account/', account_view, name='account'),
 
     path('barcodecheck/<int:barcode_count>/', BarcodecheckFormView.as_view(), name='barcodecheck'),
-    path('createbarcodecheck/', BarcodecheckCreateView.as_view(), name='createbarcodecheck'),
+    path('createbarcodecheck/<int:barcode_count>/', BarcodecheckCreateView.as_view(), name='createbarcodecheck'),
 
     path('QiasymphonyCheck/<int:barcode_count>/', QiasymphonyFormView.as_view(), name='Qiasymphony'),
 

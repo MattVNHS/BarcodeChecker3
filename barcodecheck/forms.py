@@ -18,8 +18,7 @@ class BarcodeCheckForm(forms.ModelForm):
 
 
 CheckFormset = inlineformset_factory(
-    Check, Barcode, fields=('barcode',), can_delete_extra=False, form=BarcodeCheckForm
-)
+    Check, Barcode, fields=('barcode',), can_delete_extra=False, form=BarcodeCheckForm,)
 
 
 

@@ -9,40 +9,39 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, reverse
 import re
 
+# CreateView is the correct CBV to use when creating an object. inlineformset_factory used to create a nested form with
+# one Check object displaying the worksheet field and multiple Barcode objects. form_valid also uses inlineformset_factory
+# but references the CheckFormset already defined in forms.py, it can do this with the correct number of extra forms as
+# the Check instance has already been created.
+
 class BarcodecheckCreateView(CreateView):
     model = Check
     fields = ["worksheet",]
     template_name = 'barcodecheck/createbarcodecheck.html'
+    success_url = '/'
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         if self.request.POST:
-            data["barcodes"] = CheckFormset(self.request.POST)
             data['total_forms'] = int(self.request.POST['barcode_set-TOTAL_FORMS'])
         else:
-            data["barcodes"] = CheckFormset()
-
+            data["barcodes"] = inlineformset_factory(Check, Barcode, fields=('barcode',), can_delete_extra=False,
+                                                     form=BarcodeCheckForm, extra=self.kwargs['barcode_count'])
         return data
 
     def form_valid(self, form):
         context = self.get_context_data()
-        barcodes = context["barcodes"]
-        check_user = self.request.user
-        check_instance = Check.objects.create(user=check_user,
-                                              worksheet=form['worksheet'], barcode_count=context['total_forms'])
-        self.object = check_instance.save()
-
-        if barcodes.is_valid():
-            barcodes.instance = self.object
-
-            barcodes.Check_id = self.object.id
-            barcodes.save()
+        current_check = form.save(commit=False)
+        current_check.user, current_check.barcode_count = self.request.user, context['total_forms']
+        current_check.save()
+        barcodes_formset = CheckFormset(self.request.POST, instance=current_check)
+        print(barcodes_formset)
+        if barcodes_formset.is_valid():
+            for barcode in barcodes_formset:
+                barcode.save(commit=False)
+                barcode.Check = current_check
+        barcodes_formset.save()
         return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse("createbarcodecheck")
-
-
 
 
 
