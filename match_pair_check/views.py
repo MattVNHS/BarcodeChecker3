@@ -28,17 +28,22 @@ class Match_pair_checkCreateView(CreateView):
                                                       form=BarcodePairForm, extra=self.kwargs['barcode_count'],)
         return data
 
-    def form_invalid(self, form, barcodes):
+    def form_invalid(self, form):
+        barcodes = self.get_context_data()['barcodes']
+        messages.warning(self.request, form.errors)
         for error in barcodes.errors:
-            messages.warning(self.request, error)
+             messages.warning(self.request, error)
         return self.render_to_response(self.get_context_data(form=form, formset=barcodes))
 
     def form_valid(self, form):
         context = self.get_context_data()
         barcodes = context['barcodes']
-        if context['total_forms'] % 2 != 0:
-            messages.warning(self.request, 'Cannot have an odd number of barcode forms')
-            return HttpResponseRedirect(reverse("home"))
+        barcodes_entered = [True for x in barcodes if x.has_changed()]
+        #if context['total_forms'] % 2 != 0:
+        if len(barcodes_entered) % 2 != 0:
+            messages.warning(self.request, 'Cannot have an odd number of barcodes entered')
+            barcodes.errors.append('Check Failed - Barcodes do not match')
+           # return HttpResponseRedirect(reverse("home"))
 
         self.object = form.save(commit=False)
         self.object.user, self.object.barcode_count = self.request.user, context['total_forms']
@@ -47,7 +52,10 @@ class Match_pair_checkCreateView(CreateView):
             barcodes.instance = self.object
             barcodes.save()
 
+            # use barcodes[x].has_changed() to see if a barcode has been entered
+
             for x in range(len(barcodes)):
+                #print(barcodes[x].has_changed())
                 if x % 2 == 0:
                     barcodes[x].instance.comparisonId = barcodes[x + 1].instance.pk
                 else:
@@ -59,11 +67,13 @@ class Match_pair_checkCreateView(CreateView):
                 try:
                     barcode_2 = Barcode.objects.get(pk=barcode_1.comparisonId)
                 except:
+                    #print(barcode_1.comparisonId)
+                    #print(barcode_2.comparisonId)
                     break
                 if barcode_1.barcode != barcode_2.barcode:
                     barcodes.errors.append('Check Failed - Barcodes do not match')
                     break
-
+            #print(barcodes.data)
             for error in barcodes.errors:
                 messages.warning(self.request, error)
             if "Check Failed - Barcodes do not match" not in barcodes.errors:
@@ -71,6 +81,6 @@ class Match_pair_checkCreateView(CreateView):
                 self.object.check_pass = True
                 self.object.save()
         else:
-            return self.form_invalid(form, barcodes)
+            return self.form_invalid(form)
         return super().form_valid(form)
 
