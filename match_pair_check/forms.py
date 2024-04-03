@@ -31,7 +31,6 @@ class BaseInlineCheckFormSet(BaseInlineFormSet):
             barcode = form.cleaned_data.get("barcode")
             barcode_list.append(barcode)
         barcodes_entered = [x for x in barcode_list if x is not None]
-
         # validate barcodes in order without gaps and allowing empty values at the end of the list
         for x in range(1, len(barcode_list)):
             if barcode_list[x - 1] is None and barcode_list[x] is not None:
@@ -44,10 +43,7 @@ class BaseInlineCheckFormSet(BaseInlineFormSet):
 
         if len(barcodes_entered) != len(self.forms):
             self.errors.append(f"only {len(barcodes_entered)} of {len(self.forms)} barcodes added")
-        # validate all barcodes match e.g. check_pass True or False?
-        if not all(x == barcodes_entered[0] for x in barcodes_entered):
-            self.errors.append("Check Failed - Barcodes do not match")
 
 
-CheckFormset = inlineformset_factory(
-    Check, Barcode, fields=('barcode',), can_delete_extra=False, form=BarcodePairForm, formset=BaseInlineCheckFormSet)
+PairCheckFormset = inlineformset_factory(
+    Check, Barcode, fields=('barcode',), can_delete_extra=False, form=BarcodePairForm, formset=BaseInlineCheckFormSet,)

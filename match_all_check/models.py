@@ -29,4 +29,4 @@ class Barcode(models.Model):
         verbose_name = "Barcode"
         verbose_name_plural = "Barcodes"
     def __str__(self):
-        return f"{self.barcode}"
+        return f"{self.pk}: {self.barcode}"

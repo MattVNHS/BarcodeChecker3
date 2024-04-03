@@ -3,52 +3,8 @@ from match_all_check.models import *
 from match_all_check.forms import *
 from django.views.generic.edit import FormView
 from django.forms import formset_factory
-
-
-
-class QiasymphonyFormView(FormView):
-    template_name = 'match_pair_check/QiasymphonyCheck.html'
-    model = Barcode
-    success_url = '/'
-
-    def get_form_class(self, **kwargs):
-        form_class = formset_factory(QiasymphonyCheckForm, extra=self.kwargs['barcode_count'])
-        return form_class
-
-    def form_valid(self, form):
-        ''' Create a check instance '''
-        check_user = self.request.user
-        check_instance = Check.objects.create(user=check_user,
-            worksheet=self.request.POST['worksheet'],
-            barcode_count=self.request.POST['form-TOTAL_FORMS'])
-
-        ''' create sample_barcodes and elution_barcodes 
-          then validate check_pass '''
-        barcode_check_list = []
-        for form_instance in form:
-                sample = Barcode.objects.create(
-                    barcode=form_instance.cleaned_data['sample_barcode'],
-                    Check=check_instance)
-                elution = Barcode.objects.create(
-                    barcode=form_instance.cleaned_data['elution_barcode'],
-                    Check=check_instance, comparisonId=sample.id)
-                sample.comparisonId=elution.id
-                sample.save()
-
-                if form_instance.cleaned_data['sample_barcode'] == form_instance.cleaned_data['elution_barcode']:
-                    barcode_check_list.append(True)
-                else:
-                    barcode_check_list.append(False)
-
-        if all(barcode_check_list):
-            check_instance.check_pass = True
-            check_instance.save()
-
-        return super().form_valid(form)
-
-
-
-
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from match_all_check.forms import *
 from match_all_check.models import *
 from django.views.generic.edit import CreateView
@@ -65,12 +21,11 @@ class Match_pair_checkCreateView(CreateView):
         data = super().get_context_data(**kwargs)
         if self.request.POST:
             data['total_forms'] = int(self.request.POST['barcode_set-TOTAL_FORMS'])
-            data['barcodes'] = CheckFormset(self.request.POST)
+            data['barcodes'] = PairCheckFormset(self.request.POST)
         else:
             # need to create the form with pairs of forms linked by comparisonId
              data["barcodes"] = inlineformset_factory(Check, Barcode, formset=BaseInlineCheckFormSet, can_delete_extra=False,
-                                                      form=BarcodePairForm, extra=self.kwargs['barcode_count'])
-             print(data["barcodes"])
+                                                      form=BarcodePairForm, extra=self.kwargs['barcode_count'],)
         return data
 
     def form_invalid(self, form, barcodes):
@@ -81,12 +36,30 @@ class Match_pair_checkCreateView(CreateView):
     def form_valid(self, form):
         context = self.get_context_data()
         barcodes = context['barcodes']
+        if context['total_forms'] % 2 != 0:
+            messages.warning(self.request, 'Cannot have an odd number of barcode forms')
+            return HttpResponseRedirect(reverse("home"))
+
         self.object = form.save(commit=False)
         self.object.user, self.object.barcode_count = self.request.user, context['total_forms']
         self.object.save()
         if barcodes.is_valid():
             barcodes.instance = self.object
             barcodes.save()
+            for x in range(len(barcodes)):
+                if x % 2 == 0:
+                    barcodes[x].instance.comparisonId = barcodes[x + 1].instance.pk
+                else:
+                    barcodes[x].instance.comparisonId = barcodes[x - 1].instance.pk
+            barcodes.save()
+
+            for x in range(0,len(barcodes),2):
+                barcode_1 = barcodes[x].instance
+                barcode_2 = Barcode.objects.get(pk=barcode_1.comparisonId)
+                if barcode_1.barcode != barcode_2.barcode:
+                    barcodes.errors.append('Check Failed - Barcodes do not match')
+                    break
+
             for error in barcodes.errors:
                 messages.warning(self.request, error)
             if "Check Failed - Barcodes do not match" not in barcodes.errors:
