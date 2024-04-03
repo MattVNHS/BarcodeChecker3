@@ -28,10 +28,10 @@ class Match_pair_checkCreateView(CreateView):
                                                       form=BarcodePairForm, extra=self.kwargs['barcode_count'],)
         return data
 
-    def form_invalid(self, form, barcodes):
-        for error in barcodes.errors:
-            messages.warning(self.request, error)
-        return self.render_to_response(self.get_context_data(form=form, formset=barcodes))
+    # def form_invalid(self, form, barcodes):
+    #     for error in barcodes.errors:
+    #         messages.warning(self.request, error)
+    #     return self.render_to_response(self.get_context_data(form=form, formset=barcodes))
 
     def form_valid(self, form):
         context = self.get_context_data()
@@ -46,6 +46,7 @@ class Match_pair_checkCreateView(CreateView):
         if barcodes.is_valid():
             barcodes.instance = self.object
             barcodes.save()
+
             for x in range(len(barcodes)):
                 if x % 2 == 0:
                     barcodes[x].instance.comparisonId = barcodes[x + 1].instance.pk
@@ -54,7 +55,6 @@ class Match_pair_checkCreateView(CreateView):
             barcodes.save()
 
             for x in range(0,len(barcodes),2):
-
                 barcode_1 = barcodes[x].instance
                 try:
                     barcode_2 = Barcode.objects.get(pk=barcode_1.comparisonId)
@@ -71,6 +71,7 @@ class Match_pair_checkCreateView(CreateView):
                 self.object.check_pass = True
                 self.object.save()
         else:
-            return self.form_invalid(form, barcodes)
+            #return self.form_invalid(form, barcodes)
+            return self.form_invalid(form)
         return super().form_valid(form)
 
