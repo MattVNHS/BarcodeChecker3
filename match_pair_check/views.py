@@ -54,8 +54,12 @@ class Match_pair_checkCreateView(CreateView):
             barcodes.save()
 
             for x in range(0,len(barcodes),2):
+
                 barcode_1 = barcodes[x].instance
-                barcode_2 = Barcode.objects.get(pk=barcode_1.comparisonId)
+                try:
+                    barcode_2 = Barcode.objects.get(pk=barcode_1.comparisonId)
+                except:
+                    break
                 if barcode_1.barcode != barcode_2.barcode:
                     barcodes.errors.append('Check Failed - Barcodes do not match')
                     break
