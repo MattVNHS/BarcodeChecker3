@@ -40,10 +40,17 @@
 {% if request.user.is_authenticated %}
 
 <br>
-<h4>Lab number check methods - worksheet required</h4>
+<h4>Lab number check methods - no worksheet required</h4>
         <form method="post">
             {% csrf_token %}
             {{ match_all_form.as_p }}
+            <input type="submit">
+        </form>
+<br>
+<h4>Lab number check methods -  worksheet required</h4>
+        <form method="post">
+            {% csrf_token %}
+            {{ match_all_worksheet_form.as_p }}
             <input type="submit">
         </form>
 <br>

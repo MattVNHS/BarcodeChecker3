@@ -34,7 +34,9 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('account/', account_view, name='account'),
 
+    path('match_all_check_worksheet/<int:barcode_count>/', Match_all_check_worksheetCreateView.as_view(), name='match_all_check_worksheet'),
     path('match_all_check/<int:barcode_count>/', Match_all_checkCreateView.as_view(), name='match_all_check'),
+
 
     path('match_pair_check/<int:barcode_count>/', Match_pair_checkCreateView.as_view(), name='match_pair_check'),
 

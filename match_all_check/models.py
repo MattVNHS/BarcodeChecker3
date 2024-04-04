@@ -5,7 +5,7 @@ from django.core.validators import RegexValidator
 
 class Check(models.Model):
     dateTime_check = models.DateTimeField(verbose_name='date_and_time', auto_now_add=True)
-    worksheet = models.CharField(max_length=12, validators=[RegexValidator(regex=r'^\d{6}$',
+    worksheet = models.CharField(max_length=12, validators=[RegexValidator(regex=r'^\d{6}$|""',
                                                                            message='invalid worksheet entered')])
     barcode_count = models.IntegerField()
     check_pass = models.BooleanField(default=False)

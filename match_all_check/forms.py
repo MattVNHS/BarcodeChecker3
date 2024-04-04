@@ -4,12 +4,12 @@ from django.forms.models import inlineformset_factory
 from django.forms import BaseInlineFormSet
 from django.core.exceptions import ValidationError
 
-
-class CheckForm(forms.ModelForm):
-    worksheet = forms.CharField()
-    class Meta:
-        model = Check
-        fields = ('worksheet',)
+#
+# class CheckForm(forms.ModelForm):
+#     worksheet = forms.CharField()
+#     class Meta:
+#         model = Check
+#         fields = ('worksheet',)
 
 
 class BarcodeCheckForm(forms.ModelForm):

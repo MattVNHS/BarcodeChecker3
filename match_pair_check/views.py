@@ -36,6 +36,7 @@ class Match_pair_checkCreateView(CreateView):
         return self.render_to_response(self.get_context_data(form=form, formset=barcodes))
 
     def form_valid(self, form):
+        print(self.request.POST)
         context = self.get_context_data()
         barcodes = context['barcodes']
         barcodes_entered = [True for x in barcodes if x.has_changed()]
