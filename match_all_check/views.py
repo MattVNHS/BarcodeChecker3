@@ -54,6 +54,7 @@ class Match_all_checkCreateView(CreateView):
         return super().form_valid(form)
 
 
+@method_decorator(login_required, name='dispatch')
 class Match_all_check_worksheetCreateView(CreateView):
     model = Check
     fields = ["worksheet",]

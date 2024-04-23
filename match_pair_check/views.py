@@ -5,7 +5,11 @@ from django.views.generic.edit import CreateView
 from django.forms.models import inlineformset_factory
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
+
+@method_decorator(login_required, name='dispatch')
 class Match_pair_checkCreateView(CreateView):
     model = Check
     fields = ["worksheet",]

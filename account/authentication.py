@@ -3,12 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from account.models import STAFF
 
-
-
-
 # Copied from ShireXWorkflowMonitoring with login view added
-
-
 class ShireBackend(BaseBackend):
 
     def authenticate(self, request, username=None, password=None):

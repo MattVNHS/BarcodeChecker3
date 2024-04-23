@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'account',
     'match_all_check',
     'match_pair_check',
-    'culturemethods',
 
     # django apps
     'django.contrib.admin',
