@@ -90,7 +90,7 @@ TEMPLATES = [
 ]
 
 # Tells django not to use the default user model and use the model we created.
-AUTH_USER_MODEL = 'account.Account'
+#AUTH_USER_MODEL = 'account.Account'
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
@@ -102,9 +102,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': env('DATABASE_NAME'),
-    }
+    },
+    'Shire_Data': env.db('DATABASE_URL')
 }
 
+DATABASE_ROUTERS = ["mysite.database_router.AccountRouter"]
+
+#AUTH_USER_MODEL = "account.ShireUser"
+
+AUTHENTICATION_BACKENDS = (
+    'account.authentication.ShireBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    )
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -136,7 +145,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+LOGIN_URL = '/login/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 

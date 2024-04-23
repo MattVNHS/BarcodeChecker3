@@ -3,10 +3,14 @@ from match_all_check.models import *
 from django.views.generic.edit import CreateView
 from django.forms.models import inlineformset_factory
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
+
 
 # Used the CreateView CBV because we are creating new model instances. For checks without worksheet we remove 'worksheet'
 # from the fields attribute. get_context_data if POST: pass the request.POST dictionary as a CheckFormSet stored as data
-
+@method_decorator(login_required, name='dispatch')
 class Match_all_checkCreateView(CreateView):
     model = Check
     fields = []
@@ -15,7 +19,6 @@ class Match_all_checkCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-        print(data)
         if self.request.POST:
             data['total_forms'] = int(self.request.POST['barcode_set-TOTAL_FORMS'])
             data['barcodes'] = CheckFormset(self.request.POST)

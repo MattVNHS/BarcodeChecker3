@@ -29,10 +29,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('', home_screen_view, name='home'),
-    path('register/', registration_view, name='register'),
+    # path('register/', registration_view, name='register'),
     path('logout/', logout_view, name='logout'),
-    path('login/', login_view, name='login'),
-    path('account/', account_view, name='account'),
+    path('login/', Login.as_view(), name='login'),
+    # path('account/', account_view, name='account'),
 
     path('match_all_check_worksheet/<int:barcode_count>/', Match_all_check_worksheetCreateView.as_view(), name='match_all_check_worksheet'),
     path('match_all_check/<int:barcode_count>/', Match_all_checkCreateView.as_view(), name='match_all_check'),
@@ -40,13 +40,13 @@ urlpatterns = [
 
     path('match_pair_check/<int:barcode_count>/', Match_pair_checkCreateView.as_view(), name='match_pair_check'),
 
-    path('culturecheck2/', culturecheck2_view, name='2barcodecheck_culture'),
-    path('culturecheck3/', culturecheck3_view, name='3barcodecheck_culture'),
-    path('culturecheck4/', culturecheck4_view, name='4barcodecheck_culture'),
-    path('culturecheck5/', culturecheck5_view, name='5barcodecheck_culture'),
-    path('culturecheck6/', culturecheck6_view, name='6barcodecheck_culture'),
-    path('culturecheck7/', culturecheck7_view, name='7barcodecheck_culture'),
-    path('culturecheck8/', culturecheck8_view, name='8barcodecheck_culture'),
+    # path('culturecheck2/', culturecheck2_view, name='2barcodecheck_culture'),
+    # path('culturecheck3/', culturecheck3_view, name='3barcodecheck_culture'),
+    # path('culturecheck4/', culturecheck4_view, name='4barcodecheck_culture'),
+    # path('culturecheck5/', culturecheck5_view, name='5barcodecheck_culture'),
+    # path('culturecheck6/', culturecheck6_view, name='6barcodecheck_culture'),
+    # path('culturecheck7/', culturecheck7_view, name='7barcodecheck_culture'),
+    # path('culturecheck8/', culturecheck8_view, name='8barcodecheck_culture'),
 
     # Password reset links (ref: https://github.com/django/django/blob/master/django/contrib/auth/views.py)
     # Custom contrib.auth - all below are required to be defined.

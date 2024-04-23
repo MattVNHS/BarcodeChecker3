@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
 from homepage.forms import *
+from django.contrib.auth.decorators import login_required
+
+@login_required
 def home_screen_view(request):
 
     # initialise each form and pass to the context
