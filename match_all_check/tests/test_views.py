@@ -1,6 +1,6 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 
-import match_all_check.views
 from match_all_check.views import *
 from django.urls import reverse
 
@@ -10,16 +10,30 @@ from django.contrib.messages import get_messages
 
 class BarcodecheckFormViewTest(TestCase):
 
+
     def test_get_form_class(self):
+        self.user = User.objects.create_user(email="testemail1@nhs.net",
+                                             first_name="test1",
+                                             last_name="testington1",
+                                             username='testuser1',
+                                             password='12345')
+        self.client.login(username='testuser1', password='12345')
+        #v = self.create_Match_all_checkCreateView()
         url = reverse('match_all_check', kwargs={'barcode_count': 2})
-        resp = self.client.get(url)
+        resp = self.client.get(url, follow=True)
+        print(resp.templates)
+
+       # print(type(v))
+        self.assertTemplateUsed(resp, 'match_all_check/match_all_check.html')
+        self.assertEqual(resp.status_code, 302)
+        self.assertEqual(resp.headers.get('location'), 'http://127.0.0.1:8000/match_all_check/2/')
         management_form = resp.context['form'].management_form
         self.assertEqual(management_form['TOTAL_FORMS'].value(), 2)
 
     def test_form_invalid(self):
         url = reverse('match_all_check', kwargs={'barcode_count': 2})
         resp = self.client.get(url)
-        management_form = resp.context['form'].management_form
+        management_form = resp.context['form'].management_
         data ={}
         for i in range(management_form['TOTAL_FORMS'].value()):
             current_form = resp.context['form'].forms[i]
