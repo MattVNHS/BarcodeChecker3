@@ -7,7 +7,6 @@ class STAFF(models.Model):
     EMAIL = models.EmailField(verbose_name='email', max_length=70)
     # DNA_MODULE_ACCESS and CYTO_MODULE_ACCESS ?
     EMPLOYMENT_END_DATE = models.DateTimeField()
-    REQUIRED_FIELDS = []
     class Meta:
         app_label = 'account'
         managed = False
