@@ -88,9 +88,6 @@ TEMPLATES = [
     },
 ]
 
-# Tells django not to use the default user model and use the model we created.
-#AUTH_USER_MODEL = 'account.Account'
-
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
@@ -98,16 +95,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    # 'ENGINE': 'django.db.backends.sqlite3',
-    # 'NAME': BASE_DIR / 'db.sqlite3'},
     'default': env.db('DEFAULT_URL'),
     'Shire_Data': env.db('SHIRE_URL')
 }
 
 DATABASE_ROUTERS = ["mysite.database_router.AccountRouter"]
-
-#AUTH_USER_MODEL = "account.ShireUser"
 
 AUTHENTICATION_BACKENDS = (
     'account.authentication.ShireBackend',
