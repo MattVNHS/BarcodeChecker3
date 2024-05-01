@@ -39,7 +39,8 @@ class Match_pair_checkCreateView(CreateView):
         barcodes_entered = [True for x in barcodes if x.has_changed()]
         if len(barcodes_entered) % 2 != 0:
             messages.warning(self.request, 'Cannot have an odd number of barcodes entered')
-            barcodes.errors.append('Check Failed - Barcodes do not match')
+            return self.form_invalid(form)
+            # barcodes.errors.append('Check Failed - Barcodes do not match')
 
         self.object = form.save(commit=False)
         self.object.user, self.object.barcode_count = self.request.user, context['total_forms']

@@ -38,13 +38,33 @@
 {% if form.fields  %}
     <h2>Worksheet</h2>
 {% endif %}
-<form method="post">{% csrf_token %}
+<form method="post" id="check">{% csrf_token %}
     {{ form.as_p }}
     <h3>Barcodes</h3>
     {{ barcodes.as_p }}
-    <input type="submit" value="Save">
+    <input type="submit" id="submit-button" value="Save">
+
 </form>
 
+<script>
+    document.getElementById('check').addEventListener('submit', function (event) {
+        var barcodeInputs = document.querySelectorAll('input[name^="barcode_set-"]:not([type="hidden"])');
+        var filledCount = 0;
+        var totalCount = document.getElementById('id_barcode_set-TOTAL_FORMS').value
 
+        barcodeInputs.forEach(function (input) {
+            if (input.value.trim() !== '') {
+                filledCount++;
+            }
+        });
+
+        if (filledCount < totalCount) {
+            var confirmation = confirm("Only " + filledCount + " of " + totalCount + " barcodes added. Are you sure you want to submit?");
+            if (!confirmation) {
+                event.preventDefault(); // Prevent form submission
+            }
+        }
+    });
+</script>
 
 {% endblock content %}
