@@ -47,8 +47,13 @@ class BaseInlineCheckFormSet(BaseInlineFormSet):
             self.errors.append("Check Failed - Barcodes do not match")
 
 
-CheckFormset = inlineformset_factory(
-    Check, Barcode, fields=('barcode',), can_delete_extra=False, form=BarcodeCheckForm, formset=BaseInlineCheckFormSet)
+postFormset = inlineformset_factory(
+    Check, Barcode, can_delete_extra=False, form=BarcodeCheckForm, formset=BaseInlineCheckFormSet)
+
+
+def getFormset(x):
+    return inlineformset_factory(
+        Check, Barcode, can_delete_extra=False, form=BarcodeCheckForm, formset=BaseInlineCheckFormSet, extra=x)
 
 
 

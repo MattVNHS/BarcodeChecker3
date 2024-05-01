@@ -20,10 +20,9 @@ class Match_pair_checkCreateView(CreateView):
         data = super().get_context_data(**kwargs)
         if self.request.POST:
             data['total_forms'] = int(self.request.POST['barcode_set-TOTAL_FORMS'])
-            data['barcodes'] = PairCheckFormset(self.request.POST)
+            data['barcodes'] = postFormset(self.request.POST)
         else:
-             data["barcodes"] = inlineformset_factory(Check, Barcode, formset=BaseInlineCheckFormSet, can_delete_extra=False,
-                                                      form=BarcodePairForm, extra=self.kwargs['barcode_count'],)
+             data["barcodes"] = getFormset(self.kwargs['barcode_count'])
         return data
 
     def form_invalid(self, form):

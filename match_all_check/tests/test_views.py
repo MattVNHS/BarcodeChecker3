@@ -8,41 +8,27 @@ from django.contrib.messages import get_messages
 
 # test views here
 
-class BarcodecheckFormViewTest(TestCase):
+class Match_all_checkViewTest(TestCase):
 
-
-    def test_get_form_class(self):
+    def setUp(self):
         self.user = User.objects.create_user(email="testemail1@nhs.net",
                                              first_name="test1",
                                              last_name="testington1",
                                              username='testuser1',
                                              password='12345')
         self.client.login(username='testuser1', password='12345')
-        #v = self.create_Match_all_checkCreateView()
-        url = reverse('match_all_check', kwargs={'barcode_count': 2})
-        resp = self.client.get(url, follow=True)
-        print(resp.templates)
+        self.url = reverse('match_all_check', kwargs={'barcode_count': 2})
 
-       # print(type(v))
+    def test_get_form_class(self):
+        resp = self.client.get(self.url, follow=True)
         self.assertTemplateUsed(resp, 'match_all_check/match_all_check.html')
-        self.assertEqual(resp.status_code, 302)
-        self.assertEqual(resp.headers.get('location'), 'http://127.0.0.1:8000/match_all_check/2/')
-        management_form = resp.context['form'].management_form
-        self.assertEqual(management_form['TOTAL_FORMS'].value(), 2)
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.context['barcodes'].extra, 2)
 
     def test_form_invalid(self):
-        url = reverse('match_all_check', kwargs={'barcode_count': 2})
-        resp = self.client.get(url)
-        management_form = resp.context['form'].management_
-        data ={}
-        for i in range(management_form['TOTAL_FORMS'].value()):
-            current_form = resp.context['form'].forms[i]
-            for field_name in current_form.fields:
-                value = current_form[field_name].value()
-                data['%s-%s' % (current_form.prefix, field_name)] = value if value is not None else 'D24.123456'
-        data['worksheet'] ='1234567'
-        response = self.client.post(url, data, follow=True)
-        print(data)
+
+
+        response = self.client.post(self.url, data, follow=True)
 
         #messages = [m for m in get_messages(response.wsgi_request)]
         #print( response.content.decode())

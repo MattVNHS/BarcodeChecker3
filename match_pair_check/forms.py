@@ -45,5 +45,10 @@ class BaseInlineCheckFormSet(BaseInlineFormSet):
             self.errors.append(f"only {len(barcodes_entered)} of {len(self.forms)} barcodes added")
 
 
-PairCheckFormset = inlineformset_factory(
-    Check, Barcode, fields=('barcode',), can_delete_extra=False, form=BarcodePairForm, formset=BaseInlineCheckFormSet,)
+postFormset = inlineformset_factory(
+    Check, Barcode, can_delete_extra=False, form=BarcodePairForm, formset=BaseInlineCheckFormSet,)
+
+
+def getFormset(x):
+    return inlineformset_factory(
+        Check, Barcode, formset=BaseInlineCheckFormSet, can_delete_extra=False, form=BarcodePairForm, extra=x)
