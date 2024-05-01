@@ -52,18 +52,11 @@
             <input type="submit">
         </form>
 <br>
-<br>
-<h4>Lab number check methods - no worksheet required (culture checks)</h4>
-
-<br>
-<br>
 <h4>Lab number check methods - Match Pair</h4>
         <form method="post">
             {% csrf_token %}
             {{ Match_pair_form.as_p }}
             <input type="submit">
         </form>
-<br>
-<h4>Please login to access barcode check methods</h4>
 
 {% endblock content %}
