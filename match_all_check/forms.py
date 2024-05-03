@@ -48,14 +48,20 @@ class BaseInlineCheckFormSet(BaseInlineFormSet):
 
 
 postFormset = inlineformset_factory(
-    Check, Barcode, can_delete_extra=False, form=BarcodeCheckForm, formset=BaseInlineCheckFormSet)
+     Check, Barcode, can_delete_extra=False, form=BarcodeCheckForm, formset=BaseInlineCheckFormSet)
 
 
-def getFormset(x):
+def getFormset(barcode_count):
     return inlineformset_factory(
-        Check, Barcode, can_delete_extra=False, form=BarcodeCheckForm, formset=BaseInlineCheckFormSet, extra=x)
-
-
-
-
-
+        Check, Barcode, can_delete_extra=False, form=BarcodeCheckForm, formset=BaseInlineCheckFormSet, extra=barcode_count)
+#
+#
+# class CheckFormsetProcessor:
+#
+#     def get_formset(self, barcode_number):
+#         return inlineformset_factory(Check, Barcode, can_delete_extra=False,
+#                                      form=BarcodeCheckForm, formset=BaseInlineCheckFormSet, extra=barcode_number)
+#
+#     def post_formset(self, post):
+#         return inlineformset_factory(Check, Barcode, can_delete_extra=False,
+#                                      form=BarcodeCheckForm, formset=BaseInlineCheckFormSet)
