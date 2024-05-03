@@ -15,8 +15,8 @@ class BarcodeTest(TestCase):
                                              last_name="testington",
                                              username='testuser',
                                              password='12345')
-        test_check = Check.objects.create(dateTime_check=dt.datetime(year=2024, month=3, day=23, hour=15, minute=23, second=10),
-                                          barcode_count=2, user=self.user)
+        test_check = Check.objects.create(
+            dateTime_check=dt.datetime(year=2024, month=3, day=23, hour=15, minute=23, second=10), user=self.user)
         return Barcode.objects.create(barcode=barcode, comparisonId=comparisonId, Check=test_check)
 
     def create_invalid_barcode(self, barcode="D24.1234", comparisonId=1):
@@ -25,8 +25,8 @@ class BarcodeTest(TestCase):
                                              last_name="testington1",
                                              username='testuser1',
                                              password='12345')
-        test_check = Check.objects.create(dateTime_check=dt.datetime(year=2024, month=3, day=23, hour=15, minute=23, second=10),
-                                          barcode_count=2, user=self.user)
+        test_check = Check.objects.create(
+            dateTime_check=dt.datetime(year=2024, month=3, day=23, hour=15, minute=23, second=10),user=self.user)
         return Barcode.objects.create(barcode=barcode, comparisonId=comparisonId, Check=test_check)
 
     def test_barcode_creation(self):
@@ -42,11 +42,10 @@ class BarcodeTest(TestCase):
 class CheckTest(TestCase):
 
     def create_check(self, dateTime_check=dt.datetime(year=2024, month=3, day=23, hour=15, minute=23, second=10),
-                     worksheet=123456, barcode_count=2):
+                     worksheet=123456):
         self.user = User.objects.create_user(email="testemail@nhs.net", first_name="test", last_name="testington",
                                                 username='testuser', password='12345')
-        return Check.objects.create(dateTime_check=dateTime_check, worksheet=worksheet,
-                                    barcode_count=barcode_count, user=self.user)
+        return Check.objects.create(dateTime_check=dateTime_check, worksheet=worksheet, user=self.user)
 
     def test_check_creation(self):
         test_check = self.create_check()

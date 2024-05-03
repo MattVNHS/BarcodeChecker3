@@ -20,7 +20,6 @@ class Match_all_checkCreateView(CreateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         if self.request.POST:
-            data['total_forms'] = int(self.request.POST['barcode_set-TOTAL_FORMS'])
             data['barcodes'] = postFormset(self.request.POST)
         else:
             data["barcodes"] = getFormset(self.kwargs['barcode_count'])
@@ -37,7 +36,7 @@ class Match_all_checkCreateView(CreateView):
         context = self.get_context_data()
         barcodes = context['barcodes']
         self.object = form.save(commit=False)
-        self.object.user, self.object.barcode_count = self.request.user, context['total_forms']
+        self.object.user = self.request.user
         self.object.save()
         if barcodes.is_valid():
             barcodes.instance = self.object
@@ -80,7 +79,7 @@ class Match_all_check_worksheetCreateView(CreateView):
         context = self.get_context_data()
         barcodes = context['barcodes']
         self.object = form.save(commit=False)
-        self.object.user, self.object.barcode_count = self.request.user, context['total_forms']
+        self.object.user = self.request.user
         self.object.save()
         if barcodes.is_valid():
             barcodes.instance = self.object

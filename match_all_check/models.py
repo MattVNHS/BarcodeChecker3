@@ -7,7 +7,6 @@ class Check(models.Model):
     dateTime_check = models.DateTimeField(verbose_name='date_and_time', auto_now_add=True)
     worksheet = models.CharField(max_length=12, validators=[RegexValidator(regex=r'^\d{6}$|""',
                                                                            message='invalid worksheet entered')])
-    barcode_count = models.IntegerField()
     check_pass = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
@@ -22,7 +21,7 @@ class Check(models.Model):
 class Barcode(models.Model):
     barcode = models.CharField(max_length=10, validators=[RegexValidator(regex=r'^[A-Z]\d{2}[.]\d{5,6}$',
                                                                          message='invalid lab number entered')])
-    comparisonId = models.IntegerField(null=True)
+    comparisonId = models.IntegerField(null=True, blank=True)
     Check = models.ForeignKey(Check, on_delete=models.CASCADE)
 
     class Meta:

@@ -9,7 +9,7 @@ class BarcodeInline(admin.TabularInline):
 
 
 class CheckAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "dateTime_check", "worksheet", "barcode_count", "check_pass")
+    list_display = ("id", "user", "dateTime_check", "worksheet", "check_pass")
     inlines = [
         BarcodeInline,
     ]

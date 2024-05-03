@@ -24,6 +24,7 @@ class BarcodePairForm(forms.ModelForm):
 class BaseInlineCheckFormSet(BaseInlineFormSet):
     def clean(self):
         if any(self.errors):
+            print(f'errors at individual form level')
             # if any errors at the individual form level
             return
         barcode_list = []
@@ -49,6 +50,6 @@ postFormset = inlineformset_factory(
     Check, Barcode, can_delete_extra=False, form=BarcodePairForm, formset=BaseInlineCheckFormSet,)
 
 
-def getFormset(x):
+def getFormset(barcode_count):
     return inlineformset_factory(
-        Check, Barcode, formset=BaseInlineCheckFormSet, can_delete_extra=False, form=BarcodePairForm, extra=x)
+        Check, Barcode, formset=BaseInlineCheckFormSet, can_delete_extra=False, form=BarcodePairForm, extra=barcode_count)

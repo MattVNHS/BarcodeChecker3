@@ -1,5 +1,4 @@
 from match_pair_check.forms import *
-from match_all_check.forms import *
 from match_all_check.models import *
 from django.views.generic.edit import CreateView
 from django.forms.models import inlineformset_factory
@@ -19,7 +18,6 @@ class Match_pair_checkCreateView(CreateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         if self.request.POST:
-            data['total_forms'] = int(self.request.POST['barcode_set-TOTAL_FORMS'])
             data['barcodes'] = postFormset(self.request.POST)
         else:
              data["barcodes"] = getFormset(self.kwargs['barcode_count'])
@@ -30,19 +28,18 @@ class Match_pair_checkCreateView(CreateView):
         messages.warning(self.request, form.errors)
         for error in barcodes.errors:
              messages.warning(self.request, error)
-        return self.render_to_response(self.get_context_data(form=form, formset=barcodes))
+        #return self.render_to_response(self.get_context_data(form=form, formset=barcodes))
+        return self.render_to_response(self.get_context_data())
 
     def form_valid(self, form):
-        context = self.get_context_data()
-        barcodes = context['barcodes']
+        barcodes = self.get_context_data()['barcodes']
         barcodes_entered = [True for x in barcodes if x.has_changed()]
         if len(barcodes_entered) % 2 != 0:
             messages.warning(self.request, 'Cannot have an odd number of barcodes entered')
             return self.form_invalid(form)
-            # barcodes.errors.append('Check Failed - Barcodes do not match')
 
         self.object = form.save(commit=False)
-        self.object.user, self.object.barcode_count = self.request.user, context['total_forms']
+        self.object.user = self.request.user
         self.object.save()
         if barcodes.is_valid():
             barcodes.instance = self.object
