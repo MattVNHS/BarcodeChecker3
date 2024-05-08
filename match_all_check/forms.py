@@ -4,25 +4,23 @@ from django.forms.models import inlineformset_factory
 from django.forms import BaseInlineFormSet
 from django.core.exceptions import ValidationError
 
-#
-# class CheckForm(forms.ModelForm):
-#     worksheet = forms.CharField()
-#     class Meta:
-#         model = Check
-#         fields = ('worksheet',)
+# BarcodeCheckForm defines the basic barcode form for use in our formset factories
 
 
 class BarcodeCheckForm(forms.ModelForm):
     barcode = forms.CharField()
+
     class Meta:
-        model = Barcode
+        model = MatchAllBarcode
         fields = ('barcode',)
 
+
+# BaseInlineCheckFormSet overwrites BaseInlineFormSet.clean() method to add validation at the formset level
 
 class BaseInlineCheckFormSet(BaseInlineFormSet):
     def clean(self):
         if any(self.errors):
-            # if any errors at the individual form level
+            # if any errors at the individual form level, stop, no need to do extra validation - e.g. invalid barcode entered.
             return
         barcode_list = []
         for form in self.forms:
@@ -39,29 +37,18 @@ class BaseInlineCheckFormSet(BaseInlineFormSet):
         if len(barcodes_entered) <= 1:
             self.errors.append("Must enter more than one barcode")
             raise ValidationError("Must enter more than one barcode")
-
         if len(barcodes_entered) != len(self.forms):
             self.errors.append(f"only {len(barcodes_entered)} of {len(self.forms)} barcodes added")
-        # validate all barcodes match e.g. check_pass True or False?
-        if not all(x == barcodes_entered[0] for x in barcodes_entered):
-            self.errors.append("Check Failed - Barcodes do not match")
 
 
-postFormset = inlineformset_factory(
-     Check, Barcode, can_delete_extra=False, form=BarcodeCheckForm, formset=BaseInlineCheckFormSet)
+# define inlineformset_factories for GET and POST requests to be used in our views.
 
 
 def getFormset(barcode_count):
     return inlineformset_factory(
-        Check, Barcode, can_delete_extra=False, form=BarcodeCheckForm, formset=BaseInlineCheckFormSet, extra=barcode_count)
-#
-#
-# class CheckFormsetProcessor:
-#
-#     def get_formset(self, barcode_number):
-#         return inlineformset_factory(Check, Barcode, can_delete_extra=False,
-#                                      form=BarcodeCheckForm, formset=BaseInlineCheckFormSet, extra=barcode_number)
-#
-#     def post_formset(self, post):
-#         return inlineformset_factory(Check, Barcode, can_delete_extra=False,
-#                                      form=BarcodeCheckForm, formset=BaseInlineCheckFormSet)
+        MatchAllCheck, MatchAllBarcode, can_delete_extra=False, form=BarcodeCheckForm, formset=BaseInlineCheckFormSet, extra=barcode_count)
+
+
+postFormset = inlineformset_factory(
+     MatchAllCheck, MatchAllBarcode, can_delete_extra=False, form=BarcodeCheckForm, formset=BaseInlineCheckFormSet, extra=0)
+

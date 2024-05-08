@@ -48,9 +48,10 @@
 
 <script>
     document.getElementById('check').addEventListener('submit', function (event) {
-        var barcodeInputs = document.querySelectorAll('input[name^="barcode_set-"]:not([type="hidden"])');
+        var barcodeInputs = document.querySelectorAll('input[name*="barcode_set-"]:not([type="hidden"])');
         var filledCount = 0;
-        var totalCount = document.getElementById('id_barcode_set-TOTAL_FORMS').value
+        var totalCount = document.querySelector('[id$="set-TOTAL_FORMS').value;
+        console.log(totalCount)
 
         barcodeInputs.forEach(function (input) {
             if (input.value.trim() !== '') {

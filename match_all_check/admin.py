@@ -1,17 +1,34 @@
 from django.contrib import admin
 from match_all_check.models import *
 
-admin.site.register(Barcode)
+admin.site.register(MatchAllBarcode)
+admin.site.register(MatchPairBarcode)
 
 
-class BarcodeInline(admin.TabularInline):
-    model = Barcode
+class MatchAllBarcodeInline(admin.TabularInline):
+    model = MatchAllBarcode
 
 
-class CheckAdmin(admin.ModelAdmin):
+class MatchAllCheckAdmin(admin.ModelAdmin):
     list_display = ("id", "user", "dateTime_check", "worksheet", "check_pass")
     inlines = [
-        BarcodeInline,
+        MatchAllBarcodeInline,
     ]
 
-admin.site.register(Check, CheckAdmin)
+
+admin.site.register(MatchAllCheck, MatchAllCheckAdmin)
+
+
+class MatchPairBarcodeInline(admin.TabularInline):
+    model = MatchPairBarcode
+
+
+class MatchPairCheckAdmin(admin.ModelAdmin):
+    list_display = ("id", "user", "dateTime_check", "worksheet", "check_pass")
+    inlines = [
+        MatchPairBarcodeInline,
+    ]
+
+
+admin.site.register(MatchPairCheck, MatchPairCheckAdmin)
+
