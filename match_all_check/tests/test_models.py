@@ -6,48 +6,133 @@ from account.models import STAFF
 import datetime as dt
 # test models here
 
+class MatchAllCheckTest(TestCase):
 
-class BarcodeTest(TestCase):
-
-    def create_barcode(self, barcode="D24.123456", comparisonId=1):
-        self.user = User.objects.create_user(email="testemail@nhs.net",
-                                             first_name="test",
-                                             last_name="testington",
-                                             username='testuser',
-                                             password='12345')
-        test_check = Check.objects.create(
-            dateTime_check=dt.datetime(year=2024, month=3, day=23, hour=15, minute=23, second=10), user=self.user)
-        return Barcode.objects.create(barcode=barcode, comparisonId=comparisonId, Check=test_check)
-
-    def create_invalid_barcode(self, barcode="D24.1234", comparisonId=1):
+    def setUp(self):
         self.user = User.objects.create_user(email="testemail1@nhs.net",
                                              first_name="test1",
                                              last_name="testington1",
                                              username='testuser1',
                                              password='12345')
-        test_check = Check.objects.create(
-            dateTime_check=dt.datetime(year=2024, month=3, day=23, hour=15, minute=23, second=10),user=self.user)
-        return Barcode.objects.create(barcode=barcode, comparisonId=comparisonId, Check=test_check)
+        self.client.login(username='testuser1', password='12345')
 
-    def test_barcode_creation(self):
-        barcode = self.create_barcode()
-        self.assertTrue(isinstance(barcode, Barcode))
-        self.assertEqual(barcode.__str__(), f'{barcode.id}: {barcode.barcode}')
-        self.assertEqual(barcode.comparisonId, 1)
-        barcode = self.create_invalid_barcode()
-        self.assertTrue(isinstance(barcode, Barcode))
-        with self.assertRaises(ValidationError):
-            barcode.full_clean()
+    def create_check(self, check_time=dt.datetime.now()):
+        test_check = MatchAllCheck.objects.create(dateTime_check=check_time, worksheet='123456', user=self.user)
+        MatchAllBarcode.objects.create(barcode='D24.123456', Check=test_check)
+        MatchAllBarcode.objects.create(barcode='D24.123456', Check=test_check)
+        return test_check
 
-class CheckTest(TestCase):
-
-    def create_check(self, dateTime_check=dt.datetime(year=2024, month=3, day=23, hour=15, minute=23, second=10),
-                     worksheet=123456):
-        self.user = User.objects.create_user(email="testemail@nhs.net", first_name="test", last_name="testington",
-                                                username='testuser', password='12345')
-        return Check.objects.create(dateTime_check=dateTime_check, worksheet=worksheet, user=self.user)
-
-    def test_check_creation(self):
+    def test_is_instance(self):
         test_check = self.create_check()
-        self.assertTrue(isinstance(test_check, Check))
-        self.assertEqual(test_check.__str__(), f"{test_check.user}: {test_check.worksheet}, {test_check.dateTime_check.strftime("%H:%M:%S %d-%m-%Y")}")
+        self.assertIsInstance(test_check, MatchAllCheck)
+
+    def test_check_pass(self):
+        test_check = self.create_check()
+        test_check.checkPassFail()
+        self.assertTrue(test_check.check_pass)
+
+    def test_check_fail(self):
+        test_check = self.create_check()
+        MatchAllBarcode.objects.create(barcode='D24.111111', Check=test_check)
+        self.assertFalse(test_check.check_pass)
+
+    def test_check_str(self):
+        test_check = self.create_check()
+        self.assertEqual(test_check.__str__(),
+                         f"{test_check.user}: {test_check.worksheet}, {test_check.dateTime_check.strftime("%H:%M:%S %d-%m-%Y")}")
+
+
+class MatchPairCheckTest(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user(email="testemail1@nhs.net",
+                                             first_name="test1",
+                                             last_name="testington1",
+                                             username='testuser1',
+                                             password='12345')
+        self.client.login(username='testuser1', password='12345')
+
+    def create_check(self, check_time=dt.datetime.now()):
+        test_check = MatchPairCheck.objects.create(dateTime_check=check_time, worksheet='123456', user=self.user)
+        barcode1 = MatchPairBarcode.objects.create(barcode='D24.123456', Check=test_check)
+        barcode2 = MatchPairBarcode.objects.create(barcode='D24.123456', Check=test_check, comparisonId = barcode1)
+        barcode1.comparisonId = barcode2
+        barcode1.save()
+        barcode2.save()
+        test_check.save()
+        return test_check
+
+    def test_is_instance(self):
+        test_check = self.create_check()
+        self.assertIsInstance(test_check, MatchPairCheck)
+
+    def test_check_pass(self):
+        test_check = self.create_check()
+        test_check.checkPassFail()
+        self.assertTrue(test_check.check_pass)
+
+    def test_check_fail(self):
+        test_check = self.create_check()
+        barcode3 = MatchPairBarcode.objects.create(barcode='D24.123456', Check=test_check)
+        barcode4 = MatchPairBarcode.objects.create(barcode='D24.111111', Check=test_check, comparisonId=barcode3)
+        barcode3.comparisonId = barcode4
+        barcode3.save()
+        barcode4.save()
+        test_check.checkPassFail()
+        self.assertFalse(test_check.check_pass)
+
+    def test_check_str(self):
+        test_check = self.create_check()
+        self.assertEqual(test_check.__str__(),
+                         f"{test_check.user}: {test_check.worksheet}, {test_check.dateTime_check.strftime("%H:%M:%S %d-%m-%Y")}")
+
+
+class BarcodeTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(email="testemail1@nhs.net",
+                                             first_name="test1",
+                                             last_name="testington1",
+                                             username='testuser1',
+                                             password='12345')
+        self.client.login(username='testuser1', password='12345')
+        self.match_all_check = MatchAllCheck.objects.create(dateTime_check=dt.datetime.now(),
+                                                            worksheet='123456', user=self.user)
+        self.match_pair_check =MatchPairCheck.objects.create(dateTime_check=dt.datetime.now(),
+                                                             worksheet='123456', user=self.user)
+
+    def create_match_all_barcode(self):
+        return MatchAllBarcode.objects.create(barcode='D24.123456', Check=self.match_all_check)
+
+    def test_match_all_barcode_is_instance(self):
+        test_barcode = self.create_match_all_barcode()
+        self.assertIsInstance(test_barcode, MatchAllBarcode)
+        self.assertIsInstance(test_barcode.Check, MatchAllCheck)
+
+    def test_match_all_barcode_str(self):
+        test_barcode = self.create_match_all_barcode()
+        self.assertEqual(test_barcode.__str__(), f"{test_barcode.pk}: {test_barcode.barcode}")
+
+
+    def create_match_pair_barcodes(self):
+        barcode1 = MatchPairBarcode.objects.create(barcode='D24.123456', Check=self.match_pair_check)
+        barcode2 = MatchPairBarcode.objects.create(barcode='D24.123456', Check=self.match_pair_check,
+                                                   comparisonId=barcode1)
+        barcode1.comparisonId = barcode2
+        barcode1.save()
+        barcode2.save()
+        self.match_pair_check.save()
+        return barcode1, barcode2
+
+    def test_match_pair_barcode_is_instance(self):
+        test_barcode1, test_barcode2 = self.create_match_pair_barcodes()
+        self.assertIsInstance(test_barcode1, MatchPairBarcode)
+        self.assertIsInstance(test_barcode1.Check, MatchPairCheck)
+        self.assertEqual(test_barcode1.comparisonId, test_barcode2)
+        self.assertEqual(test_barcode2.comparisonId, test_barcode1)
+
+    def test_match_pair_barcode_str(self):
+        test_barcode1, _ = self.create_match_pair_barcodes()
+        self.assertEqual(test_barcode1.__str__(), f"{test_barcode1.pk}: {test_barcode1.barcode}")
+
+
+
