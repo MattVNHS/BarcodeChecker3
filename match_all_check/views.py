@@ -31,6 +31,7 @@ class MatchAllCheckView(CreateView):
         return self.render_to_response(self.get_context_data(form=form, formset=barcodes))
 
     def form_valid(self, form):
+        # do i need context['barcodes'] ? can I not just return data from get_context_data without assigning data['barcodes'] ?
         context = self.get_context_data()
         barcodes = context['barcodes']
         self.object = form.save(commit=False)

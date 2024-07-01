@@ -38,7 +38,13 @@ class BaseInlineCheckFormSet(BaseInlineFormSet):
             self.errors.append("Must enter more than one barcode")
             raise ValidationError("Must enter more than one barcode")
         if len(barcodes_entered) != len(self.forms):
+            # error = ValidationError(f"only {len(barcodes_entered)} of {len(self.forms)} barcodes added")
+            # self._non_form_errors.append(error)
             self.errors.append(f"only {len(barcodes_entered)} of {len(self.forms)} barcodes added")
+            #self.forms[0].add_error(field=None, error=f"only {len(barcodes_entered)} of {len(self.forms)} barcodes added")
+
+
+
 
 
 # define inlineformset_factories for GET and POST requests to be used in our views.
