@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 from django.core.validators import RegexValidator
-from datetime import datetime
 
 # Check model is abstract - MatchAllCheck and MatchPairCheck inherit from the Check model and define the checkPassFail method.
 
@@ -19,8 +18,7 @@ class Check(models.Model):
         abstract = True
 
     def __str__(self):
-        # return f"{self.user}: {self.worksheet}, {self.dateTime_check.strftime("%H:%M:%S %d-%m-%Y")}"
-        return f"{self.user}: {self.worksheet}, {self.dateTime_check}"
+        return f"{self.user}: {self.worksheet}, {self.dateTime_check.strftime("%H:%M:%S %d-%m-%Y")}"
 
     def checkPassFail(self):
         pass
