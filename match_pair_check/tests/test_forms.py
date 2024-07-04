@@ -1,6 +1,6 @@
 from django.test import TestCase
-from match_all_check.forms import *
-from match_all_check.models import MatchAllCheck
+from match_pair_check.forms import *
+from match_all_check.models import MatchPairCheck
 from django.contrib.auth.models import User
 
 
@@ -15,31 +15,31 @@ class FormsetTest(TestCase):
         self.client.login(username='testuser1', password='12345')
 
         self.data = {
-            'matchallbarcode_set-TOTAL_FORMS': '2',
-            'matchallbarcode_set-INITIAL_FORMS': '0',
-            'matchallbarcode_set-MIN_NUM_FORMS': '0',
-            'matchallbarcode_set-MAX_NUM_FORMS': '1000'
+            'matchpairbarcode_set-TOTAL_FORMS': '2',
+            'matchpairbarcode_set-INITIAL_FORMS': '0',
+            'matchpairbarcode_set-MIN_NUM_FORMS': '0',
+            'matchpairbarcode_set-MAX_NUM_FORMS': '1000'
         }
 
     def create_formset(self):
-        check = MatchAllCheck.objects.first()
+        check = MatchPairCheck.objects.first()
         formset = inlineformset_factory(
-            MatchAllCheck, MatchAllBarcode, can_delete_extra=False, form=BarcodeCheckForm,
+            MatchPairCheck, MatchPairBarcode, can_delete_extra=False, form=BarcodePairForm,
             formset=BaseInlineCheckFormSet, extra=0)
         test_formset = formset(instance=check, data=self.data)
         return test_formset
 
     def test_valid_barcode(self):
-        self.data['matchallbarcode_set-0-barcode'] = 'D24.654321'
-        self.data['matchallbarcode_set-1-barcode'] = 'D24.654321'
+        self.data['matchpairbarcode_set-0-barcode'] = 'D24.654321'
+        self.data['matchpairbarcode_set-1-barcode'] = 'D24.654321'
 
         test_formset = self.create_formset()
 
         self.assertTrue(test_formset.is_valid())
 
     def test_invalid_barcode(self):
-        self.data['matchallbarcode_set-0-barcode'] = 'D24.6543'
-        self.data['matchallbarcode_set-1-barcode'] = 'D24.654321'
+        self.data['matchpairbarcode_set-0-barcode'] = 'D24.6543'
+        self.data['matchpairbarcode_set-1-barcode'] = 'D24.654321'
 
         test_formset = self.create_formset()
 
@@ -48,7 +48,7 @@ class FormsetTest(TestCase):
                                 form_index=0)
 
     def test_invalid_one_barcode(self):
-        self.data['matchallbarcode_set-0-barcode'] = 'D24.654321'
+        self.data['matchpairbarcode_set-0-barcode'] = 'D24.654321'
 
         test_formset = self.create_formset()
 
@@ -57,10 +57,10 @@ class FormsetTest(TestCase):
                                 form_index=None)
 
     def test_invalid_gap_in_barcodes(self):
-        self.data['matchallbarcode_set-TOTAL_FORMS'] = '3'
-        self.data['matchallbarcode_set-0-barcode'] = 'D24.654321'
-        self.data['matchallbarcode_set-1-barcode'] = None
-        self.data['matchallbarcode_set-2-barcode'] = 'D24.654321'
+        self.data['matchpairbarcode_set-TOTAL_FORMS'] = '3'
+        self.data['matchpairbarcode_set-0-barcode'] = 'D24.654321'
+        self.data['matchpairbarcode_set-1-barcode'] = None
+        self.data['matchpairbarcode_set-2-barcode'] = 'D24.654321'
 
         test_formset = self.create_formset()
 
@@ -70,10 +70,10 @@ class FormsetTest(TestCase):
 
 
     def test_warning_not_all_barcodes_entered(self):
-        self.data['matchallbarcode_set-TOTAL_FORMS'] = '3'
-        self.data['matchallbarcode_set-0-barcode'] = 'D24.654321'
-        self.data['matchallbarcode_set-1-barcode'] = 'D24.654321'
-        self.data['matchallbarcode_set-2-barcode'] = None
+        self.data['matchpairbarcode_set-TOTAL_FORMS'] = '3'
+        self.data['matchpairbarcode_set-0-barcode'] = 'D24.654321'
+        self.data['matchpairbarcode_set-1-barcode'] = 'D24.654321'
+        self.data['matchpairbarcode_set-2-barcode'] = None
 
         test_formset = self.create_formset()
 
