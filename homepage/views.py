@@ -6,9 +6,9 @@ from django.contrib.auth.decorators import login_required
 def home_screen_view(request):
 
     # initialise each form and pass to the context
-    match_all_form = Match_all_Form()
-    match_all_worksheet_form = Match_all_worksheet_Form()
-    Match_pair_form = Match_pair_Form()
+    match_all_form = MatchAllForm()
+    match_all_worksheet_form = MatchAllWorksheetForm()
+    Match_pair_form = MatchPairForm()
 
     context = {'Match_pair_form': Match_pair_form, 'match_all_form': match_all_form, 'match_all_worksheet_form': match_all_worksheet_form}
 
