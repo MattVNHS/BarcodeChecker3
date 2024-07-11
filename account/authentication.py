@@ -1,7 +1,7 @@
 from django.contrib.auth.backends import BaseBackend
 from django.contrib.auth.models import User
-from django.contrib import messages
 from account.models import STAFF
+
 
 # Copied from ShireXWorkflowMonitoring with login view added
 class ShireBackend(BaseBackend):
@@ -21,17 +21,6 @@ class ShireBackend(BaseBackend):
                 # is not case-sensitive.  Whereas the code below is!
                 if item.PASSWORD == password:
                     _isUserPasswordValid = True
-            if userValidObj.__len__() > 1:
-                if _isUserPasswordValid:
-                    _errTxt = ' the password is correct for one of them.'
-                else:
-                    _errTxt = ' the password is incorrect for both of them.'
-
-                raise ValueError('Multiple users')
-        except ValueError:
-            messages.error(request, 'There are multiple active user staff records with that username, ' +
-                           _errTxt + ' Please see the system administrator.')
-            return None
 
         except Exception:
             return None
@@ -45,8 +34,6 @@ class ShireBackend(BaseBackend):
             except User.DoesNotExist:
                 # If not found create a new user. There's no need to set a password
                 user = User(username=username)
-                user.is_staff = True
-                user.is_superuser = True
                 user.save()
             return user
 

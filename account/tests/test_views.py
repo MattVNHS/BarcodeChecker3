@@ -49,3 +49,16 @@ class HomepageViewTest(TestCase):
         self.assertIs(response.resolver_match.func.view_class, Login)
         self.assertTemplateUsed(response, 'account/login.html')
         self.assertEqual(response.status_code, 200)
+
+    # def test_invalid_login_multiple_users(self):
+    #     # Test the page loads correctly with the correct forms
+    #     self.client.logout()
+    #     response = self.client.post(self.url, data={'txtUsername': 'testuser1',
+    #                                                 'txtPassword': '12345'}, follow=True)
+    #
+    #     user = auth.get_user(self.client)
+    #
+    #     self.assertEqual(user.is_authenticated, False)
+    #     self.assertIs(response.resolver_match.func.view_class, Login)
+    #     self.assertTemplateUsed(response, 'account/login.html')
+    #     self.assertEqual(response.status_code, 200)
