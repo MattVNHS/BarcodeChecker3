@@ -96,8 +96,9 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': env.db('DEFAULT_URL'),
-    'Shire_Data': env.db('SHIRE_URL')
+    'Shire_Data': env.db('SHIRE_URL'),
 }
+
 
 DATABASE_ROUTERS = ["mysite.database_router.AccountRouter"]
 

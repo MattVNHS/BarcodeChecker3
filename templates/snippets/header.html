@@ -33,10 +33,16 @@
         <ul class="nav nav-pills">
         <li class="nav-item"><a href="{% url 'home' %}" class="nav-link active">Home</a></li>
         </ul>
+        {% if user.is_authenticated %}
+          <ul class="nav nav-pills">
+          <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link active">Logout</a></li>
+          </ul>
+        {% else %}
         <!--If user is NOT authenticated(logged in) then these will be displayed-->
-        <ul class="nav nav-pills">
-        <li class="nav-item"><a href="{% url 'login' %}" class="nav-link active">Login</a></li>
-        </ul>
+          <ul class="nav nav-pills">
+          <li class="nav-item"><a href="{% url 'login' %}" class="nav-link active">Login</a></li>
+          </ul>
+        {% endif %}
         </header>
   </div>
 <!--END HEADER-->
