@@ -1,0 +1,14 @@
+/* overriding NHS Frontend button styles */
+
+
+/* Change padding */
+.nhsuk-button {
+    padding: 6px 9px;
+}
+
+/* Add border-radius */
+.nhsuk-button {
+    font-size: 16px;
+}
+
+    

@@ -2,38 +2,6 @@
 
 {% block content %}
 
-<style type="text/css">
-        html,
-    body {
-      height: 100%;
-    }
-
-    .form-signin {
-      max-width: 330px;
-      padding: 1rem;
-    }
-
-    .form-signin .form-floating:focus-within {
-      z-index: 2;
-    }
-
-    .form-signin input[type="email"] {
-      margin-bottom: 10px;
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-
-    .form-signin input[type="text"] {
-      margin-bottom: 10px;
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-    .form-signin input[type="password"] {
-      margin-bottom: 0px;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-    }
-</style>
 
 {% if form.fields  %}
     <h2>Worksheet</h2>
@@ -42,8 +10,7 @@
     {{ form.as_p }}
     <h3>Barcodes</h3>
     {{ barcodes.as_p }}
-    <input type="submit" id="submit-button" value="Save">
-
+    <input class="nhsuk-button" data-module="nhsuk-button" type="submit" value="Check">
 </form>
 
 <script>
