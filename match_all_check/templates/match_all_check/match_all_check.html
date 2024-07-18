@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% if form.fields  %}
+    <h2>Worksheet</h2>
+{% endif %}
+<form method="post" id="check">{% csrf_token %}
+    {{ form.as_p }}
+    <h3>Barcodes</h3>
+    {{ barcodes.as_p }}
+    <input class="nhsuk-button" data-module="nhsuk-button" type="submit" value="Check">
+</form>
+
+<script>
+    document.getElementById('check').addEventListener('submit', function (event) {
+        var barcodeInputs = document.querySelectorAll('input[name*="barcode_set-"]:not([type="hidden"])');
+        var filledCount = 0;
+        var totalCount = document.querySelector('[id$="set-TOTAL_FORMS').value;
+        console.log(totalCount)
+
+        barcodeInputs.forEach(function (input) {
+            if (input.value.trim() !== '') {
+                filledCount++;
+            }
+        });
+
+        if (filledCount < totalCount) {
+            var confirmation = confirm("Only " + filledCount + " of " + totalCount + " barcodes added. Are you sure you want to submit?");
+            if (!confirmation) {
+                event.preventDefault(); // Prevent form submission
+            }
+        }
+    });
+</script>
+
+{% endblock content %}

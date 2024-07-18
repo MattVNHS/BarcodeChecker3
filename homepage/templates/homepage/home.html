@@ -2,88 +2,25 @@
 
 {% block content %}
 
-<style type="text/css">
-        html,
-    body {
-      height: 100%;
-    }
+<h4>Lab number check methods - no worksheet required</h4>
+        <form method="post">
+            {% csrf_token %}
+            {{ match_all_form.as_p }}
+            <input class="nhsuk-button" data-module="nhsuk-button" type="submit">
+        </form>
 
-    .form-signin {
-      max-width: 330px;
-      padding: 1rem;
-    }
+<h4>Lab number check methods -  worksheet required</h4>
+        <form method="post">
+            {% csrf_token %}
+            {{ match_all_worksheet_form.as_p }}
+            <input class="nhsuk-button" data-module="nhsuk-button" type="submit">
+        </form>
 
-    .form-signin .form-floating:focus-within {
-      z-index: 2;
-    }
-
-    .form-signin input[type="email"] {
-      margin-bottom: 10px;
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-
-    .form-signin input[type="text"] {
-      margin-bottom: 10px;
-      border-bottom-right-radius: 0;
-      border-bottom-left-radius: 0;
-    }
-    .form-signin input[type="password"] {
-      margin-bottom: 0px;
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-    }
-</style>
-<br>
-<H3>Welcome to the BarcodeChecker Application</H3>
-
-{% if request.user.is_authenticated %}
-
-<br>
-<h4>Lab number check methods - worksheet required</h4>
-<a href="{% url 'barcodecheck2' %}" class="btn btn-primary">Check 2 lab numbers
-</a>
-<a href="{% url 'barcodecheck3' %}" class="btn btn-primary">Check 3 lab numbers
-</a>
-<a href="{% url 'barcodecheck4' %}" class="btn btn-primary">Check 4 lab numbers
-</a>
-<a href="{% url 'barcodecheck5' %}" class="btn btn-primary">Check 5 lab numbers
-</a>
-<a href="{% url 'barcodecheck6' %}" class="btn btn-primary">Check 6 lab numbers
-</a>
-<a href="{% url 'barcodecheck7' %}" class="btn btn-primary">Check 7 lab numbers
-</a>
-<a href="{% url 'barcodecheck8' %}" class="btn btn-primary">Check 8 lab numbers
-</a>
-
-<br>
-<br>
-<h4>Lab number check methods - no worksheet required (culture checks)</h4>
-<a href="{% url '2barcodecheck_culture' %}" class="btn btn-primary">Check 2 lab numbers
-</a>
-<a href="{% url '3barcodecheck_culture' %}" class="btn btn-primary">Check 3 lab numbers
-</a>
-<a href="{% url '4barcodecheck_culture' %}" class="btn btn-primary">Check 4 lab numbers
-</a>
-<a href="{% url '5barcodecheck_culture' %}" class="btn btn-primary">Check 5 lab numbers
-</a>
-<a href="{% url '6barcodecheck_culture' %}" class="btn btn-primary">Check 6 lab numbers
-</a>
-<a href="{% url '7barcodecheck_culture' %}" class="btn btn-primary">Check 7 lab numbers
-</a>
-<a href="{% url '8barcodecheck_culture' %}" class="btn btn-primary">Check 8 lab numbers
-</a>
-
-<br>
-<br>
-<h4>Extraction Check Methods</h4>
-<a href="{% url 'Qiasymphony24' %}" class="btn btn-primary">QiaSymphony Load
-</a>
-
-
-{% else %}
-<br>
-<h4>Please login to access barcode check methods</h4>
-{% endif %}
+<h4>Lab number check methods - Match Pair</h4>
+        <form method="post">
+            {% csrf_token %}
+            {{ Match_pair_form.as_p }}
+            <input class="nhsuk-button" data-module="nhsuk-button" type="submit">
+        </form>
 
 {% endblock content %}

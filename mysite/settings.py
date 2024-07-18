@@ -11,21 +11,23 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+import environ as environ
+
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
+STATICFILES_DIRS = [BASE_DIR / 'static',]
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-gd5vna0kuefw9h$c6u7om$x-zso-ee=fmr4lb)l%le4!6)f=nm'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -43,9 +45,8 @@ INSTALLED_APPS = [
     # my apps
     'homepage',
     'account',
-    'barcodecheck',
-    'extractionmethods',
-    'culturemethods',
+    'match_all_check',
+    'match_pair_check',
 
     # django apps
     'django.contrib.admin',
@@ -54,6 +55,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -84,9 +86,6 @@ TEMPLATES = [
     },
 ]
 
-# Tells django not to use the default user model and use the model we created.
-AUTH_USER_MODEL = 'account.Account'
-
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
 
@@ -94,12 +93,17 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': env.db('DEFAULT_URL'),
+    'Shire_Data': env.db('SHIRE_URL'),
 }
 
+
+DATABASE_ROUTERS = ["mysite.database_router.AccountRouter"]
+
+AUTHENTICATION_BACKENDS = (
+    'account.authentication.ShireBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    )
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -131,7 +135,7 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+LOGIN_URL = '/login/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
