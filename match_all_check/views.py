@@ -1,3 +1,5 @@
+from django.urls import reverse
+
 from match_all_check.forms import *
 from match_all_check.models import *
 from django.views.generic.edit import CreateView
@@ -56,7 +58,14 @@ class MatchAllCheckWorksheetView(CreateView):
     model = MatchAllCheck
     fields = []
     template_name = 'match_all_check/match_all_check.html'
-    success_url = '/'
+
+    def get_success_url(self, **kwargs):
+        #worksheet_number, check_number, barcode_count = self.kwargs['worksheet_number'], self.kwargs['check_number'], self.kwargs['barcode_count']
+        url = reverse('MatchAllCheckWorksheetView', kwargs={'worksheet_number': self.kwargs['worksheet_number'],
+                                                      'check_number': self.kwargs['check_number'],
+                                                      'barcode_count':  self.kwargs['barcode_count']})
+
+        return url
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -87,8 +96,9 @@ class MatchAllCheckWorksheetView(CreateView):
         self.object.user = self.request.user
         self.object.worksheet, created = Worksheet.objects.get_or_create(worksheet_number=worksheet_number)
         self.object.check_number =context["check_number"]
-        self.object.save()
         if barcodes.is_valid():
+            self.object.save()
+
             barcodes.instance = self.object
             barcodes.save()
 
