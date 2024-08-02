@@ -5,7 +5,7 @@ from django.core.validators import RegexValidator
 
 class Worksheet(models.Model):
     worksheet_number = models.CharField(max_length=12, validators=[RegexValidator(regex=r'^\d{6}$|""',
-                                                                           message='invalid worksheet entered')], unique=True)
+                                                                           message='invalid worksheet entered')], primary_key=True)
 
     def __str__(self):
         return f"{self.worksheet_number}"
@@ -15,7 +15,7 @@ class Worksheet(models.Model):
 
 class Check(models.Model):
     dateTime_check = models.DateTimeField(verbose_name='date_and_time', auto_now_add=True)
-    worksheet = models.ForeignKey(Worksheet, to_field="worksheet_number", on_delete=models.CASCADE)
+    worksheet = models.ForeignKey(Worksheet, on_delete=models.CASCADE)
     check_number = models.IntegerField(null=True, default=1)
     check_pass = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -26,7 +26,7 @@ class Check(models.Model):
         abstract = True
 
     def __str__(self):
-        return f"{self.user}: {self.worksheet_number}, {self.check_number}, {self.dateTime_check.strftime("%H:%M:%S %d-%m-%Y")}"
+        return f"{self.user}: {self.worksheet}, {self.check_number}, {self.dateTime_check.strftime("%H:%M:%S %d-%m-%Y")}"
 
     def checkPassFail(self):
         pass

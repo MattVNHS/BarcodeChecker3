@@ -54,7 +54,7 @@ class MatchAllCheckView(CreateView):
 @method_decorator(login_required, name='dispatch')
 class MatchAllCheckWorksheetView(CreateView):
     model = MatchAllCheck
-    fields = ["worksheet",]
+    fields = []
     template_name = 'match_all_check/match_all_check.html'
     success_url = '/'
 
@@ -63,10 +63,12 @@ class MatchAllCheckWorksheetView(CreateView):
         if self.request.POST:
             data['total_forms'] = int(self.request.POST['matchallbarcode_set-TOTAL_FORMS'])
             data['barcodes'] = postFormset(self.request.POST)
+            data["worksheet_number"], data["check_number"] = self.kwargs['worksheet_number'], self.kwargs['check_number']
+            data["check_record"] = MatchAllCheck.objects.filter(worksheet=data["worksheet_number"])
         else:
             data["barcodes"] = getFormset(self.kwargs['barcode_count'])
-            data["worksheet_number"] = self.kwargs['worksheet_number']
-            data["check_number"] = self.kwargs['check_number']
+            data["worksheet_number"], data["check_number"] = self.kwargs['worksheet_number'], self.kwargs['check_number']
+            data["check_record"] = MatchAllCheck.objects.filter(worksheet=data["worksheet_number"])
         return data
 
     def form_invalid(self, form):
@@ -79,8 +81,12 @@ class MatchAllCheckWorksheetView(CreateView):
     def form_valid(self, form):
         context = self.get_context_data()
         barcodes = context['barcodes']
+        worksheet_number = context["worksheet_number"]
+        print(worksheet_number)
         self.object = form.save(commit=False)
         self.object.user = self.request.user
+        self.object.worksheet, created = Worksheet.objects.get_or_create(worksheet_number=worksheet_number)
+        self.object.check_number =context["check_number"]
         self.object.save()
         if barcodes.is_valid():
             barcodes.instance = self.object

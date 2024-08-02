@@ -24,7 +24,27 @@
         <div class="col">
         </div>
         <div class="col">
-            <p> check record:</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Check by</th>
+                        <th scope="col">Check date/time</th>
+                        <th scope="col">Check pass</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for record in check_record %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ record.user }}</td>
+                        <td>{{ record.dateTime_check }}</td>
+                        <td>{{ record.check_pass }}</td>
+                    </tr>
+                {% endfor %}
+                    <tr>
+                </tbody>
+            </table>
         </div>
 
     </div>
