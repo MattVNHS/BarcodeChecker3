@@ -65,8 +65,8 @@ class MatchAllCheckWorksheetView(CreateView):
             data['barcodes'] = postFormset(self.request.POST)
         else:
             data["barcodes"] = getFormset(self.kwargs['barcode_count'])
-            worksheet = self.kwargs['worksheet_number']
-            check_number = self.kwargs['check_number']
+            data["worksheet_number"] = self.kwargs['worksheet_number']
+            data["check_number"] = self.kwargs['check_number']
         return data
 
     def form_invalid(self, form):

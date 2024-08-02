@@ -2,17 +2,33 @@
 
 {% block content %}
 
-
-{% if form.fields  %}
+{% if worksheet_number %}
+    <h2>Worksheet: {{ worksheet_number }} </h2>
+    <h2>Check: {{ check_number }} </h2>
+{% elif form.fields  %}
     <h2>Worksheet</h2>
-{% endif %}
-<form method="post" id="check">{% csrf_token %}
-    {{ form.as_p }}
-    <h3>Barcodes</h3>
-    {{ barcodes.as_p }}
-    <input class="nhsuk-button" data-module="nhsuk-button" type="submit" value="Check">
-</form>
 
+{% endif %}
+<div class="container-fluid">
+    <div class="row align-items-start">
+        <div class="col">
+            <form method="post" id="check">{% csrf_token %}
+                {% if not worksheet_number %}
+                    {{ form.as_p }}
+                {% endif %}
+                <h3>Barcodes</h3>
+                {{ barcodes.as_p }}
+                <input class="nhsuk-button" data-module="nhsuk-button" type="submit" value="Check">
+            </form>
+        </div>
+        <div class="col">
+        </div>
+        <div class="col">
+            <p> check record:</p>
+        </div>
+
+    </div>
+</div>
 <script>
     document.getElementById('check').addEventListener('submit', function (event) {
         var barcodeInputs = document.querySelectorAll('input[name*="barcode_set-"]:not([type="hidden"])');
