@@ -32,3 +32,14 @@ class MatchPairCheckAdmin(admin.ModelAdmin):
 
 admin.site.register(MatchPairCheck, MatchPairCheckAdmin)
 
+
+
+class MatchAllCheckInline(admin.TabularInline):
+    model = MatchAllCheck
+class WorksheetAdmin(admin.ModelAdmin):
+    list_display = ["worksheet_number",]
+    inlines = [
+        MatchAllCheckInline,
+    ]
+
+admin.site.register(Worksheet, WorksheetAdmin)
