@@ -10,7 +10,7 @@ class MatchAllBarcodeInline(admin.TabularInline):
 
 
 class MatchAllCheckAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "dateTime_check", "worksheet", "check_pass")
+    list_display = ("id", "user", "dateTime_check", "worksheet", "check_number", "check_description", "check_pass")
     inlines = [
         MatchAllBarcodeInline,
     ]
@@ -32,3 +32,14 @@ class MatchPairCheckAdmin(admin.ModelAdmin):
 
 admin.site.register(MatchPairCheck, MatchPairCheckAdmin)
 
+
+
+class MatchAllCheckInline(admin.TabularInline):
+    model = MatchAllCheck
+class WorksheetAdmin(admin.ModelAdmin):
+    list_display = ["worksheet_number",]
+    inlines = [
+        MatchAllCheckInline,
+    ]
+
+admin.site.register(Worksheet, WorksheetAdmin)

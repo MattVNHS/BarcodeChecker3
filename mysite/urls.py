@@ -34,4 +34,7 @@ urlpatterns = [
     path('match_all_check/<int:barcode_count>/', MatchAllCheckView.as_view(), name='MatchAllCheckView'),
     path('match_all_check_worksheet/<int:barcode_count>/', MatchAllCheckWorksheetView.as_view(), name='MatchAllCheckWorksheetView'),
     path('match_pair_check/<int:barcode_count>/', MatchPairCheckView.as_view(), name='MatchPairCheckView'),
+
+    path('match_all_check_audit/', MatchAllCheckListView.as_view(), name='MatchAllCheckListView'),
+    path('match_all_check_worksheet/<int:worksheet_number>/<int:check_number>/<str:check_description>/<int:barcode_count>/', MatchAllCheckWorksheetView.as_view(), name='MatchAllCheckWorksheetView'),
 ]
