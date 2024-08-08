@@ -61,8 +61,9 @@ class MatchAllCheckWorksheetView(CreateView):
     def get_success_url(self, **kwargs):
         #worksheet_number, check_number, barcode_count = self.kwargs['worksheet_number'], self.kwargs['check_number'], self.kwargs['barcode_count']
         url = reverse('MatchAllCheckWorksheetView', kwargs={'worksheet_number': self.kwargs['worksheet_number'],
-                                                      'check_number': self.kwargs['check_number'],
-                                                      'barcode_count':  self.kwargs['barcode_count']})
+                                                            'check_number': self.kwargs['check_number'],
+                                                            'check_description': self.kwargs['check_description'],
+                                                            'barcode_count':  self.kwargs['barcode_count']})
 
         return url
 
@@ -73,12 +74,12 @@ class MatchAllCheckWorksheetView(CreateView):
             data['barcodes'] = postFormset(self.request.POST)
             data["worksheet_number"], data["check_number"], data["check_description"] = (
                 self.kwargs['worksheet_number'], self.kwargs['check_number'], self.kwargs['check_description'])
-            data["check_record"] = MatchAllCheck.objects.filter(worksheet=data["worksheet_number"])
+            data["check_record"] = MatchAllCheck.objects.filter(worksheet=data["worksheet_number"], check_number=data["check_number"])
         else:
             data["barcodes"] = getFormset(self.kwargs['barcode_count'])
             data["worksheet_number"], data["check_number"], data["check_description"] = (
                 self.kwargs['worksheet_number'], self.kwargs['check_number'], self.kwargs['check_description'])
-            data["check_record"] = MatchAllCheck.objects.filter(worksheet=data["worksheet_number"])
+            data["check_record"] = MatchAllCheck.objects.filter(worksheet=data["worksheet_number"], check_number=data["check_number"])
         return data
 
     def form_invalid(self, form):
