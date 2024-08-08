@@ -101,10 +101,8 @@ class MatchAllCheckWorksheetView(CreateView):
         self.object.check_description = context["check_description"]
         if barcodes.is_valid():
             self.object.save()
-
             barcodes.instance = self.object
             barcodes.save()
-
             for error in barcodes.errors:
                 messages.warning(self.request, error)
             if self.object.checkPassFail():

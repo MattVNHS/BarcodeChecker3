@@ -41,10 +41,10 @@ if DEBUG:
 # Application definition
 
 INSTALLED_APPS = [
-
     # my apps
     'homepage',
     'account',
+    'base_check',
     'match_all_check',
     'match_pair_check',
 
