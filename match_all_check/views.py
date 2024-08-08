@@ -33,7 +33,6 @@ class MatchAllCheckView(CreateView):
         return self.render_to_response(self.get_context_data(form=form, formset=barcodes))
 
     def form_valid(self, form):
-        # do i need context['barcodes'] ? can I not just return data from get_context_data without assigning data['barcodes'] ?
         context = self.get_context_data()
         barcodes = context['barcodes']
         self.object = form.save(commit=False)
@@ -72,11 +71,13 @@ class MatchAllCheckWorksheetView(CreateView):
         if self.request.POST:
             data['total_forms'] = int(self.request.POST['matchallbarcode_set-TOTAL_FORMS'])
             data['barcodes'] = postFormset(self.request.POST)
-            data["worksheet_number"], data["check_number"] = self.kwargs['worksheet_number'], self.kwargs['check_number']
+            data["worksheet_number"], data["check_number"], data["check_description"] = (
+                self.kwargs['worksheet_number'], self.kwargs['check_number'], self.kwargs['check_description'])
             data["check_record"] = MatchAllCheck.objects.filter(worksheet=data["worksheet_number"])
         else:
             data["barcodes"] = getFormset(self.kwargs['barcode_count'])
-            data["worksheet_number"], data["check_number"] = self.kwargs['worksheet_number'], self.kwargs['check_number']
+            data["worksheet_number"], data["check_number"], data["check_description"] = (
+                self.kwargs['worksheet_number'], self.kwargs['check_number'], self.kwargs['check_description'])
             data["check_record"] = MatchAllCheck.objects.filter(worksheet=data["worksheet_number"])
         return data
 

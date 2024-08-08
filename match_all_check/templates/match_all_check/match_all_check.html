@@ -4,7 +4,7 @@
 
 {% if worksheet_number %}
     <h2>Worksheet: {{ worksheet_number }} </h2>
-    <h2>Check: {{ check_number }} </h2>
+    <h2>Check {{ check_number }} - {{ check_description }}</h2>
 {% elif form.fields  %}
     <h2>Worksheet</h2>
 
