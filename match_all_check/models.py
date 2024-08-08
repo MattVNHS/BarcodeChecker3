@@ -17,6 +17,7 @@ class Check(models.Model):
     dateTime_check = models.DateTimeField(verbose_name='date_and_time', auto_now_add=True)
     worksheet = models.ForeignKey(Worksheet, on_delete=models.CASCADE)
     check_number = models.IntegerField(null=True, default=1)
+    check_description = models.CharField(blank=True, max_length=None)
     check_pass = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
