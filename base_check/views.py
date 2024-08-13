@@ -1,13 +1,9 @@
 from django.urls import reverse
-
-from match_all_check.forms import *
-from match_all_check.models import *
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from base_check.forms import *
+
 # Base views for using in specific check apps
 
 
@@ -20,7 +16,6 @@ class CheckView(CreateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         if self.request.POST:
-            # look at match_all_check forms/ views postformset creates a formset_factory that self.request.POST is passed to as a parameter
             data['barcodes'] = postFormset(self.request.POST, self.model, self.barcode_model, self.barcode_form)
         else:
             data["barcodes"] = getFormset(self.kwargs['barcode_count'], self.model, self.barcode_model, self.barcode_form)

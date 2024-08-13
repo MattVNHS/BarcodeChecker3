@@ -1,6 +1,6 @@
 from django.urls import reverse
 
-from match_all_check.forms import *
+from base_check.forms import *
 from match_all_check.models import *
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView

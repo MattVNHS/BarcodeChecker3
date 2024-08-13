@@ -1,30 +1,12 @@
-from django import forms
-from match_all_check.models import *
 from django.forms.models import inlineformset_factory
 from django.forms import BaseInlineFormSet
-from django.forms import HiddenInput
 from django.core.exceptions import ValidationError
 
 # BarcodeForm defines the basic barcode form for use in our formset factories
 
 
-class BarcodeForm(forms.ModelForm):
-    barcode = forms.CharField()
-
-    class Meta:
-        model = MatchAllBarcode
-        fields = ('barcode',)
 
 
-class BarcodePairForm(forms.ModelForm):
-    barcode = forms.CharField()
-
-    class Meta:
-        model = MatchPairBarcode
-        fields = ('barcode', 'comparisonId')
-        widgets = {
-            'comparisonId': HiddenInput(),
-        }
 
 
 # BaseInlineCheckFormSet overwrites BaseInlineFormSet.clean() method to add validation at the formset level

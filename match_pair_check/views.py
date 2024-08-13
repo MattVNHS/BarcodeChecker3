@@ -1,5 +1,5 @@
 from base_check.views import *
-from match_pair_check.forms import *
+from base_check.forms import *
 
 
 @method_decorator(login_required, name='dispatch')
