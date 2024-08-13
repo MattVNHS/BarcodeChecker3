@@ -102,7 +102,7 @@ class AssignedMatchAllView(AssignedMatchAllWorksheetCheck):
 
 class MatchAllCheckListView(AuditView):
     model = MatchAllCheck
-    template_name = 'match_all_check/match_all_check_audit.html'
+    template_name = 'match_all_check/base_check_audit.html'
     paginate_by = 100  # if pagination is desired
 
     def get_context_data(self, **kwargs):
