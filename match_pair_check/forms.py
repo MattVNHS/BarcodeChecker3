@@ -1,7 +1,8 @@
 from django.forms import HiddenInput
 from match_all_check.forms import *
+from base_check.forms import *
 
-# BarcodeCheckForm defines the basic barcode form for use in our formset factories
+# BarcodeForm defines the basic barcode form for use in our formset factories
 
 
 class BarcodePairForm(forms.ModelForm):

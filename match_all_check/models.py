@@ -28,6 +28,9 @@ class MatchPairCheck(Check):
 class MatchAllBarcode(SampleBarcode):
     Check = models.ForeignKey(MatchAllCheck, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = "matchpairbarcode"
+
 
 class MatchPairBarcode(SampleBarcode):
     comparisonId = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)

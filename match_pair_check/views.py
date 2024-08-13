@@ -1,32 +1,15 @@
+from base_check.views import *
 from match_pair_check.forms import *
-from match_all_check.models import *
-from django.views.generic.edit import CreateView
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 
 
 @method_decorator(login_required, name='dispatch')
-class MatchPairCheckView(CreateView):
+class WorksheetMatchPairView(WorksheetCheckView):
     model = MatchPairCheck
-    fields = ["worksheet",]
+   # fields = ["worksheet",]
     template_name = 'match_all_check/match_all_check.html'
     success_url = '/'
-
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        if self.request.POST:
-            data['barcodes'] = postFormset(self.request.POST)
-        else:
-            data["barcodes"] = getFormset(self.kwargs['barcode_count'])
-        return data
-
-    def form_invalid(self, form):
-        barcodes = self.get_context_data()['barcodes']
-        messages.warning(self.request, form.errors)
-        for error in barcodes.errors:
-            messages.warning(self.request, error)
-        return self.render_to_response(self.get_context_data())
+    barcode_model = MatchPairBarcode
+    barcode_form = BarcodePairForm
 
     def form_valid(self, form):
         barcodes = self.get_context_data()['barcodes']

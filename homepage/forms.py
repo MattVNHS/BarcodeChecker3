@@ -5,19 +5,19 @@ from django import forms
 
 
 class MatchAllForm(forms.Form):
-    url_name = forms.CharField(widget=forms.HiddenInput(), initial="MatchAllCheckView")
+    url_name = forms.CharField(widget=forms.HiddenInput(), initial="MatchAllView")
     barcode_count = forms.ChoiceField(required=True, label='Barcodes to check',
                                            choices={i: i for i in range(2, 11, 2)})
 
 
 class MatchAllWorksheetForm(forms.Form):
-    url_name = forms.CharField(widget=forms.HiddenInput(), initial="MatchAllCheckWorksheetView")
+    url_name = forms.CharField(widget=forms.HiddenInput(), initial="WorksheetMatchAllView")
     barcode_count = forms.ChoiceField(required=True, label='Barcodes to check',
                                            choices={i: i for i in range(2, 11, 2)})
 
 
 class MatchPairForm(forms.Form):
-    url_name = forms.CharField(widget=forms.HiddenInput(), initial="MatchPairCheckView")
+    url_name = forms.CharField(widget=forms.HiddenInput(), initial="WorksheetMatchPairView")
     barcode_count = forms.ChoiceField(required=True, label='Barcodes to check',
                                            choices={i: i for i in range(8, 25, 8)})
 
