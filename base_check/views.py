@@ -12,6 +12,7 @@ from base_check.forms import *
 
 
 class CheckView(CreateView):
+    template_name = 'base_check/base_check.html'
     fields = []
     barcode_model = None
     barcode_form = None
@@ -34,6 +35,7 @@ class CheckView(CreateView):
 
 
 class WorksheetCheckView(CreateView):
+    template_name = 'base_check/base_check.html'
     fields = ['worksheet', 'check_number', 'check_description']
 
     def get_context_data(self, **kwargs):
@@ -41,8 +43,8 @@ class WorksheetCheckView(CreateView):
 
         if self.request.POST:
             post = self.request.POST
+            data['barcodes'] = postFormset(post, self.model, self.barcode_model, self.barcode_form)
             data["check_number"], data["check_description"] = post['check_number'], post['check_description']
-            data['barcodes'] = postFormset(self.request.POST, self.model, self.barcode_model, self.barcode_form)
             data["worksheet_number"], data['total_forms'] = post['worksheet'], data['barcodes'].total_form_count()
             data["check_record"] = self.model.objects.filter(worksheet=data["worksheet_number"], check_number=data["check_number"])
         else:
@@ -58,6 +60,7 @@ class WorksheetCheckView(CreateView):
 
 
 class AssignedMatchAllWorksheetCheck(CreateView):
+    template_name = 'base_check/base_check.html'
     fields = []
 
     def get_success_url(self, **kwargs):
@@ -74,11 +77,12 @@ class AssignedMatchAllWorksheetCheck(CreateView):
         if self.request.POST:
             data["check_number"], data["check_description"] = self.kwargs['check_number'], self.kwargs[
                 'check_description']
-            # data['total_forms'] = int(self.request.POST['matchallbarcode_set-TOTAL_FORMS'])
-            data['barcodes'] = postFormset(self.request.POST)
+            data['barcodes'] = postFormset(self.request.POST, self.model, self.barcode_model, self.barcode_form)
             data["worksheet_number"], data['total_forms'] = self.kwargs['worksheet_number'], data['barcodes'].total_form_count()
             data["check_record"] = self.model.objects.filter(worksheet=data["worksheet_number"], check_number=data["check_number"])
         else:
+            data["worksheet_number"], data["check_number"], data["check_description"] = (
+                self.kwargs['worksheet_number'], self.kwargs['check_number'], self.kwargs['check_description'])
             data["barcodes"] = getFormset(self.kwargs['barcode_count'], self.model, self.barcode_model, self.barcode_form)
             if "worksheet_number" in data:
                 data["check_record"] = self.model.objects.filter(worksheet=data["worksheet_number"], check_number=data["check_number"])

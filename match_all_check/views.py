@@ -15,7 +15,6 @@ from base_check.views import *
 @method_decorator(login_required, name='dispatch')
 class MatchAllView(CheckView):
     model = MatchAllCheck
-    template_name = 'match_all_check/match_all_check.html'
     success_url = '/'
     barcode_model = MatchAllBarcode
     barcode_form = BarcodeForm
@@ -43,7 +42,6 @@ class MatchAllView(CheckView):
 @method_decorator(login_required, name='dispatch')
 class WorksheetMatchAllView(WorksheetCheckView):
     model = MatchAllCheck
-    template_name = 'match_all_check/match_all_check.html'
     success_url = '/'
     barcode_model = MatchAllBarcode
     barcode_form = BarcodeForm
@@ -74,7 +72,6 @@ class WorksheetMatchAllView(WorksheetCheckView):
 @method_decorator(login_required, name='dispatch')
 class AssignedMatchAllView(AssignedMatchAllWorksheetCheck):
     model = MatchAllCheck
-    template_name = 'match_all_check/match_all_check.html'
     success_url = '/'
     barcode_model = MatchAllBarcode
     barcode_form = BarcodeForm

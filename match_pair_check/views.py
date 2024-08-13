@@ -6,7 +6,6 @@ from match_pair_check.forms import *
 class WorksheetMatchPairView(WorksheetCheckView):
     model = MatchPairCheck
    # fields = ["worksheet",]
-    template_name = 'match_all_check/match_all_check.html'
     success_url = '/'
     barcode_model = MatchPairBarcode
     barcode_form = BarcodePairForm
@@ -48,3 +47,6 @@ class WorksheetMatchPairView(WorksheetCheckView):
             return self.form_invalid(form)
         return super().form_valid(form)
 
+@method_decorator(login_required, name='dispatch')
+class AssignedMatchPairView(AssignedMatchAllWorksheetCheck):
+    pass
