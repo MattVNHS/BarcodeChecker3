@@ -1,10 +1,5 @@
-from django.urls import reverse
-
-from base_check.forms import *
+from match_all_check.forms import *
 from match_all_check.models import *
-from django.views.generic.edit import CreateView
-from django.views.generic.list import ListView
-from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from base_check.views import *

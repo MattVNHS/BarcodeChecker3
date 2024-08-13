@@ -1,5 +1,8 @@
 from base_check.views import *
-from base_check.forms import *
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from match_pair_check.models import *
+from match_pair_check.forms import *
 
 
 @method_decorator(login_required, name='dispatch')

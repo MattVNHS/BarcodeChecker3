@@ -10,7 +10,7 @@ class Worksheet(models.Model):
     def __str__(self):
         return f"{self.worksheet_number}"
 
-# Check model is abstract - MatchAllCheck and MatchPairCheck inherit from the Check model and define the checkPassFail method.
+# Check model is abstract - Specific check models inherit from the Check model and define the checkPassFail method.
 
 
 class Check(models.Model):
