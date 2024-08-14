@@ -10,6 +10,7 @@ class MatchAllCheck(Check):
         return self.check_pass
 
     class Meta:
+        verbose_name = "Match All Check"
         verbose_name_plural = "Match All Checks"
 
 

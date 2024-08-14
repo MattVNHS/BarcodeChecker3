@@ -106,6 +106,7 @@ class AuditView(ListView):
         object_list = self.model.objects.filter(
             Q(worksheet__worksheet_number__icontains=query) | Q(user__username__icontains=query)
         )
+
         return object_list
 
     # def get_context_data(self, **kwargs):

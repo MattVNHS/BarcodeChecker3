@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load my_tags %}
+
 {% block content %}
 
 <div class="container-fluid">
@@ -8,6 +10,7 @@
             {% if object_list %}
             <table>
                 <tr>
+                    <th>Check Type</th>
                     <th>Worksheet</th>
                     <th>Check Number</th>
                     <th>Check Description</th>
@@ -17,6 +20,7 @@
                 </tr>
                 {% for check in object_list %}
                 <tr>
+                    <td>{{ check | class_name }}</td>
                     <td>{{ check.worksheet }}</td>
                     <td>{{ check.check_number }}</td>
                     <td>{{ check.check_description }}</td>
