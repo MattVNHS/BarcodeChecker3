@@ -1,26 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="container-fluid">
+    <div class="row align-items-start">
+        <div class="col">
+            <h4>Lab number check methods - no worksheet required</h4>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ match_all_form.as_p }}
+                        <input class="nhsuk-button" data-module="nhsuk-button" type="submit">
+                    </form>
 
-<h4>Lab number check methods - no worksheet required</h4>
-        <form method="post">
-            {% csrf_token %}
-            {{ match_all_form.as_p }}
-            <input class="nhsuk-button" data-module="nhsuk-button" type="submit">
-        </form>
+            <h4>Lab number check methods -  worksheet required</h4>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ match_all_worksheet_form.as_p }}
+                        <input class="nhsuk-button" data-module="nhsuk-button" type="submit">
+                    </form>
 
-<h4>Lab number check methods -  worksheet required</h4>
-        <form method="post">
-            {% csrf_token %}
-            {{ match_all_worksheet_form.as_p }}
-            <input class="nhsuk-button" data-module="nhsuk-button" type="submit">
-        </form>
+            <h4>Lab number check methods - Match Pair</h4>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ Match_pair_form.as_p }}
+                        <input class="nhsuk-button" data-module="nhsuk-button" type="submit">
+                    </form>
+        </div>
+        <div class="col">
+            <form action="{% url 'Audit' %}" method="get">
+              <input name="q" type="text" placeholder="Search...">
+            </form>
 
-<h4>Lab number check methods - Match Pair</h4>
-        <form method="post">
-            {% csrf_token %}
-            {{ Match_pair_form.as_p }}
-            <input class="nhsuk-button" data-module="nhsuk-button" type="submit">
-        </form>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}

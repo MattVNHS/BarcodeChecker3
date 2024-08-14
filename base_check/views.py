@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.contrib import messages
 from base_check.forms import *
+from base_check.models import *
 
 # Base views for using in specific check apps
 
@@ -90,11 +91,24 @@ class AssignedMatchAllWorksheetCheck(CreateView):
             messages.warning(self.request, error)
         return self.render_to_response(self.get_context_data(form=form, formset=barcodes))
 
-class AuditView(ListView):
-    template_name = 'match_all_check/base_check_audit.html'
-    paginate_by = 100  # if pagination is desired
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+from django.db.models import Q
+from match_all_check.models import MatchAllCheck
+
+
+class AuditView(ListView):
+    model = MatchAllCheck
+    template_name = 'base_check/base_audit.html'
+    #paginate_by = 10  # if pagination is desired
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        object_list = self.model.objects.filter(
+            Q(worksheet__worksheet_number__icontains=query) | Q(user__username__icontains=query)
+        )
+        return object_list
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     return context
 

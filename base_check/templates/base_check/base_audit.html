@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row align-items-start">
+        <div class="col">
+            {% if object_list %}
+            <table>
+                <tr>
+                    <th>Worksheet</th>
+                    <th>Check Number</th>
+                    <th>Check Description</th>
+                    <th>Check Pass</th>
+                    <th>User</th>
+                    <th>Date/Time</th>
+                </tr>
+                {% for check in object_list %}
+                <tr>
+                    <td>{{ check.worksheet }}</td>
+                    <td>{{ check.check_number }}</td>
+                    <td>{{ check.check_description }}</td>
+                    <td>{{ check.check_pass }}</td>
+                    <td>{{ check.user }}</td>
+                    <td>{{ check.dateTime_check }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+                <h2>No Results Found.</h2>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

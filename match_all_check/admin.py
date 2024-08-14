@@ -1,5 +1,6 @@
 from django.contrib import admin
 from match_all_check.models import *
+from match_pair_check.models import *
 
 admin.site.register(MatchAllBarcode)
 admin.site.register(MatchPairBarcode)
