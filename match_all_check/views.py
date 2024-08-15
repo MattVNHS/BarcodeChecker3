@@ -95,9 +95,6 @@ class AssignedMatchAllView(AssignedMatchAllWorksheetCheck):
         return super().form_valid(form)
 
 
-class MatchAllCheckListView(AuditView):
+@method_decorator(login_required, name='dispatch')
+class MatchAllCheckAudit(AuditView):
     model = MatchAllCheck
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context

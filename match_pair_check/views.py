@@ -57,3 +57,8 @@ class WorksheetMatchPairView(WorksheetCheckView):
 @method_decorator(login_required, name='dispatch')
 class AssignedMatchPairView(AssignedMatchAllWorksheetCheck):
     pass
+
+
+@method_decorator(login_required, name='dispatch')
+class MatchPairCheckAudit(AuditView):
+    model = MatchPairCheck
