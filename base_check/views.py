@@ -106,8 +106,7 @@ class AuditView(ListView):
         object_list = self.model.objects.filter(
             Q(worksheet__worksheet_number__icontains=query) | Q(user__username__icontains=query)
         )
-
-        return object_list
+        return object_list.order_by('-dateTime_check')
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)

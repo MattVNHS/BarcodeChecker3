@@ -14,16 +14,20 @@ class WorksheetMatchPairView(WorksheetCheckView):
     barcode_form = BarcodePairForm
 
     def form_valid(self, form):
-        barcodes = self.get_context_data()['barcodes']
+        context = self.get_context_data()
+        barcodes = context['barcodes']
+        worksheet_number = context["worksheet_number"]
         barcodes_entered = [True for x in barcodes if x.has_changed()]
         if len(barcodes_entered) % 2 != 0:
             messages.warning(self.request, 'Cannot have an odd number of barcodes entered')
             return self.form_invalid(form)
-
         self.object = form.save(commit=False)
         self.object.user = self.request.user
-        self.object.save()
+        self.object.worksheet, created = Worksheet.objects.get_or_create(worksheet_number=worksheet_number)
+        self.object.check_number = context["check_number"]
+        self.object.check_description = context["check_description"]
         if barcodes.is_valid():
+            self.object.save()
             barcodes.instance = self.object
             barcodes.save()
             # assign comparisonId's to barcode instances.
