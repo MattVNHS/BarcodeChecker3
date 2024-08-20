@@ -37,9 +37,10 @@ class MatchAllView(CheckView):
 @method_decorator(login_required, name='dispatch')
 class WorksheetMatchAllView(WorksheetCheckView):
     model = MatchAllCheck
-    success_url = '/'
+    form_class = MatchAllForm
     barcode_model = MatchAllBarcode
     barcode_form = BarcodeForm
+    success_url = '/'
 
     def form_valid(self, form):
         context = self.get_context_data()

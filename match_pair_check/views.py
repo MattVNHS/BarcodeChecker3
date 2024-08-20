@@ -8,10 +8,10 @@ from match_pair_check.forms import *
 @method_decorator(login_required, name='dispatch')
 class WorksheetMatchPairView(WorksheetCheckView):
     model = MatchPairCheck
-   # fields = ["worksheet",]
-    success_url = '/'
+    form_class = MatchPairForm
     barcode_model = MatchPairBarcode
     barcode_form = BarcodePairForm
+    success_url = '/'
 
     def form_valid(self, form):
         context = self.get_context_data()

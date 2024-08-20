@@ -32,7 +32,6 @@ class CheckView(CreateView):
 
 class WorksheetCheckView(CreateView):
     template_name = 'base_check/base_check.html'
-    fields = ['worksheet', 'check_number', 'check_description']
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -41,7 +40,7 @@ class WorksheetCheckView(CreateView):
             post = self.request.POST
             data['barcodes'] = post_formset(post, self.model, self.barcode_model, self.barcode_form)
             data["check_number"], data["check_description"] = post['check_number'], post['check_description']
-            data["worksheet_number"], data['total_forms'] = post['worksheet'], data['barcodes'].total_form_count()
+            data["worksheet_number"], data['total_forms'] = post['worksheet_number'], data['barcodes'].total_form_count()
             check_record = self.model.objects.filter(worksheet=data["worksheet_number"],
                                                      check_number=data["check_number"])
             data["check_record"] = sorted(check_record, key=attrgetter('dateTime_check'), reverse=True)
