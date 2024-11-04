@@ -25,6 +25,13 @@ RUN adduser \
     --uid "${UID}" \
     appuser
 
+# create the appropriate directories
+# ENV HOME=/home/app
+# ENV APP_HOME=/home/app/web
+# RUN mkdir $APP_HOME
+# RUN mkdir $APP_HOME/staticfiles
+# WORKDIR $APP_HOME
+
 # Install required system packages and ODBC driver for SQL Server
 RUN apt-get update && apt-get install -y \
     curl \
@@ -49,15 +56,19 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     python -m pip install -r requirements.txt
 
 
+
 # Switch to the non-privileged user to run the application.
 USER appuser
 
 # Copy the source code into the container.
 COPY . .
 
-# Expose the port that the application listens on.
-EXPOSE 8000
-EXPOSE 1433
+# # Expose the port that the application listens on.
+# EXPOSE 8000
+#
+# # Run the application.
+# CMD python manage.py runserver
 
-# Run the application.
-CMD python manage.py runserver
+# entrypoint shell scripts to be executed
+COPY ./entrypoint.sh /
+ENTRYPOINT ["sh", "/entrypoint.sh"]

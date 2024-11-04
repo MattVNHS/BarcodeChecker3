@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 import environ as environ
+from django.conf.global_settings import STATIC_ROOT
 
 env = environ.Env()
 environ.Env.read_env()
@@ -20,8 +21,8 @@ environ.Env.read_env()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 STATIC_URL = '/static/'
-
 STATICFILES_DIRS = [BASE_DIR / 'static',]
+STATIC_ROOT = '/app/static'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -32,7 +33,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.163',  '*'] # '192.168.203.21',
 
 # Sending email to the console example: reset password. Will eventually change this.
 if DEBUG:
@@ -69,6 +70,15 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'mysite.urls'
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost:1337",
+                        "http://192.168.1.163:1337",
+                        "http://192.168.56.1:1337",
+                        "192.168.56.1",
+                        "http://192.168.203.21:1337"
+                        "http://192.168.203.21:1337/"
+                        "192.168.203.21"
+                        ]
 
 TEMPLATES = [
     {
