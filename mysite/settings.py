@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 import environ as environ
-from django.conf.global_settings import STATIC_ROOT
 
 env = environ.Env()
 environ.Env.read_env()
@@ -20,9 +19,11 @@ environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static',]
-STATIC_ROOT = '/app/static'
+
+STATIC_URL = 'static/'
+STATIC_ROOT = '/app/static/'
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -71,13 +72,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mysite.urls'
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:1337",
-                        "http://192.168.1.163:1337",
-                        "http://192.168.56.1:1337",
-                        "192.168.56.1",
-                        "http://192.168.203.21:1337"
-                        "http://192.168.203.21:1337/"
-                        "192.168.203.21"
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8000",
                         ]
 
 TEMPLATES = [

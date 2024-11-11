@@ -50,7 +50,7 @@ RUN apt-get update && apt-get install -y \
 # Leverage a bind mount to requirements.txt to avoid having to copy them into
 # into this layer.
 # Install Python dependencies
-COPY requirements.txt .
+
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
     python -m pip install -r requirements.txt
