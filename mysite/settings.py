@@ -131,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-SESSION_COOKIE_AGE = 10 #* 60  # 60 minutes
+SESSION_COOKIE_AGE = 60 * 20  # 20 minutes
 SESSION_SAVE_EVERY_REQUEST = True  # Refresh session whenever user is active
 
 
