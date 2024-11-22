@@ -131,6 +131,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SESSION_COOKIE_AGE = 10 #* 60  # 60 minutes
+SESSION_SAVE_EVERY_REQUEST = True  # Refresh session whenever user is active
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
