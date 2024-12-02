@@ -3,6 +3,17 @@ from django.conf import settings
 from django.core.validators import RegexValidator
 
 
+class CheckTable(models.Model):
+    check_name = models.CharField(blank=True, max_length=150)
+    check_hub = models.CharField(blank=True, max_length=50)
+    check_process = models.CharField(blank=True, max_length=150)
+    check_type = models.CharField(blank=True, max_length=150) #This needs to be choices from existing check models
+    barcode_range_start = models.IntegerField(null=False, default=2)
+    barcode_range_stop = models.IntegerField(null=False, default=2)
+    barcode_range_step = models.IntegerField(null=False, default=2)
+    class Meta:
+        verbose_name = "Check Table"
+
 class Worksheet(models.Model):
     worksheet_number = models.CharField(max_length=12, validators=[RegexValidator(regex=r'^\d{6}$|""',
                                                                            message='invalid worksheet entered')], primary_key=True)
