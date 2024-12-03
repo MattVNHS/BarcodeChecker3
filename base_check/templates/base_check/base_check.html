@@ -13,9 +13,9 @@
     <div class="row align-items-start">
         <div class="col">
             <form method="post" id="check">{% csrf_token %}
-                {% if not worksheet_number %}
-                    {{ form.as_p }}
-                {% endif %}
+
+                {{ form.as_p }}
+
                 <h3>Barcodes</h3>
                 {{ barcodes.as_p }}
                 <input class="nhsuk-button" data-module="nhsuk-button" type="submit" value="Check">

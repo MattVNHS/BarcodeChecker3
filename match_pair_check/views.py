@@ -1,44 +1,33 @@
-from match_pair_check.forms import *
-from match_all_check.models import *
-from django.views.generic.edit import CreateView
-from django.contrib import messages
+from base_check.views import *
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from match_pair_check.models import *
+from match_pair_check.forms import *
 
 
 @method_decorator(login_required, name='dispatch')
-class MatchPairCheckView(CreateView):
+class WorksheetMatchPairView(WorksheetCheckView):
     model = MatchPairCheck
-    fields = ["worksheet",]
-    template_name = 'match_all_check/match_all_check.html'
+    form_class = MatchPairForm
+    barcode_model = MatchPairBarcode
+    barcode_form = BarcodePairForm
     success_url = '/'
 
-    def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-        if self.request.POST:
-            data['barcodes'] = postFormset(self.request.POST)
-        else:
-            data["barcodes"] = getFormset(self.kwargs['barcode_count'])
-        return data
-
-    def form_invalid(self, form):
-        barcodes = self.get_context_data()['barcodes']
-        messages.warning(self.request, form.errors)
-        for error in barcodes.errors:
-            messages.warning(self.request, error)
-        return self.render_to_response(self.get_context_data())
-
     def form_valid(self, form):
-        barcodes = self.get_context_data()['barcodes']
+        context = self.get_context_data()
+        barcodes = context['barcodes']
+        worksheet_number = context["worksheet_number"]
         barcodes_entered = [True for x in barcodes if x.has_changed()]
         if len(barcodes_entered) % 2 != 0:
             messages.warning(self.request, 'Cannot have an odd number of barcodes entered')
             return self.form_invalid(form)
-
         self.object = form.save(commit=False)
         self.object.user = self.request.user
-        self.object.save()
+        self.object.worksheet, created = Worksheet.objects.get_or_create(worksheet_number=worksheet_number)
+        self.object.check_number = context["check_number"]
+        self.object.check_description = context["check_description"]
         if barcodes.is_valid():
+            self.object.save()
             barcodes.instance = self.object
             barcodes.save()
             # assign comparisonId's to barcode instances.
@@ -65,3 +54,11 @@ class MatchPairCheckView(CreateView):
             return self.form_invalid(form)
         return super().form_valid(form)
 
+@method_decorator(login_required, name='dispatch')
+class AssignedMatchPairView(AssignedMatchAllWorksheetCheck):
+    pass
+
+
+@method_decorator(login_required, name='dispatch')
+class MatchPairCheckAudit(AuditView):
+    model = MatchPairCheck

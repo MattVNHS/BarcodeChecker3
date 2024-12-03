@@ -30,9 +30,9 @@ class HomepageViewTest(TestCase):
     def test_homepage_MatchAllCheck_post_request(self):
         # Test a Post request loads a MatchAllCheck page
 
-        response = self.client.post(self.url, data={'barcode_count': 2, 'url_name': 'MatchAllCheckView'}, follow=True)
+        response = self.client.post(self.url, data={'barcode_count': 2, 'url_name': 'MatchAllView'}, follow=True)
 
-        self.assertIs(response.resolver_match.func.view_class, MatchAllCheckView)
+        self.assertIs(response.resolver_match.func.view_class, MatchAllView)
         self.assertEqual(response.context['barcodes'].extra, 2)
         self.assertTemplateUsed(response, 'match_all_check/match_all_check.html')
         self.assertEqual(response.status_code, 200)
@@ -40,9 +40,9 @@ class HomepageViewTest(TestCase):
     def test_homepage_MatchAllWorksheetCheck_post_request(self):
         # Test a Post request loads a MatchAllWorksheetCheck page
 
-        response = self.client.post(self.url, data={'barcode_count': 2, 'url_name': 'MatchAllCheckWorksheetView'}, follow=True)
+        response = self.client.post(self.url, data={'barcode_count': 2, 'url_name': 'WorksheetMatchAllView'}, follow=True)
 
-        self.assertIs(response.resolver_match.func.view_class, MatchAllCheckWorksheetView)
+        self.assertIs(response.resolver_match.func.view_class, WorksheetMatchAllView)
         self.assertEqual(response.context['barcodes'].extra, 2)
         self.assertTemplateUsed(response, 'match_all_check/match_all_check.html')
         self.assertEqual(response.status_code, 200)
@@ -50,9 +50,9 @@ class HomepageViewTest(TestCase):
     def test_homepage_MatchPairCheck_post_request(self):
         # Test a Post request loads a MatchPairCheck page
 
-        response = self.client.post(self.url, data={'barcode_count': 2, 'url_name': 'MatchPairCheckView'}, follow=True)
+        response = self.client.post(self.url, data={'barcode_count': 2, 'url_name': 'WorksheetMatchPairView'}, follow=True)
 
-        self.assertIs(response.resolver_match.func.view_class, MatchPairCheckView)
+        self.assertIs(response.resolver_match.func.view_class, WorksheetMatchPairView)
         self.assertEqual(response.context['barcodes'].extra, 2)
         self.assertTemplateUsed(response, 'match_all_check/match_all_check.html')
         self.assertEqual(response.status_code, 200)

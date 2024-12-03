@@ -1,7 +1,8 @@
+from django import forms
 from django.forms import HiddenInput
-from match_all_check.forms import *
+from match_pair_check.models import *
 
-# BarcodeCheckForm defines the basic barcode form for use in our formset factories
+# BarcodePairForm defines the basic barcode form for use in our formset factories
 
 
 class BarcodePairForm(forms.ModelForm):
@@ -14,17 +15,19 @@ class BarcodePairForm(forms.ModelForm):
             'comparisonId': HiddenInput(),
         }
 
-# BaseInlineCheckFormSet is defined in Match_all_check.forms
-# define inlineformset_factories for GET and POST requests to be used in our views.
+class MatchPairForm(forms.ModelForm):
+    worksheet_number = forms.CharField(max_length=12, label="Worksheet Number")
 
+    class Meta:
+        model = MatchPairCheck
+        fields = ['worksheet_number', 'check_number', 'check_description']
 
-def getFormset(barcode_count):
-    return inlineformset_factory(
-        MatchPairCheck, MatchPairBarcode, formset=BaseInlineCheckFormSet, can_delete_extra=False, form=BarcodePairForm, extra=barcode_count)
-
-
-postFormset = inlineformset_factory(
-    MatchPairCheck, MatchPairBarcode, can_delete_extra=False, form=BarcodePairForm, formset=BaseInlineCheckFormSet, extra=0)
-
-
+    def save(self, commit=True):
+        worksheet_number = self.cleaned_data['worksheet_number']
+        worksheet, created = Worksheet.objects.get_or_create(worksheet_number=worksheet_number)
+        check = super().save(commit=False)
+        check.worksheet = worksheet
+        if commit:
+            check.save()
+        return check
 

@@ -14,16 +14,16 @@ class FormsTest(TestCase):
         self.client.login(username='testuser1', password='12345')
 
     def test_MatchAllForm_valid(self):
-        test_form = MatchAllForm(data={'barcode_count': 2, 'url_name': 'MatchAllCheckView'})
+        test_form = MatchAllForm(data={'barcode_count': 2, 'url_name': 'MatchAllView'})
 
         self.assertTrue(test_form.is_valid())
 
     def test_MatchAllWorksheetForm_valid(self):
-        test_form = MatchAllWorksheetForm(data={'barcode_count': 2, 'url_name': 'MatchAllCheckWorksheetView'})
+        test_form = MatchAllWorksheetForm(data={'barcode_count': 2, 'url_name': 'WorksheetMatchAllView'})
 
         self.assertTrue(test_form.is_valid())
 
     def test_MatchPairForm_valid(self):
-        test_form = MatchPairForm(data={'barcode_count': 8, 'url_name': 'MatchPairCheckView'})
+        test_form = MatchPairForm(data={'barcode_count': 8, 'url_name': 'WorksheetMatchPairView'})
 
         self.assertTrue(test_form.is_valid())

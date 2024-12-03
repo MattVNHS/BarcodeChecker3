@@ -15,7 +15,7 @@ class Match_all_checkViewTest(TestCase):
                                              username='testuser1',
                                              password='12345')
         self.client.login(username='testuser1', password='12345')
-        self.url = reverse('MatchAllCheckView', kwargs={'barcode_count': 2})
+        self.url = reverse('MatchAllView', kwargs={'barcode_count': 2})
 
     def test_get_context_data_get_request(self):
         # Test the page loads correctly with the right number of barcode forms.
@@ -23,7 +23,7 @@ class Match_all_checkViewTest(TestCase):
         # (these are integration tests not unit tests)
         response = self.client.get(self.url, follow=True)
 
-        self.assertIs(response.resolver_match.func.view_class, MatchAllCheckView)
+        self.assertIs(response.resolver_match.func.view_class, MatchAllView)
         self.assertTemplateUsed(response, 'match_all_check/match_all_check.html')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['barcodes'].extra, 2)
@@ -37,7 +37,7 @@ class Match_all_checkViewTest(TestCase):
         message = list(response.context.get('messages'))[0]
         barcode_form = response.context.get('barcodes')
 
-        self.assertIs(response.resolver_match.func.view_class, MatchAllCheckView)
+        self.assertIs(response.resolver_match.func.view_class, MatchAllView)
         self.assertEqual(message.tags, "warning")
         self.assertFalse(barcode_form.is_valid())
         self.assertFormSetError(barcode_form, field='barcode', errors='invalid lab number entered',
@@ -86,7 +86,7 @@ class Match_all_check_worksheetViewTest(TestCase):
                                              username='testuser1',
                                              password='12345')
         self.client.login(username='testuser1', password='12345')
-        self.url = reverse('MatchAllCheckWorksheetView', kwargs={'barcode_count': 2})
+        self.url = reverse('WorksheetMatchAllView', kwargs={'barcode_count': 2})
 
     def test_get_context_data_get_request(self):
         # Test the page loads correctly with the right number of barcode forms.
@@ -94,7 +94,7 @@ class Match_all_check_worksheetViewTest(TestCase):
         # (these are integration tests not unit tests)
         response = self.client.get(self.url, follow=True)
 
-        self.assertIs(response.resolver_match.func.view_class, MatchAllCheckWorksheetView)
+        self.assertIs(response.resolver_match.func.view_class, WorksheetMatchAllView)
         self.assertTemplateUsed(response, 'match_all_check/match_all_check.html')
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['barcodes'].extra, 2)
@@ -109,12 +109,12 @@ class Match_all_check_worksheetViewTest(TestCase):
         message = list(response.context.get('messages'))[0]
         barcode_form = response.context.get('barcodes')
 
-        self.assertIs(response.resolver_match.func.view_class, MatchAllCheckWorksheetView)
+        self.assertIs(response.resolver_match.func.view_class, WorksheetMatchAllView)
         self.assertEqual(message.tags, "warning")
         self.assertFalse(barcode_form.is_valid())
         self.assertFormSetError(barcode_form, field='barcode', errors='invalid lab number entered',
                                 form_index=0)
-        self.assertIs(response.resolver_match.func.view_class, MatchAllCheckWorksheetView)
+        self.assertIs(response.resolver_match.func.view_class, WorksheetMatchAllView)
         self.assertTemplateUsed(response, 'match_all_check/match_all_check.html')
         self.assertEqual(response.status_code, 200)
 
@@ -130,7 +130,7 @@ class Match_all_check_worksheetViewTest(TestCase):
 
         self.assertEqual(message.tags, "warning")
         self.assertTrue("invalid worksheet entered" in form.errors)
-        self.assertIs(response.resolver_match.func.view_class, MatchAllCheckWorksheetView)
+        self.assertIs(response.resolver_match.func.view_class, WorksheetMatchAllView)
         self.assertTemplateUsed(response, 'match_all_check/match_all_check.html')
         self.assertEqual(response.status_code, 200)
 

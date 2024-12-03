@@ -19,9 +19,11 @@ environ.Env.read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [BASE_DIR / 'static',]
+STATIC_URL = 'static/'
+STATIC_ROOT = '/app/static/'
+
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -32,7 +34,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.163',  '*'] # '192.168.203.21',
 
 # Sending email to the console example: reset password. Will eventually change this.
 if DEBUG:
@@ -41,10 +43,10 @@ if DEBUG:
 # Application definition
 
 INSTALLED_APPS = [
-
     # my apps
     'homepage',
     'account',
+    'base_check',
     'match_all_check',
     'match_pair_check',
 
@@ -70,6 +72,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mysite.urls'
 
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8000",
+                        ]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -82,6 +87,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{
+                    'my_tags': 'base_check.templatetags.my_tags',
+                    }
         },
     },
 ]
@@ -123,13 +131,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SESSION_COOKIE_AGE = 60 * 20  # 20 minutes
+SESSION_SAVE_EVERY_REQUEST = True  # Refresh session whenever user is active
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Etc/GMT-1'
 
 USE_I18N = True
 
