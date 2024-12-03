@@ -11,7 +11,8 @@ services:
   web:
     build: .
     container_name: barcodescanner_django
-    #command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8000
+    #command: python manage.py runserver 0.0.0.0:8000 & wait
+    #command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8000 & wait
     #bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     expose:
       - 8000
@@ -27,17 +28,10 @@ services:
       watch:
         - action: rebuild
           path: .
-
-  nginx:
-    build: ./nginx
-    volumes:
-      - static_volume:/app/static
-      #- static_volume:/home/app/web/staticfiles
     ports:
       - 8000:8000
-    depends_on:
-      - web
-    restart: always
+    environment:
+      DJANGO_ENV: development
 
   barcodescanner-postgres:
     image: postgres:16
