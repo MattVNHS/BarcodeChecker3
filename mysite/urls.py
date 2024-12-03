@@ -17,8 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from homepage.views import *
 from account.views import *
+from audit.views import *
+from homepage.views import *
 from match_all_check.views import *
 from match_pair_check.views import *
 

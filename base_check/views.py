@@ -1,9 +1,8 @@
 from django.urls import reverse
 from django.views.generic.edit import CreateView
-from django.views.generic.list import ListView
 from django.contrib import messages
 from base_check.forms import *
-from base_check.models import *
+from operator import attrgetter
 
 # Base views for using in specific check apps
 
@@ -96,43 +95,5 @@ class AssignedMatchAllWorksheetCheck(CreateView):
         return self.render_to_response(self.get_context_data(form=form, formset=barcodes))
 
 
-from django.db.models import Q
-from django.apps import apps
-from itertools import chain
-from operator import attrgetter
-from mysite.settings import INSTALLED_APPS
-class AuditView(ListView):
-    template_name = 'base_check/base_audit.html'
 
-    def get_check_apps(self):
-        check_apps = []
-        for app in INSTALLED_APPS:
-            if app.endswith("_check"):
-                check_apps.append(app)
-        return check_apps
-
-
-
-    def get_subclasses(self, abstract_class):
-        result = []
-        for app in self.get_check_apps():
-            for model in apps.get_app_config(app).get_models():
-                if issubclass(model, Check) and model is not abstract_class:
-                    result.append(model)
-
-        return result
-
-    def get_queryset(self):
-        query = self.request.GET.get("q")
-
-        queryset_list = []
-        for check_type in self.get_subclasses(self):
-            queryset = check_type.objects.filter(
-                Q(worksheet__worksheet_number__icontains=query) | Q(user__username__icontains=query)
-            )
-            queryset_list.append(queryset)
-
-        combined_queryset = list(chain(*queryset_list))
-        ordered_queryset = sorted(combined_queryset, key=attrgetter('dateTime_check'), reverse=True)
-        return ordered_queryset
 

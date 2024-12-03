@@ -8,7 +8,7 @@ python manage.py migrate
 
 # Default to production if DJANGO_ENV is not set
 if [ "$DJANGO_ENV" = "development" ]; then
-    echo "Development environment: skipping ngix and gunicorn setup"
+    echo "Development environment: skipping ngnix and gunicorn setup"
     python manage.py runserver 0.0.0.0:8000
 else
 

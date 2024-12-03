@@ -44,9 +44,10 @@ if DEBUG:
 
 INSTALLED_APPS = [
     # my apps
-    'homepage',
+    'audit',
     'account',
     'base_check',
+    'homepage',
     'match_all_check',
     'match_pair_check',
 
