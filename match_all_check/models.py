@@ -15,7 +15,7 @@ class MatchAllCheck(Check):
 
 
 class MatchAllBarcode(SampleBarcode):
-    Check = models.ForeignKey(MatchAllCheck, on_delete=models.CASCADE)
+    Check = models.ForeignKey(MatchAllCheck, on_delete=models.CASCADE, related_name="barcodes")
 
     class Meta:
         verbose_name = "matchpairbarcode"
