@@ -57,18 +57,14 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     python -m pip install -r requirements.txt
 
 
-
-# Switch to the non-privileged user to run the application.
-USER appuser
-
 # Copy the source code into the container.
 COPY . .
 
-# # Expose the port that the application listens on.
-# EXPOSE 8000
-#
-# # Run the application.
-# CMD python manage.py runserver
+#change ownership
+RUN chown -R appuser:appuser /app
+
+# Switch to the non-privileged user to run the application.
+USER appuser
 
 # entrypoint shell scripts to be executed
 COPY ./entrypoint.sh /

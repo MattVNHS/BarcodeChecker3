@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # collect all static files to the root directory
-python manage.py collectstatic --noinput
+python manage.py collectstatic --no-input
 
 python manage.py makemigrations
 python manage.py migrate

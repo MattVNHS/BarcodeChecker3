@@ -9,7 +9,7 @@ from base_check.models import Check, SampleBarcode
 from match_all_check.models import MatchAllBarcode
 
 
-class AuditView(ListView):
+class AuditWorksheetSearchView(ListView):
     template_name = 'audit/base_audit.html'
 
     def get_check_apps(self):
@@ -44,7 +44,6 @@ class AuditView(ListView):
             queryset = check_type.objects.filter(
                 Q(worksheet__worksheet_number__icontains=query)
                 | Q(user__username__icontains=query)
-                | Q(barcodes__in=query)
             )
             queryset_list.append(queryset)
 

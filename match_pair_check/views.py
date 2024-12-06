@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from match_pair_check.models import *
 from match_pair_check.forms import *
-from audit.views import AuditView
+from audit.views import AuditWorksheetSearchView
 
 
 @method_decorator(login_required, name='dispatch')
@@ -61,5 +61,5 @@ class AssignedMatchPairView(AssignedMatchAllWorksheetCheck):
 
 
 @method_decorator(login_required, name='dispatch')
-class MatchPairCheckAudit(AuditView):
+class MatchPairCheckAudit(AuditWorksheetSearchView):
     model = MatchPairCheck

@@ -3,7 +3,7 @@ from match_all_check.models import *
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from base_check.views import *
-from audit.views import AuditView
+from audit.views import AuditWorksheetSearchView
 
 # For checks with a worksheet we add 'worksheet' to the fields attribute.
 
@@ -98,5 +98,5 @@ class AssignedMatchAllView(AssignedMatchAllWorksheetCheck):
 
 
 @method_decorator(login_required, name='dispatch')
-class MatchAllCheckAudit(AuditView):
+class MatchAllCheckAudit(AuditWorksheetSearchView):
     model = MatchAllCheck
