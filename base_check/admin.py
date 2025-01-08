@@ -7,9 +7,19 @@ from match_all_check.models import *
 from match_pair_check.models import *
 from .models import CheckTable
 
-admin.site.register(MatchAllBarcode)
-admin.site.register(MatchPairBarcode)
+
+class MatchAllBarcodeAdmin(admin.ModelAdmin):
+    list_display = ("barcode", "id")
+
+
+class MatchPairBarcodeAdmin(admin.ModelAdmin):
+    list_display = ("id", "barcode")
+
+
+admin.site.register(MatchAllBarcode, MatchAllBarcodeAdmin)
+admin.site.register(MatchPairBarcode, MatchPairBarcodeAdmin)
 admin.site.register(CheckTable)
+
 
 class MatchAllBarcodeInline(admin.TabularInline):
     model = MatchAllBarcode

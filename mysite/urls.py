@@ -40,6 +40,7 @@ urlpatterns = [
     path('match_pair_check/<int:barcode_count>/', WorksheetMatchPairView.as_view(), name='WorksheetMatchPairView'),
 
     path('audit_search/', AuditWorksheetSearchView.as_view(), name='Audit'),
+    path('audit_barcode_search/', AuditBarcodeSearchView.as_view(), name='barcode_search'),
    # path('match_all_check_audit/', MatchAllCheckAudit.as_view(), name='Audit'),
 
 

@@ -5,7 +5,7 @@ from django.apps import apps
 from itertools import chain
 from operator import attrgetter
 from mysite.settings import INSTALLED_APPS
-from base_check.models import Check, SampleBarcode
+from base_check.models import Check, Barcode
 from match_all_check.models import MatchAllBarcode
 
 
@@ -19,14 +19,6 @@ class AuditWorksheetSearchView(ListView):
                 check_apps.append(app)
         return check_apps
 
-
-    def get_check_subclasses(self, abstract_class):
-        result = []
-        for app in self.get_check_apps():
-            for model in apps.get_app_config(app).get_models():
-                if issubclass(model, Check) and model is not abstract_class:
-                    result.append(model)
-        return result
 
     def get_check_subclasses(self, abstract_class):
         result = []
@@ -55,3 +47,42 @@ class AuditWorksheetSearchView(ListView):
         combined_queryset = list(chain(*queryset_list))
         ordered_queryset = sorted(combined_queryset, key=attrgetter('dateTime_check'), reverse=True)
         return ordered_queryset
+
+class AuditBarcodeSearchView(ListView):
+    template_name = 'audit/audit_barcode_search.html'
+
+    def get_check_apps(self):
+        check_apps = []
+        for app in INSTALLED_APPS:
+            if app.endswith("_check"):
+                check_apps.append(app)
+        return check_apps
+
+
+    def get_check_subclasses(self, abstract_class):
+        result = []
+        for app in self.get_check_apps():
+            for model in apps.get_app_config(app).get_models():
+                if issubclass(model, Barcode) and model is not abstract_class:
+                    result.append(model)
+        return result
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+
+        queryset_list = []
+        for check_type in self.get_check_subclasses(self):
+            queryset = check_type.objects.filter(
+                Q(barcode__icontains=query)
+            )
+            queryset_list.append(queryset)
+
+        # Do I create a second search for barcodes? Or incorporate barcodes in the check search?
+        # Create a hyperlink on audit page to individual check details?
+
+        # lookup related names and FK's
+
+        combined_queryset = list(chain(*queryset_list))
+        print(combined_queryset)
+        #ordered_queryset = sorted(combined_queryset) #, key=attrgetter('dateTime_check'), reverse=True)
+        return combined_queryset

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load my_tags %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row align-items-start">
+        <div class="col">
+            {% if object_list %}
+            <table>
+                <tr>
+                    <th>Barcode</th>
+                    <th>Barcode Type</th>
+                    <th>Check</th>
+                    <th>User</th>
+                    <th>Date/Time</th>
+                </tr>
+                {% for barcode in object_list %}
+                <tr>
+                    <td>{{ barcode}}</td>
+                    <td>{{ barcode | class_name }}</td>
+                    <td>{{ barcode.check }}</td>
+                    <td>{{ barcode.user }}</td>
+                    <td>{{ barcode.check.dateTime_barcode }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+                <h2>No Results Found.</h2>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}
