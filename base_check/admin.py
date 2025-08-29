@@ -5,9 +5,12 @@ from django.contrib import admin
 from django.contrib import admin
 from match_all_check.models import *
 from match_pair_check.models import *
+from account.models import *
 from .models import CheckTable
 
-
+class StaffAdmin(admin.ModelAdmin):
+    model = STAFF
+admin.site.register(STAFF)
 class MatchAllBarcodeAdmin(admin.ModelAdmin):
     list_display = ("barcode", "id")
 
