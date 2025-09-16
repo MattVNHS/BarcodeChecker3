@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='matchallcheck',
             name='check_description',
-            field=models.CharField(blank=True),
+            field=models.CharField(blank=True, max_length=255),
         ),
         migrations.AddField(
             model_name='matchpaircheck',
             name='check_description',
-            field=models.CharField(blank=True),
+            field=models.CharField(blank=True, max_length=255),
         ),
     ]

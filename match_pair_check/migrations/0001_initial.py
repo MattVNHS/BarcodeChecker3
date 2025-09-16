@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('dateTime_check', models.DateTimeField(auto_now_add=True, verbose_name='date_and_time')),
                 ('check_number', models.IntegerField(default=1, null=True)),
-                ('check_description', models.CharField(blank=True)),
+                ('check_description', models.CharField(blank=True, max_length=255)),
                 ('check_pass', models.BooleanField(default=False)),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
                 ('worksheet', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='base_check.worksheet')),
