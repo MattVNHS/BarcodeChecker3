@@ -14,6 +14,8 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
+RUN mkdir -p /app/staticfiles
+
 # Create a non-privileged user that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
 ARG UID=10001
@@ -56,14 +58,20 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
     python -m pip install -r requirements.txt
 
+# Copy the source code into the container.
+COPY . .
 
+RUN chown -R appuser:appuser /app
 
 # Switch to the non-privileged user to run the application.
 USER appuser
 
-# Copy the source code into the container.
-COPY . .
 
+# This will collect all static files into the directory specified by STATIC_ROOT in your settings.py
+RUN SECRET_KEY=dummy \
+    DEFAULT_URL=sqlite:////tmp/db.sqlite3 \
+    SHIRE_URL=sqlite:////tmp/db.sqlite3 \
+    python manage.py collectstatic --noinput
 # # Expose the port that the application listens on.
 # EXPOSE 8000
 #

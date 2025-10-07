@@ -34,7 +34,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.163',  '*'] # '192.168.203.21',
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
 
 # Sending email to the console example: reset password. Will eventually change this.
 if DEBUG:
@@ -72,8 +72,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mysite.urls'
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:8000",
-                        ]
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS', default=['http://localhost:8000'])
+
 
 TEMPLATES = [
     {
