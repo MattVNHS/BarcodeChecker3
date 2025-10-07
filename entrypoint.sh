@@ -1,10 +1,7 @@
 #!/bin/sh
 
 # collect all static files to the root directory
-python manage.py collectstatic --noinput
-
-python manage.py makemigrations
-python manage.py migrate
+python manage.py collectstatic --noinput && python manage.py makemigrations && python manage.py migrate &&
 
 # Default to production if DJANGO_ENV is not set
 if [ "$DJANGO_ENV" = "development" ]; then

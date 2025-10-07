@@ -29,7 +29,7 @@ services:
         - action: rebuild
           path: .
     ports:
-      - 8000:8000
+      - 8001:8001
     environment:
       DJANGO_ENV: development
 
