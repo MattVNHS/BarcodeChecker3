@@ -24,6 +24,7 @@ services:
     depends_on:
       - barcodescanner-postgres
     restart: always
+    image: reubenmonaghan/barcodescanner-web:latest
 
   nginx:
     build: ./nginx
@@ -35,6 +36,7 @@ services:
     depends_on:
       - web
     restart: always
+    image: reubenmonaghan/barcodescanner-nginx:latest
 
   barcodescanner-postgres:
     image: postgres:16
