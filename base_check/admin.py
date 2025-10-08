@@ -5,11 +5,24 @@ from django.contrib import admin
 from django.contrib import admin
 from match_all_check.models import *
 from match_pair_check.models import *
+from account.models import *
 from .models import CheckTable
 
-admin.site.register(MatchAllBarcode)
-admin.site.register(MatchPairBarcode)
+class StaffAdmin(admin.ModelAdmin):
+    model = STAFF
+admin.site.register(STAFF)
+class MatchAllBarcodeAdmin(admin.ModelAdmin):
+    list_display = ("barcode", "id")
+
+
+class MatchPairBarcodeAdmin(admin.ModelAdmin):
+    list_display = ("id", "barcode")
+
+
+admin.site.register(MatchAllBarcode, MatchAllBarcodeAdmin)
+admin.site.register(MatchPairBarcode, MatchPairBarcodeAdmin)
 admin.site.register(CheckTable)
+
 
 class MatchAllBarcodeInline(admin.TabularInline):
     model = MatchAllBarcode

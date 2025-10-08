@@ -16,4 +16,4 @@ class MatchPairCheck(Check):
 
 class MatchPairBarcode(SampleBarcode):
     comparisonId = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
-    Check = models.ForeignKey(MatchPairCheck, on_delete=models.CASCADE)
+    Check = models.ForeignKey(MatchPairCheck, on_delete=models.CASCADE, related_name="barcodes")

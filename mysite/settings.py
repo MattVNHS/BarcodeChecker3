@@ -24,7 +24,6 @@ STATIC_URL = 'static/'
 STATIC_ROOT = '/app/static/'
 
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -44,9 +43,10 @@ if DEBUG:
 
 INSTALLED_APPS = [
     # my apps
-    'homepage',
+    'audit',
     'account',
     'base_check',
+    'homepage',
     'match_all_check',
     'match_pair_check',
 
@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_bootstrap5',
+    'easyaudit',
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'easyaudit.middleware.easyaudit.EasyAuditMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'

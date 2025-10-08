@@ -17,8 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from homepage.views import *
+from django.conf import settings
+from django.conf.urls.static import static
+
 from account.views import *
+from audit.views import *
+from homepage.views import *
 from match_all_check.views import *
 from match_pair_check.views import *
 
@@ -35,9 +39,12 @@ urlpatterns = [
     path('match_all_check_worksheet/<int:barcode_count>/', WorksheetMatchAllView.as_view(), name='WorksheetMatchAllView'),
     path('match_pair_check/<int:barcode_count>/', WorksheetMatchPairView.as_view(), name='WorksheetMatchPairView'),
 
-    path('match_all_check_audit/', MatchAllCheckAudit.as_view(), name='Audit'),
+    path('audit_search/', AuditWorksheetSearchView.as_view(), name='Audit'),
+    path('audit_barcode_search/', AuditBarcodeSearchView.as_view(), name='barcode_search'),
+   # path('match_all_check_audit/', MatchAllCheckAudit.as_view(), name='Audit'),
+
 
     path('match_all_check_worksheet/<int:worksheet_number>/<int:check_number>/<str:check_description>/<int:barcode_count>/', AssignedMatchAllView.as_view(), name='WorksheetMatchAllView'),
     path('match_pair_check_worksheet/<int:worksheet_number>/<int:check_number>/<str:check_description>/<int:barcode_count>/', AssignedMatchPairView.as_view(), name='WorksheetMatchPairView'),
 
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -27,6 +27,9 @@
                     <td>{{ check.check_pass }}</td>
                     <td>{{ check.user }}</td>
                     <td>{{ check.dateTime_check }}</td>
+                    {% for barcode in check.barcodes.all %}
+                        <td>{{ barcode }}</td>
+                    {% endfor %}
                 </tr>
                 {% endfor %}
             </table>
