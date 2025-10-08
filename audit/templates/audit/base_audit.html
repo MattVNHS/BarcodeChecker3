@@ -17,6 +17,7 @@
                     <th>Check Pass</th>
                     <th>User</th>
                     <th>Date/Time</th>
+                    <th>Barcodes</th>
                 </tr>
                 {% for check in object_list %}
                 <tr>
@@ -27,9 +28,11 @@
                     <td>{{ check.check_pass }}</td>
                     <td>{{ check.user }}</td>
                     <td>{{ check.dateTime_check }}</td>
-                    {% for barcode in check.barcodes.all %}
-                        <td>{{ barcode }}</td>
-                    {% endfor %}
+                    <td>
+                        {% for barcode in check.barcodes.all %}
+                            {{ barcode }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </td>
                 </tr>
                 {% endfor %}
             </table>
