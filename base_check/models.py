@@ -60,7 +60,7 @@ class Barcode(models.Model):
         abstract = True
 
     def __str__(self):
-        return f"{self.pk}: {self.barcode}"
+        return f"{self.barcode}"
 
 
 class SampleBarcode(Barcode):

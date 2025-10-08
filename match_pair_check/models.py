@@ -3,7 +3,7 @@ from base_check.models import *
 
 class MatchPairCheck(Check):
     def checkPassFail(self):
-        barcodes = self.matchpairbarcode_set.exclude(barcode="")
+        barcodes = self.barcodes.exclude(barcode="")
         if all(x.barcode == x.comparisonId.barcode for x in barcodes):
             self.check_pass = True
         self.save()
