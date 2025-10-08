@@ -41,6 +41,7 @@ class AuditWorksheetSearchView(ListView):
 
         # Do I create a second search for barcodes? Or incorporate barcodes in the check search?
         # Create a hyperlink on audit page to individual check details?
+
         # lookup related names and FK's
 
         combined_queryset = list(chain(*queryset_list))
@@ -53,7 +54,7 @@ class AuditBarcodeSearchView(ListView):
     def get_check_apps(self):
         check_apps = []
         for app in INSTALLED_APPS:
-            if app.endswith("_check")
+            if app.endswith("_check"):
                 check_apps.append(app)
         return check_apps
 
