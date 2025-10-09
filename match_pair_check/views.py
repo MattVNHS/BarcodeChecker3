@@ -30,7 +30,7 @@ class WorksheetMatchPairView(WorksheetCheckView):
         barcodes.save()
 
 @method_decorator(login_required, name='dispatch')
-class AssignedMatchPairView(AssignedMatchAllWorksheetCheck):
+class AssignedMatchPairView(AssignedWorksheetCheck):
     pass
 
 
