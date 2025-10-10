@@ -121,14 +121,12 @@ class WorksheetCheckView(CreateView):
         return self.render_to_response(self.get_context_data(form=form, formset=barcodes))
 
 
-class AssignedWorksheetCheck(CreateView):
+class AssignedWorksheetCheck(WorksheetCheckView):
     model = None
     barcode_model = None
     barcode_form = None
     view_name = None
     template_name = 'base_check/base_check.html'
-    fields = []
-
 
     def get_success_url(self, **kwargs):
         url = reverse(self.view_name,
@@ -157,37 +155,4 @@ class AssignedWorksheetCheck(CreateView):
                 check_record = self.model.objects.filter(worksheet=data["worksheet_number"], check_number=data["check_number"])
                 data["check_record"] = sorted(check_record, key=attrgetter('dateTime_check'), reverse=True)
         return data
-
-    def form_valid(self, form):
-        context = self.get_context_data()
-        barcodes = context['barcodes']
-        worksheet_number = context["worksheet_number"]
-        self.object = form.save(commit=False)
-        self.object.user = self.request.user
-        self.object.worksheet, created = Worksheet.objects.get_or_create(worksheet_number=worksheet_number)
-        self.object.check_number = context["check_number"]
-        self.object.check_description = context["check_description"]
-        if barcodes.is_valid():
-            self.object.save()
-            barcodes.instance = self.object
-            barcodes.save()
-            for error in barcodes.errors:
-                messages.warning(self.request, error)
-            if self.object.checkPassFail():
-                messages.success(self.request, 'Check Passed')
-            else:
-                messages.warning(self.request, 'Check Failed - Barcodes do not match')
-        else:
-            return self.form_invalid(form)
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        barcodes = self.get_context_data()['barcodes']
-        messages.warning(self.request, form.errors)
-        for error in barcodes.errors:
-            messages.warning(self.request, error)
-        return self.render_to_response(self.get_context_data(form=form, formset=barcodes))
-
-
-
 

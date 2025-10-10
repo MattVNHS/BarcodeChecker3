@@ -29,6 +29,7 @@ class AssignedMatchAllView(AssignedWorksheetCheck):
     barcode_form = BarcodeForm
     view_name = 'WorksheetMatchAllView'
     success_url = '/'
+    fields = []
 
 @method_decorator(login_required, name='dispatch')
 class MatchAllCheckAudit(AuditWorksheetSearchView):
