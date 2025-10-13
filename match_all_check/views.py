@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from base_check.views import *
 from audit.views import AuditWorksheetSearchView
 
-# For checks with a worksheet we add 'worksheet' to the fields attribute.
+# For checks without the form_class attribute, add the fields attribute.
 
 @method_decorator(login_required, name='dispatch')
 class MatchAllView(CheckView):
@@ -13,6 +13,7 @@ class MatchAllView(CheckView):
     barcode_model = MatchAllBarcode
     barcode_form = BarcodeForm
     success_url = '/'
+    fields = []
 
 @method_decorator(login_required, name='dispatch')
 class WorksheetMatchAllView(WorksheetCheckView):
