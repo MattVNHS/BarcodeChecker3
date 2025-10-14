@@ -6,8 +6,10 @@ from base_check.models import Worksheet
 from django.db import transaction
 
 # Base views for using in specific check apps
-
-class BarcodeFormsetMixin:
+class CheckView(CreateView):
+    template_name = 'base_check/base_check.html'
+    barcode_model = None
+    barcode_form = None
 
     def get_barcode_formset(self):
         if hasattr(self, 'barcode_formset'):
@@ -19,19 +21,6 @@ class BarcodeFormsetMixin:
             formset = get_formset(self.kwargs['barcode_count'], self.model, self.barcode_model, self.barcode_form)
         self.barcode_formset = formset
         return formset
-
-    def form_invalid(self, form):
-        barcodes = self.get_barcode_formset()
-        messages.warning(self.request, form.errors)
-        for error in barcodes.errors:
-            messages.warning(self.request, error)
-        return self.render_to_response(self.get_context_data(form=form, formset=barcodes))
-
-class CheckView(BarcodeFormsetMixin, CreateView):
-    template_name = 'base_check/base_check.html'
-    #fields = []
-    barcode_model = None
-    barcode_form = None
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
@@ -55,6 +44,12 @@ class CheckView(BarcodeFormsetMixin, CreateView):
 
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        barcodes = self.get_barcode_formset()
+        messages.warning(self.request, form.errors)
+        for error in barcodes.errors:
+            messages.warning(self.request, error)
+        return self.render_to_response(self.get_context_data(form=form, formset=barcodes))
 
 class WorksheetCheckView(CheckView):
     template_name = 'base_check/base_check.html'
