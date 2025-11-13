@@ -81,7 +81,10 @@ class WorksheetCheckView(CheckView):
 
         self.object = form.save(commit=False)
         self.object.user = self.request.user
-        self.object.worksheet, created = Worksheet.objects.get_or_create(worksheet_number=data["worksheet_number"])
+        extraction_worksheet = False
+        if data["extraction_worksheet"] == 1:
+            extraction_worksheet = True
+        self.object.worksheet, created = Worksheet.objects.get_or_create(extraction_worksheet=extraction_worksheet, worksheet_number=data["worksheet_number"])
         self.object.check_number = data["check_number"]
         self.object.check_description = data["check_description"]
 
@@ -123,15 +126,17 @@ class AssignedWorksheetCheck(WorksheetCheckView):
 
     # AssignedWorksheetCheck.get_worksheet_data gets data from kwargs for get- and post-requests.
     def get_worksheet_data(self):
-        return {"check_number": self.kwargs['check_number'],
-                "check_description": self.kwargs['check_description'],
+        return {"extraction_worksheet": self.kwargs['extraction_worksheet'],
                 "worksheet_number": self.kwargs['worksheet_number'],
+                "check_description": self.kwargs['check_description'],
+                "check_number": self.kwargs['check_number'],
                 "check_record": self.model.objects.filter(worksheet=self.kwargs["worksheet_number"],
                                                           check_number=self.kwargs["check_number"]).order_by('-dateTime_check')}
 
     def get_success_url(self, **kwargs):
         url = reverse(self.view_name,
-                      kwargs={'worksheet_number': self.kwargs['worksheet_number'],
+                      kwargs={"extraction_worksheet": self.kwargs['extraction_worksheet'],
+                              'worksheet_number': self.kwargs['worksheet_number'],
                               'check_number': self.kwargs['check_number'],
                               'check_description': self.kwargs['check_description'],
                               'barcode_count':  self.kwargs['barcode_count']})

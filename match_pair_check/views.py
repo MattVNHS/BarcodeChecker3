@@ -5,6 +5,7 @@ from match_pair_check.forms import *
 from audit.views import AuditWorksheetSearchView
 from django.db import transaction
 
+''' MatchPair Specific methods for WorksheetCheckView.form_valid() '''
 def odd_number_check(barcodes):
     """Check for odd numbers of barcodes."""
     barcodes_entered_count = sum(1 for form in barcodes if form.has_changed())
@@ -26,6 +27,10 @@ def assign_comparisonId(barcodes):
 
             instance1.save()
             instance2.save()
+            print("=========================================================================")
+            print(even_form.form_index)
+            print(odd_form.form_index)
+            print("=========================================================================")
 
 ''' This mixin keeps the worksheet views DRY.
  Make sure to add it before WorksheetCheckView or AssignedWorksheetCheck or the methods will be overwritten'''

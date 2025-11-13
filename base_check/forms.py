@@ -9,7 +9,8 @@ class BaseInlineCheckFormSet(BaseInlineFormSet):
             # if any errors at the individual form level, stop, no need to do extra validation - e.g. invalid barcode entered.
             return
         barcode_list = []
-        for form in self.forms:
+        for index, form in enumerate(self.forms):
+            form.form_index = index
             barcode = form.cleaned_data.get("barcode")
             barcode_list.append(barcode)
         barcodes_entered = [x for x in barcode_list if x is not None]

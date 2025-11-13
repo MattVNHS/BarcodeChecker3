@@ -15,7 +15,10 @@
             <form method="post" id="check">{% csrf_token %}
 
                 {{ form.as_p }}
-
+                <h3>Position</h3>
+                {% for index in barcodes %}
+                    {{ forloop.counter }}
+                {% endfor %}
                 <h3>Barcodes</h3>
                 {{ barcodes.as_p }}
                 <input class="nhsuk-button" data-module="nhsuk-button" type="submit" value="Check">

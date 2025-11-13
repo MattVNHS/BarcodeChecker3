@@ -3,9 +3,10 @@ from match_all_check.models import *
 
 # BarcodeForm defines the basic barcode form for use in our formset factories
 
-
+# Why isnt this in base check?
 class BarcodeForm(forms.ModelForm):
     barcode = forms.CharField()
+    form_index = None
 
     class Meta:
         model = MatchAllBarcode

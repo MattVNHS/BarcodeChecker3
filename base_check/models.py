@@ -17,6 +17,7 @@ class CheckTable(models.Model):
 class Worksheet(models.Model):
     worksheet_number = models.CharField(max_length=12, validators=[RegexValidator(regex=r'^\d{6}$|""',
                                                                            message='invalid worksheet entered')], primary_key=True)
+    extraction_worksheet = models.BooleanField()
 
     def __str__(self):
         return f"{self.worksheet_number}"

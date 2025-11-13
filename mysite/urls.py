@@ -44,7 +44,7 @@ urlpatterns = [
    # path('match_all_check_audit/', MatchAllCheckAudit.as_view(), name='Audit'),
 
 
-    path('match_all_check_worksheet/<int:worksheet_number>/<int:check_number>/<str:check_description>/<int:barcode_count>/', AssignedMatchAllView.as_view(), name='WorksheetMatchAllView'),
-    path('match_pair_check_worksheet/<int:worksheet_number>/<int:check_number>/<str:check_description>/<int:barcode_count>/', AssignedMatchPairView.as_view(), name='WorksheetMatchPairView'),
+    path('match_all_check_worksheet/<int:extraction_worksheet>/<int:worksheet_number>/<int:check_number>/<str:check_description>/<int:barcode_count>/', AssignedMatchAllView.as_view(), name='WorksheetMatchAllView'),
+    path('match_pair_check_worksheet/<int:extraction_worksheet>/<int:worksheet_number>/<int:check_number>/<str:check_description>/<int:barcode_count>/', AssignedMatchPairView.as_view(), name='WorksheetMatchPairView'),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
