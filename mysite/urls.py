@@ -36,6 +36,7 @@ urlpatterns = [
 
 
     path('match_all_check/<int:barcode_count>/', MatchAllView.as_view(), name='MatchAllView'),
+    path('match_all_slide_check/<int:barcode_count>/', MatchAllSlideView.as_view(), name='MatchAllSlideView'),
     path('match_all_check_worksheet/<int:barcode_count>/', WorksheetMatchAllView.as_view(), name='WorksheetMatchAllView'),
     path('match_pair_check/<int:barcode_count>/', WorksheetMatchPairView.as_view(), name='WorksheetMatchPairView'),
 

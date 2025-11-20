@@ -35,3 +35,22 @@ class AssignedMatchAllView(AssignedWorksheetCheck):
 @method_decorator(login_required, name='dispatch')
 class MatchAllCheckAudit(AuditWorksheetSearchView):
     model = MatchAllCheck
+
+
+
+
+class SlideBarcodeValidationMixin:
+    def validate_barcodes(self, barcodes):
+        return None
+
+    def process_saved_barcodes(self, barcodes):
+        pass
+
+
+@method_decorator(login_required, name='dispatch')
+class MatchAllSlideView(SlideBarcodeValidationMixin, CheckView):
+    model = MatchAllSlideCheck
+    barcode_model = MatchAllSlideBarcode
+    barcode_form = SlideBarcodeForm
+    success_url = '/'
+    fields = []

@@ -103,7 +103,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db('DEFAULT_URL'),
+    #'default': env.db('DEFAULT_URL'), # uncomment this for using docker
+    'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'mydatabase',
+        },
     'Shire_Data': env.db('SHIRE_URL'),
 }
 

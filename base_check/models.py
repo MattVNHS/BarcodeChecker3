@@ -29,7 +29,7 @@ class Check(models.Model):
     dateTime_check = models.DateTimeField(verbose_name='date_and_time', auto_now_add=True)
     worksheet = models.ForeignKey(Worksheet, on_delete=models.CASCADE, null=True)
     check_number = models.IntegerField(null=True, default=1)
-    check_description = models.CharField(blank=True, max_length=None)
+    check_description = models.CharField(blank=True, max_length=255)
     check_pass = models.BooleanField(default=False)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
@@ -52,8 +52,6 @@ class Check(models.Model):
 # SampleBarcode model is abstract - MatchAllBarcode and MatchPairBarcode inherit from the SampleBarcode model.
 
 class Barcode(models.Model):
-    barcode = None
-    Check = None
 
     class Meta:
         verbose_name = "Barcode"
@@ -71,3 +69,10 @@ class SampleBarcode(Barcode):
     class Meta:
         abstract = True
 
+class SlideBarcode(Barcode):
+    # just remove the $ from the regex to get the lab number from the barcode
+    barcode = models.CharField(max_length=100, validators=[RegexValidator(regex=r'^[A-Z]\d{2}[.]\d{5,6}',
+                                                                         message='invalid lab number entered')])
+
+    class Meta:
+        abstract = True
