@@ -73,6 +73,8 @@ RUN SECRET_KEY=dummy \
     SHIRE_URL=sqlite:////tmp/db.sqlite3 \
     ALLOWED_HOSTS="localhost" \
     CSRF_TRUSTED_ORIGINS="http://localhost:8000" \
+    DP5_URL="http://localhost:8777" \
+    DP5_CONTAINER_UID="dummy" \
     python manage.py collectstatic --noinput
 # # Expose the port that the application listens on.
 # EXPOSE 8000

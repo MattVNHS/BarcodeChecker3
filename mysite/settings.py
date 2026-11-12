@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'base_check',
     'match_all_check',
     'match_pair_check',
+    'rack_scan',
 
     # django apps
     'django.contrib.admin',
@@ -105,8 +106,12 @@ DATABASES = {
     'Shire_Data': env.db('SHIRE_URL'),
 }
 
-
 DATABASE_ROUTERS = ["mysite.database_router.AccountRouter"]
+
+DP5_URL = env('DP5_URL')
+DP5_CONTAINER_UID = env('DP5_CONTAINER_UID')
+DP5_TIMEOUT = env.int('DP5_TIMEOUT', default=25)  # seconds
+
 
 AUTHENTICATION_BACKENDS = (
     'account.authentication.ShireBackend',

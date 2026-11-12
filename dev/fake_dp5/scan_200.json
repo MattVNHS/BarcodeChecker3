@@ -1,0 +1,409 @@
+{
+  "scanId": "b252ab52-79f7-493a-95d4-087ef840d062",
+  "scanTime": 1794493126642,
+  "containerBarcode": "FK01683381",
+  "containerName": "48 SBS rack",
+  "containerUid": "mirage48sbs",
+  "demoImage": null,
+  "containerGuid": "175eda79-1299-4248-a6a5-fe40c3a5b136",
+  "rawImage": null,
+  "annotatedImage": null,
+  "linearReaderImage": null,
+  "scanTimeAnswer": null,
+  "tubeBarcode": [
+    {
+      "y": 360,
+      "column": 1,
+      "x": 2820,
+      "barcode": "FA35116432",
+      "row": 1,
+      "decodeStatus": "SUCCESS"
+    },
+    {
+      "y": 360,
+      "column": 2,
+      "x": 2480,
+      "barcode": "FA35116062",
+      "row": 1,
+      "decodeStatus": "SUCCESS"
+    },
+    {
+      "y": 360,
+      "column": 3,
+      "x": 2140,
+      "barcode": "FA35116106",
+      "row": 1,
+      "decodeStatus": "SUCCESS"
+    },
+    {
+      "y": 360,
+      "column": 4,
+      "x": 1800,
+      "barcode": "FA35116020",
+      "row": 1,
+      "decodeStatus": "SUCCESS"
+    },
+    {
+      "y": 360,
+      "column": 5,
+      "x": 1460,
+      "barcode": "FA35116288",
+      "row": 1,
+      "decodeStatus": "SUCCESS"
+    },
+    {
+      "y": 360,
+      "column": 6,
+      "x": 1120,
+      "barcode": "FA35115997",
+      "row": 1,
+      "decodeStatus": "SUCCESS"
+    },
+    {
+      "y": 360,
+      "column": 7,
+      "x": 780,
+      "barcode": "FA35116358",
+      "row": 1,
+      "decodeStatus": "SUCCESS"
+    },
+    {
+      "y": 360,
+      "column": 8,
+      "x": 440,
+      "barcode": null,
+      "row": 1,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 700,
+      "column": 1,
+      "x": 2820,
+      "barcode": null,
+      "row": 2,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 700,
+      "column": 2,
+      "x": 2480,
+      "barcode": null,
+      "row": 2,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 700,
+      "column": 3,
+      "x": 2140,
+      "barcode": null,
+      "row": 2,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 700,
+      "column": 4,
+      "x": 1800,
+      "barcode": null,
+      "row": 2,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 700,
+      "column": 5,
+      "x": 1460,
+      "barcode": null,
+      "row": 2,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 700,
+      "column": 6,
+      "x": 1120,
+      "barcode": null,
+      "row": 2,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 700,
+      "column": 7,
+      "x": 780,
+      "barcode": null,
+      "row": 2,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 700,
+      "column": 8,
+      "x": 440,
+      "barcode": null,
+      "row": 2,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1040,
+      "column": 1,
+      "x": 2820,
+      "barcode": null,
+      "row": 3,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1040,
+      "column": 2,
+      "x": 2480,
+      "barcode": null,
+      "row": 3,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1040,
+      "column": 3,
+      "x": 2140,
+      "barcode": null,
+      "row": 3,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1040,
+      "column": 4,
+      "x": 1800,
+      "barcode": null,
+      "row": 3,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1040,
+      "column": 5,
+      "x": 1460,
+      "barcode": null,
+      "row": 3,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1040,
+      "column": 6,
+      "x": 1120,
+      "barcode": null,
+      "row": 3,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1040,
+      "column": 7,
+      "x": 780,
+      "barcode": null,
+      "row": 3,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1040,
+      "column": 8,
+      "x": 440,
+      "barcode": null,
+      "row": 3,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1380,
+      "column": 1,
+      "x": 2820,
+      "barcode": null,
+      "row": 4,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1380,
+      "column": 2,
+      "x": 2480,
+      "barcode": null,
+      "row": 4,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1380,
+      "column": 3,
+      "x": 2140,
+      "barcode": null,
+      "row": 4,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1380,
+      "column": 4,
+      "x": 1800,
+      "barcode": null,
+      "row": 4,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1380,
+      "column": 5,
+      "x": 1460,
+      "barcode": null,
+      "row": 4,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1380,
+      "column": 6,
+      "x": 1120,
+      "barcode": null,
+      "row": 4,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1380,
+      "column": 7,
+      "x": 780,
+      "barcode": null,
+      "row": 4,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1380,
+      "column": 8,
+      "x": 440,
+      "barcode": null,
+      "row": 4,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1720,
+      "column": 1,
+      "x": 2820,
+      "barcode": null,
+      "row": 5,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1720,
+      "column": 2,
+      "x": 2480,
+      "barcode": null,
+      "row": 5,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1720,
+      "column": 3,
+      "x": 2140,
+      "barcode": null,
+      "row": 5,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1720,
+      "column": 4,
+      "x": 1800,
+      "barcode": null,
+      "row": 5,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1720,
+      "column": 5,
+      "x": 1460,
+      "barcode": null,
+      "row": 5,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1720,
+      "column": 6,
+      "x": 1120,
+      "barcode": null,
+      "row": 5,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1720,
+      "column": 7,
+      "x": 780,
+      "barcode": null,
+      "row": 5,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 1720,
+      "column": 8,
+      "x": 440,
+      "barcode": null,
+      "row": 5,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 2060,
+      "column": 1,
+      "x": 2820,
+      "barcode": null,
+      "row": 6,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 2060,
+      "column": 2,
+      "x": 2480,
+      "barcode": null,
+      "row": 6,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 2060,
+      "column": 3,
+      "x": 2140,
+      "barcode": null,
+      "row": 6,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 2060,
+      "column": 4,
+      "x": 1800,
+      "barcode": null,
+      "row": 6,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 2060,
+      "column": 5,
+      "x": 1460,
+      "barcode": null,
+      "row": 6,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 2060,
+      "column": 6,
+      "x": 1120,
+      "barcode": null,
+      "row": 6,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 2060,
+      "column": 7,
+      "x": 780,
+      "barcode": null,
+      "row": 6,
+      "decodeStatus": "EMPTY"
+    },
+    {
+      "y": 2060,
+      "column": 8,
+      "x": 440,
+      "barcode": null,
+      "row": 6,
+      "decodeStatus": "EMPTY"
+    }
+  ],
+  "orientationBarcode": [
+    {
+      "y": 400,
+      "column": 0,
+      "x": 165,
+      "barcode": "FK01683381",
+      "row": 0,
+      "decodeStatus": "SUCCESS"
+    }
+  ]
+}

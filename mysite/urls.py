@@ -21,7 +21,7 @@ from homepage.views import *
 from account.views import *
 from match_all_check.views import *
 from match_pair_check.views import *
-
+from rack_scan.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +30,8 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('login/', Login.as_view(), name='login'),
 
+    path('rack_scan/', RackScanView.as_view(), name='rack_scan'),
+    path('ffpe_scan/', FFPEUploadView.as_view(), name='ffpe_scan'),
 
     path('match_all_check/<int:barcode_count>/', MatchAllView.as_view(), name='MatchAllView'),
     path('match_all_check_worksheet/<int:barcode_count>/', WorksheetMatchAllView.as_view(), name='WorksheetMatchAllView'),

@@ -11,6 +11,7 @@ services:
       - mysite/.env
     depends_on:
       - barcodescanner-postgres
+      - fake-dp5
     develop:
       watch:
         - action: rebuild
@@ -19,6 +20,15 @@ services:
       - 8000:8000
     environment:
       DJANGO_ENV: development
+      DP5_URL: http://fake-dp5:8777        # overrides DP5_URL from .env (dev only)
+
+  fake-dp5:
+    image: python:3.12-slim
+    command: python -u /fake_dp5/server.py
+    volumes:
+      - ./dev/fake_dp5:/fake_dp5:ro
+    ports:
+      - "18777:8777"    # optional: browse the fake at http://localhost:18777
 
   barcodescanner-postgres:
     image: postgres:16
@@ -26,7 +36,7 @@ services:
     env_file:
       - mysite/.env
     ports:
-      - '5433:5433'
+      - '5432:5432'
     volumes:
       - pg_data:/var/lib/postgresql/data
     restart: always
