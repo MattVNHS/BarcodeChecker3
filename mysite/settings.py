@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'match_all_check',
     'match_pair_check',
     'rack_scan',
+    'shire',
 
     # django apps
     'django.contrib.admin',
@@ -106,7 +107,7 @@ DATABASES = {
     'Shire_Data': env.db('SHIRE_URL'),
 }
 
-DATABASE_ROUTERS = ["mysite.database_router.AccountRouter"]
+DATABASE_ROUTERS = ["mysite.database_router.ShireRouter"]
 
 DP5_URL = env('DP5_URL')
 DP5_CONTAINER_UID = env('DP5_CONTAINER_UID')
