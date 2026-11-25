@@ -31,7 +31,8 @@ urlpatterns = [
     path('login/', Login.as_view(), name='login'),
 
     path('rack_scan/', RackScanView.as_view(), name='rack_scan'),
-    path('ffpe_scan/', FFPEUploadView.as_view(), name='ffpe_scan'),
+    path('ffpe_scan/', FFPESelectView.as_view(), name='ffpe_scan'),
+    path('ffpe_scan/<str:extract_sheet>/', FFPERackScanView.as_view(), name='ffpe_rack_scan'),
 
     path('match_all_check/<int:barcode_count>/', MatchAllView.as_view(), name='MatchAllView'),
     path('match_all_check_worksheet/<int:barcode_count>/', WorksheetMatchAllView.as_view(), name='WorksheetMatchAllView'),

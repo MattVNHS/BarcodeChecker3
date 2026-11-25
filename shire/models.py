@@ -51,3 +51,20 @@ class DNA_EXTRACTSHEET_DET(models.Model):
     def __str__(self):
         return f"{self.EXTRACTSHEET} pos {self.POSITION}"
 
+
+class LINQ_FORMATS(models.Model):
+    # Real primary key in SQL Server: (POSITION_ID, EXTRACTION_METHOD)
+    # always filter on BOTH key columns when you need a single row
+    POSITION_ID = models.SmallIntegerField(primary_key=True)
+    EXTRACTION_METHOD = models.CharField(max_length=30)
+    ROW = models.CharField(max_length=1)
+    COLUMN = models.CharField(max_length=2)
+    OUTPUT_TYPE = models.CharField(max_length=10)
+
+    class Meta:
+        managed = False
+        db_table = '[dbo].[LINQ_FORMATS]'
+        unique_together = (('POSITION_ID', 'EXTRACTION_METHOD'),)
+
+    def __str__(self):
+        return f"{self.POSITION_ID} pos {self.EXTRACTION_METHOD}"
