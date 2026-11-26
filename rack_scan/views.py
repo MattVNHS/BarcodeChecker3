@@ -15,6 +15,7 @@ from shire.models import DNA_EXTRACTSHEET_DET
 from django.db import transaction
 from django.utils import timezone
 from shire.models import DNA_EXTRACTS
+import json
 
 class FFPESelectView(LoginRequiredMixin, FormView):
     template_name = "rack_scan/extract_select.html"
@@ -35,18 +36,23 @@ class FFPERackScanView(LoginRequiredMixin, View):
             raise Http404("Extract sheet not found")
         return rows
 
+    def dp5_config(self):
+        return {"url": settings.DP5_BROWSER_URL, "uid": settings.DP5_CONTAINER_UID}
+
     def get(self, request, extract_sheet):
         rows = self.get_sheet(extract_sheet)
         return render(request, self.template_name,
-                      {"extract_sheet": extract_sheet, "rows": rows})
+                      {"extract_sheet": extract_sheet, "rows": rows, "dp5": self.dp5_config()})
 
     def post(self, request, extract_sheet):
         sheet = self.get_sheet(extract_sheet)
-        context = {"extract_sheet": extract_sheet, "sheet": sheet}
+        context = {"extract_sheet": extract_sheet, "sheet": sheet, "dp5": self.dp5_config()}
         try:
-            scan = dp5_client.scan()
-        except dp5_client.DP5Error as e:
-            context["error"] = str(e)
+            scan = json.loads(request.POST.get("scan_json", ""))
+            if not isinstance(scan.get("tubeBarcode"), list):
+                raise ValueError
+        except (ValueError, AttributeError):
+            context["error"] = "No valid scan data received. Please scan again."
         else:
             context["scan"] = scan
             context["rows"] = extractsheet(extract_sheet, scan)

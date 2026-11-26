@@ -112,6 +112,7 @@ DATABASE_ROUTERS = ["mysite.database_router.ShireRouter"]
 DP5_URL = env('DP5_URL')
 DP5_CONTAINER_UID = env('DP5_CONTAINER_UID')
 DP5_TIMEOUT = env.int('DP5_TIMEOUT', default=25)  # seconds
+DP5_BROWSER_URL = env('DP5_BROWSER_URL', default='http://localhost:8777')
 
 
 AUTHENTICATION_BACKENDS = (
