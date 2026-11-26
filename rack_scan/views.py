@@ -2,6 +2,7 @@ from multiprocessing import context
 
 import requests
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
@@ -11,6 +12,9 @@ from django.http import Http404
 from rack_scan import dp5_client
 from rack_scan.combine import combine, extractsheet
 from shire.models import DNA_EXTRACTSHEET_DET
+from django.db import transaction
+from django.utils import timezone
+from shire.models import DNA_EXTRACTS
 
 class FFPESelectView(LoginRequiredMixin, FormView):
     template_name = "rack_scan/extract_select.html"
@@ -22,18 +26,19 @@ class FFPESelectView(LoginRequiredMixin, FormView):
 
 class FFPERackScanView(LoginRequiredMixin, View):
     template_name = "rack_scan/ffpe_scan.html"
+    form_class = ExtractSheetForm
 
     def get_sheet(self, extract_sheet):
-        rows = list(DNA_EXTRACTSHEET_DET.objects
+        rows = (DNA_EXTRACTSHEET_DET.objects
                     .filter(EXTRACTSHEET=extract_sheet).order_by("POSITION"))
         if not rows:
             raise Http404("Extract sheet not found")
         return rows
 
     def get(self, request, extract_sheet):
-        sheet = self.get_sheet(extract_sheet)
+        rows = self.get_sheet(extract_sheet)
         return render(request, self.template_name,
-                      {"extract_sheet": extract_sheet, "sheet": sheet})
+                      {"extract_sheet": extract_sheet, "rows": rows})
 
     def post(self, request, extract_sheet):
         sheet = self.get_sheet(extract_sheet)
@@ -44,12 +49,45 @@ class FFPERackScanView(LoginRequiredMixin, View):
             context["error"] = str(e)
         else:
             context["scan"] = scan
-            context["rows"] = combine(sheet, scan)
-            print(extractsheet(sheet, scan))
-            context["problems"] = [r for r in context["rows"] if r["problem"]]
+            context["rows"] = extractsheet(extract_sheet, scan)
+            #context["problems"] = [r for r in context["rows"] if r["problem"]]
             context["rack_mismatch"] = (sheet[0].RACK_BARCODE
                                         and sheet[0].RACK_BARCODE != scan.get("containerBarcode"))
+            request.session[f"ffpe_scan_{extract_sheet}"] = {
+                "rack_barcode": scan.get("containerBarcode"),
+                "extraction_method": context["rows"][0].EXTRACTION_METHOD,
+                    "rows": [{"position": r.POSITION, "labno": r.LABNO, "tube":r.TUBE, "barcode": r.TUBE_BARCODE} for r in context["rows"]],
+        }
         return render(request, self.template_name, context)
+
+class FFPEUploadView(LoginRequiredMixin, View):
+    template_name = "rack_scan/ffpe_upload.html"
+    def get(self, request, extract_sheet):
+        return render(request, self.template_name,{"extract_sheet": extract_sheet})
+
+    def post(self, request, extract_sheet):
+        data = request.session.pop(f"ffpe_scan_{extract_sheet}", None)
+        print(data)
+        if data is None:
+            messages.error(request, "No scan found. Scan the rack again before uploading.")
+            return redirect("ffpe_rack_scan", extract_sheet=extract_sheet)
+
+        now = timezone.now()
+        with transaction.atomic(using="Shire_Data"):
+            for row in data["rows"]:
+                updated = (DNA_EXTRACTS.objects
+                           .filter(LABNO=row["labno"], TUBE=row["tube"])
+                           .update(TUBE_BARCODE=row["barcode"],
+                                   UPDATEDBY=request.user.username[:10],
+                                   UPDATEDDATE=now,
+                                   UPDATEDTIME=now))
+                if updated != 1:
+                    raise ValueError(f"Expected 1 row for {row['labno']}/{row['tube']}, updated {updated}")
+
+        messages.success(request, f"Scan for {extract_sheet} uploaded.")
+        return redirect("ffpe_upload", extract_sheet=extract_sheet)
+
+
 
 class RackScanView(LoginRequiredMixin, View):
     template_name = "rack_scan/scan.html"

@@ -10,13 +10,17 @@
   {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
   {% if rack_mismatch %}<div class="alert alert-warning">Rack barcode {{ scan.containerBarcode }} does not match the sheet.</div>{% endif %}
   {% if rows %}
+  <form method="post" action="{% url 'ffpe_upload' extract_sheet %}">
+    {% csrf_token %}
+    <button type="submit" class="nhsuk-button">Upload scan</button>
+  </form>
     <p>{{ problems|length }} problem(s) found.</p>
     <table class="table table-sm table-bordered">
-      <tr><th>Pos</th><th>Lab no</th><th>Scanned barcode</th><th>Problem</th></tr>
+      <tr><th>Pos</th><th>Lab no</th><th>Scanned barcode</th></tr>
       {% for r in rows %}
       <tr class="{% if r.problem %}table-danger{% endif %}">
-        <td>{{ r.position }}</td><td>{{ r.labno|default:"—" }}</td>
-        <td><code>{{ r.barcode|default:"—" }}</code></td><td>{{ r.problem }}</td>
+        <td>{{ r.POSITION }}</td><td>{{ r.LABNO|default:"—" }}</td>
+        <td><code>{{ r.TUBE_BARCODE|default:"—" }}</code></td>
       </tr>
       {% endfor %}
     </table>

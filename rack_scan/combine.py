@@ -30,7 +30,7 @@ def combine(sheet_rows, scan):
                        "barcode": None, "problem": "Position not in scanned rack"})
     return result
 
-def extractsheet(extractSheetList, scan):
+def extractsheet(extractSheet, scan):
 
     sql = """select E.EXTRACTION_METHOD, D.POSITION, ROW, [COLUMN], E.LABNO, E.TUBE, TUBE_BARCODE, RACK_BARCODE from DNA_EXTRACTS E
             LEFT JOIN DNA_EXTRACTSHEET_DET D on E.LABNO = D.LABNO and E.TUBE = D.TUBE
@@ -38,13 +38,12 @@ def extractsheet(extractSheetList, scan):
             where EXTRACT_SHEET = %s
             ORDER BY POSITION
         """
-    extractsheet = list(DNA_EXTRACTS.objects.raw(sql, ["100240"]))
+    extractSheetList = list(DNA_EXTRACTS.objects.raw(sql, [extractSheet]))
 
     barcodes = sorted(scan["tubeBarcode"], key=lambda t: (t["column"], t["row"]))
 
-    result = []
+    for sample in extractSheetList:
+        sample.TUBE_BARCODE = barcodes[sample.POSITION - 1]["barcode"]
 
-    for sample in extractsheet:
-        print(sample.POSITION, ", ", sample.ROW, ", ", sample.COLUMN)
 
-    return result
+    return extractSheetList
