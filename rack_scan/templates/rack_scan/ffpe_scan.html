@@ -6,19 +6,33 @@
   <form method="post" id="scan-form" class="mb-4">{% csrf_token %}
     <input type="hidden" name="scan_json" id="scan-json">
     <button type="button" id="scan-btn" class="nhsuk-button">Scan rack</button>
+    <button type="button" id="scan-btn-96" class="nhsuk-button">Scan rack (96)</button>
     <span id="scan-status"></span>
   </form>
   {{ dp5|json_script:"dp5-config" }}
 <script>
   const dp5 = JSON.parse(document.getElementById("dp5-config").textContent);
-  const btn = document.getElementById("scan-btn");
   const status = document.getElementById("scan-status");
 
- btn.addEventListener("click", async () => {
-    btn.disabled = true;                       // stop double-clicks starting two scans
+  // Each button scans with its own container UID
+  const scanButtons = [
+    { btn: document.getElementById("scan-btn"),    uid: dp5.uid },
+    { btn: document.getElementById("scan-btn-96"), uid: "mirage96sbs" },
+  ];
+
+  for (const { btn, uid } of scanButtons) {
+    btn.addEventListener("click", () => scan(uid));
+  }
+
+  function setButtonsDisabled(disabled) {
+    for (const { btn } of scanButtons) btn.disabled = disabled;
+  }
+
+  async function scan(uid) {
+    setButtonsDisabled(true);                  // stop double-clicks / both buttons starting two scans
     status.textContent = "Scanning…";
     try {
-      const url = `${dp5.url}/dp5/remote/v1/scan?container_uid=${encodeURIComponent(dp5.uid)}`;
+      const url = `${dp5.url}/dp5/remote/v1/scan?container_uid=${encodeURIComponent(uid)}`;
       const r = await fetch(url, { method: "POST", signal: AbortSignal.timeout(30000) });
       const data = await r.json();
       if (!r.ok) throw new Error(data.userFriendlyMessage || data.message || `Scan failed (HTTP ${r.status})`);
@@ -32,9 +46,9 @@
       status.textContent = e.name === "TypeError"
         ? "Could not reach the scanner on this PC. Is DP5 running?"
         : e.message;
-      btn.disabled = false;
+      setButtonsDisabled(false);
     }
-  });
+  }
 </script>
 
   {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
